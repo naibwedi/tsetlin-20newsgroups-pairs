@@ -170,13 +170,14 @@ To verify whether alternative vanilla TM settings could overcome the `s = 1.0` e
 | `s = 10.0` | 0.523 ± 0.003 | 0.381 | 0.528 | 134 | 17,120 | 9.5 |
 | `s = 1.0, literal_budget = 10` | 0.572 ± 0.007 | 0.406 | 0.601 | 0 | 1,873 | 10.0 |
 | `s = 1.0`, 20k unique unordered pairs (`augment=False`) | 0.560 ± 0.005 | 0.541 | 0.589 | — | — | — |
-| `s = 1.0`, best-validation-epoch checkpointing | **0.580 ± 0.002** | **0.570** | **0.605** | — | — | — |
+| `s = 1.0`, best-validation-epoch checkpointing | **0.580 ± 0.002** | **0.570** | **0.605** | 0 | ~174,000 | ~920.0 |
+| **`s = 1.0`, stopwords removed (`clauses=200, T=50, weighted=True`)** | **0.583 ± 0.007 (58.8% seed 42)** | **0.504** | **0.600 (0.607 seed 42)** | **0** | **242,280** | **~605.0** |
 
 **Key findings from the diagnostic study:**
 1. **`s = 1.0` is genuinely the best specificity for the flat Vanilla TM:** Increasing `s` to `2.0, 3.0, 5.0, 10.0` shortens clauses (from 924 down to 9.5 literals) and allows positive literals (`BOTH.w`, `ONE.w`) to emerge at `s = 10.0` (134 positive literals), **but validation accuracy drops by 3 to 5.5 percentage points**. A flat 200-clause pool cannot cover 20 categories with sparse positive conjunctions.
 2. **Capping clause length during training (`literal_budget = 10` at `s = 1.0`):** Restricting each clause to at most ~10 literals achieves the same mean accuracy (`0.572 ± 0.007`, AUC `0.601`) with **90× shorter rules** (median 10 literals vs. 924), though class recall/precision balance fluctuates more across seeds (F1 0.406).
 3. **Why repeating each pair twice (`10k × 2` vs. `20k × 1`) helped at `s = 1.0`:** Because `features='sym'` is order-independent, presenting both `(A, B)` and `(B, A)` consecutively in `train_pairs.json` performs two consecutive feedback steps per unique pair per epoch (40 effective passes over 10,000 pairs), which stabilizes automaton states and beats 20 passes over 20,000 single-exposure pairs (`0.571` vs. `0.560`).
-4. **Best-epoch checkpointing reaches 58.0% accuracy (AUC 0.605):** Because `1 / s = 1.0` steps automata deterministically on every example, late-epoch oscillation slightly degrades the final epoch. Selecting the best validation epoch (`best_model_`) raises mean validation accuracy to **0.5795 ± 0.0018** (58.0%) and AUC to **0.6048**, narrowing the gap to TF-IDF cosine (`0.6045` accuracy, `0.6113` AUC) to just 2.5 percentage points while keeping the frozen submission untouched.
+4. **Best-epoch checkpointing (`58.0%`) and removing stopwords (`58.3% ± 0.7%`, `58.80%` on seed 42) at `s = 1.0`:** Selecting the best validation epoch (`best_model_`) raises the frozen setup to **0.5795 ± 0.0018** (58.0%), and removing English stopwords with `clauses=200, T=50, weighted=True` reaches **0.5829 ± 0.0068 (58.80% on seed 42, AUC 0.6067)** while still learning **0 positive literals** (`242,280` negated literals), confirming that ~58.8% is the structural ceiling of flat `s = 1.0` reasoning by elimination on two word sets.
 
 ## 3.15 Claim 8 (Stage 2 — November 26): Two-Layer Hierarchical TM Beats Both Vanilla TM and TF-IDF Cosine
 
