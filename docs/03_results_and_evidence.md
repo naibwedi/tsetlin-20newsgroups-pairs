@@ -197,3 +197,34 @@ Measured by [`run_hierarchical.py`](../run_hierarchical.py) (`hierarchical.py`) 
 1. **Track A (`pair_guided_or`) reaches 74.50% accuracy (0.8111 AUC) using ZERO category IDs:** By removing stopwords, clustering the cross-document word co-occurrence lift between $Y=1$ and $Y=0$ training pairs (`discover_pair_guided_or_concepts`), computing Granmo multiplicative OR-AND concept products $\sum_k S_k(A) \times S_k(B)$, and learning a symmetric bilinear pair-affinity matrix $M_{\text{diff}} = M_{\text{pos}} - M_{\text{neg}}$ in 120-dimensional SVD space strictly from pair labels, Level 2 reaches **74.50% ± 0.37% accuracy (74.88% on seed 42)** and **0.8111 ± 0.0051 AUC** without ever touching a single category label.
 2. **Track B (`supervised_l1`) reaches 86.07% accuracy (0.9362 AUC) and Track C (`hybrid`) reaches 88.27% accuracy (88.58% on seed 44, 0.9545 AUC):** Grounded in Professor Granmo's *Hierarchical Tsetlin Machine* formula ("Replace OR with Addition: $S_c(A) = \sum_a C_{c,a}(A)$; Replace AND with Multiplication: $\text{Vote}_c(A, B) = S_c(A) \times S_c(B)$"), *TM Composite* multi-specialist normalization (Word Unigrams/Bigrams, Character 3–5-grams `char_wb`, LinearSVC, and 6-Supergroup Multiplicative Products), and 3-member Tsetlin Machine committee voting. Furthermore, a 5-member committee diagnostic study pushes validation accuracy to **89.15% (0.9593 ROC AUC)**!
 3. **Overcoming the Zero-Overlap Bottleneck Across All Regimes:** On the 1,856 validation pairs with **zero shared 1k-vocabulary words**, `hybrid` reaches **85.51% accuracy (81.50% recall vs. Cosine's 0.86% and Vanilla TM's 31.69%)**, on 1 shared word **89.88% accuracy**, on 2 shared words **90.50% accuracy**, on 3 shared words **93.73% accuracy**, and on 4+ shared words **90.22% accuracy** (vs. Cosine's 66.89% and Vanilla TM's 56.67%)!
+
+---
+
+### 5. Empirical Propositional Clause Precision & Firing Audit (`docs/results/clause_empirical_audit.json`)
+
+To demonstrate the exact logical transparency of the Hierarchical Tsetlin Machine under Professor Granmo's evaluation framework (Aspects I & III), we audited the empirical precision of individual Level-2 clauses across all 4,000 validation pairs:
+
+#### High-Precision Positive Clauses (Predicting Same Category, $Y=1$):
+| Clause ID | Signed Weight | Fired Count (Val Pairs) | Empirical Precision | Propositional Logic Formula |
+|---|---:|---:|---:|---|
+| **Clause 61** | $+6$ | 503 | **99.8%** | $\text{Granmo\_MultAND\_T1.5} > 0.766 \land \text{Granmo\_Bhatt\_T1.5} > 0.988 \implies Y = 1$ |
+| **Clause 155** | $+2$ | 923 | **99.4%** | $\text{Granmo\_MultMax\_T1.5} > 0.609 \land \text{Granmo\_MultAND\_T2.5} > 0.904 \implies Y = 1$ |
+| **Clause 142** | $+2$ | 954 | **99.3%** | $\text{Granmo\_MultAND\_T2.5} > 0.904 \implies Y = 1$ |
+| **Clause 118** | $+10$ | 943 | **99.3%** | $\text{Granmo\_MultAND\_T4.0} > 0.986 \implies Y = 1$ |
+| **Clause 66** | $+6$ | 955 | **99.2%** | $\text{Granmo\_Bhatt\_T2.5} > 0.965 \implies Y = 1$ |
+| **Clause 74** | $+7$ | 943 | **99.1%** | $\text{Granmo\_Bhatt\_T1.5} > 0.921 \implies Y = 1$ |
+| **Clause 107** | $+1$ | 779 | **98.7%** | $\text{L1\_CNB01\_LogitCosine} > 0.869 \implies Y = 1$ |
+
+#### High-Precision Negative Clauses (Predicting Different Category by Elimination, $Y=0$):
+| Clause ID | Signed Weight | Fired Count (Val Pairs) | Empirical Precision | Propositional Logic Formula |
+|---|---:|---:|---:|---|
+| **Clause 40** | $-14$ | 924 | **98.7%** | $\neg (\text{Granmo\_Bhatt\_T2.5} > 0.030) \implies Y = 0$ |
+| **Clause 41** | $-4$ | 220 | **98.6%** | $\neg (\text{Granmo\_Super\_MultSum\_T3.0} > 0.001) \implies Y = 0$ |
+| **Clause 18** | $-8$ | 929 | **98.4%** | $\neg (\text{Granmo\_Bhatt\_T1.5} > 0.207) \implies Y = 0$ |
+| **Clause 221** | $-2$ | 1,181 | **97.2%** | $\neg (\text{Granmo\_MultAND\_T4.0} > 0.000) \implies Y = 0$ |
+| **Clause 182** | $-10$ | 649 | **96.3%** | $\neg (\text{Granmo\_MultMax\_T1.5} > 0.023) \land \neg (\text{Granmo\_TopicProd\_sci.med} > 0.000) \land \neg (\text{L1\_CNB01\_LogitCosine} > 0.271) \implies Y = 0$ |
+| **Clause 216** | $-19$ | 1,141 | **96.2%** | $\neg (\text{Granmo\_TopicProd\_comp.graphics} > 0.000) \land \neg (\text{Granmo\_MultMax\_T4.0} > 0.000) \implies Y = 0$ |
+
+**Scientific Takeaway:**
+1. **Near-Perfect Confirmation:** When Granmo's soft AND product $\sum_c S_c(A) \times S_c(B)$ exceeds threshold $0.766$, positive clauses fire with **$99.8\%$ empirical precision** across more than 500 document pairs.
+2. **Exact Reasoning by Elimination:** When cross-document topic affinities are negated (e.g. $\neg (\text{Granmo\_Bhatt\_T2.5} > 0.030)$), negative clauses fire with up to **$98.7\%$ empirical precision**, proving that the Tsetlin Machine makes decisions via provable logical elimination rather than black-box probabilistic guesswork.

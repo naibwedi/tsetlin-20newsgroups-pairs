@@ -299,6 +299,7 @@ To fulfill the interpretability and presentation standards required for a state-
 * **Transparent Multiplicative Table:** Directly renders each document's Level-1 concept activations $S_c(A)$ and $S_c(B)$, along with Granmo's multiplicative product $\text{Vote}_c(A, B) = S_c(A) \times S_c(B)$, clearly showing that the product spikes exclusively on the shared category.
 * **Traceable Propositional Clauses:** Shows the exact Level-2 Pair Tsetlin Machine clause that fired to make the final prediction, verifying that decisions are made by transparent propositional logic rather than opaque neural activations.
 * **Live Model Comparison:** Displays the verdict of TF-IDF Cosine, Vanilla TM ($s = 1.0$), and Hierarchical TM side-by-side, demonstrating how the hierarchy recovers true matches that simple overlap metrics miss entirely.
+* **Empirical Clause Precision Audit ([`docs/results/clause_empirical_audit.json`](results/clause_empirical_audit.json)):** Audited the precision of Level-2 clauses across all 4,000 validation pairs, showing that top positive clauses fire with up to **$99.8\%$ empirical precision** (e.g. Clause 61: $\text{MultAND} > 0.766 \land \text{Bhatt} > 0.988$ on 503 pairs) and negative elimination clauses fire with up to **$98.7\%$ empirical precision** (e.g. Clause 40: $\neg(\text{Bhatt} > 0.030)$ on 924 pairs).
 
 ---
 
