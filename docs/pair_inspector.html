@@ -1,0 +1,1305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Hierarchical Tsetlin Machine: Propositional Rule Inspector</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    :root {
+      --bg: #0f172a;
+      --card-bg: #1e293b;
+      --card-border: #334155;
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+      --primary: #38bdf8;
+      --primary-dim: rgba(56, 189, 248, 0.15);
+      --success: #4ade80;
+      --success-dim: rgba(74, 222, 128, 0.15);
+      --danger: #f87171;
+      --danger-dim: rgba(248, 113, 113, 0.15);
+      --accent: #a855f7;
+      --accent-dim: rgba(168, 85, 247, 0.15);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      padding: 24px;
+    }
+    header {
+      margin-bottom: 24px;
+      border-bottom: 1px solid var(--card-border);
+      padding-bottom: 16px;
+    }
+    h1 {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .badge-sub {
+      font-size: 0.8rem;
+      background: var(--accent-dim);
+      color: #c084fc;
+      border: 1px solid #c084fc44;
+      padding: 3px 8px;
+      border-radius: 999px;
+      font-weight: 600;
+    }
+    .subtitle {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      margin-top: 4px;
+    }
+    .container {
+      display: grid;
+      grid-template-columns: 320px 1fr;
+      gap: 20px;
+    }
+    .sidebar {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 16px;
+      height: calc(100vh - 150px);
+      overflow-y: auto;
+    }
+    .filters {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+    .filter-btn {
+      background: #0f172a;
+      border: 1px solid var(--card-border);
+      color: var(--text-muted);
+      padding: 6px 10px;
+      border-radius: 6px;
+      font-size: 0.82rem;
+      cursor: pointer;
+      text-align: left;
+      transition: all 0.15s;
+    }
+    .filter-btn:hover, .filter-btn.active {
+      background: var(--primary-dim);
+      color: var(--primary);
+      border-color: var(--primary);
+    }
+    .pair-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .pair-item {
+      background: #0f172a88;
+      border: 1px solid var(--card-border);
+      padding: 10px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .pair-item:hover, .pair-item.active {
+      border-color: var(--primary);
+      background: #1e293b;
+      transform: translateX(2px);
+    }
+    .pair-title {
+      font-size: 0.85rem;
+      font-weight: 600;
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 4px;
+    }
+    .tag {
+      font-size: 0.72rem;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-weight: 600;
+    }
+    .tag-same { background: var(--success-dim); color: var(--success); }
+    .tag-diff { background: var(--danger-dim); color: var(--danger); }
+    .tag-overlap { background: #334155; color: #cbd5e1; }
+    .pair-desc {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+
+    .main-view {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 16px;
+    }
+    .card-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .doc-text {
+      font-size: 0.85rem;
+      color: #cbd5e1;
+      max-height: 220px;
+      overflow-y: auto;
+      background: #0f172a88;
+      padding: 12px;
+      border-radius: 8px;
+      line-height: 1.6;
+      border: 1px solid #1e293b;
+    }
+    .highlight {
+      background: #38bdf833;
+      color: #38bdf8;
+      padding: 1px 3px;
+      border-radius: 3px;
+      font-weight: 600;
+    }
+
+    .table-sm {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.82rem;
+      margin-top: 8px;
+    }
+    .table-sm th, .table-sm td {
+      padding: 6px 8px;
+      text-align: left;
+      border-bottom: 1px solid var(--card-border);
+    }
+    .table-sm th { color: var(--text-muted); font-weight: 600; }
+
+    .rule-box {
+      background: #0b1120;
+      border-left: 4px solid var(--primary);
+      padding: 12px 16px;
+      border-radius: 6px;
+      font-family: monospace;
+      font-size: 0.88rem;
+      color: #38bdf8;
+      margin-top: 8px;
+      overflow-x: auto;
+    }
+    .model-comparison {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-top: 10px;
+    }
+    .model-card {
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid var(--card-border);
+      background: #0f172a66;
+    }
+    .model-name {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+    .model-result {
+      font-size: 0.95rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .res-correct { color: var(--success); }
+    .res-wrong { color: var(--danger); }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>
+      Hierarchical Tsetlin Machine: Propositional Rule Inspector
+      <span class="badge-sub">Stage 2 • Granmo Multiplicative Logic</span>
+    </h1>
+    <div class="subtitle">
+      Inspect live document pairs across overlap regimes. Experience why flat TF-IDF Cosine and Vanilla TM fail on zero-word overlap pairs, and how Granmo's <code>S_c(A) × S_c(B)</code> solves it with transparent propositional logic.
+    </div>
+  </header>
+
+  <div class="container">
+    <div class="sidebar">
+      <div class="filters">
+        <button class="filter-btn active" onclick="setFilter('all')">All Sample Pairs</button>
+        <button class="filter-btn" onclick="setFilter('zero_same')">0 Shared Words (Same Cat, Y=1)</button>
+        <button class="filter-btn" onclick="setFilter('zero_diff')">0 Shared Words (Diff Cat, Y=0)</button>
+        <button class="filter-btn" onclick="setFilter('shared')">1+ Shared Words</button>
+      </div>
+      <div class="pair-list" id="pairList"></div>
+    </div>
+
+    <div class="main-view">
+      <!-- Pair Header & Model Comparison -->
+      <div class="card">
+        <div class="card-title">
+          <span id="selectedPairTitle">Select a pair to inspect</span>
+          <span id="pairTruthBadge"></span>
+        </div>
+        <div class="model-comparison" id="modelComparison"></div>
+      </div>
+
+      <!-- Side by Side Documents -->
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-title">
+            <span>Document A</span>
+            <span class="tag tag-overlap" id="docACat"></span>
+          </div>
+          <div class="doc-text" id="docAText"></div>
+        </div>
+        <div class="card">
+          <div class="card-title">
+            <span>Document B</span>
+            <span class="tag tag-overlap" id="docBCat"></span>
+          </div>
+          <div class="doc-text" id="docBText"></div>
+        </div>
+      </div>
+
+      <!-- Granmo Multiplicative Topic Agreement -->
+      <div class="card">
+        <div class="card-title">
+          <span>Level 1 Topic Concept Activations & Granmo Multiplicative AND-Vote: <code>S_c(A) × S_c(B)</code></span>
+          <span class="badge-sub" id="totalVoteBadge">Total Vote: 0.00</span>
+        </div>
+        <table class="table-sm" id="topicTable">
+          <thead>
+            <tr>
+              <th>Topic Concept</th>
+              <th>Doc A Score <code>S_c(A)</code></th>
+              <th>Doc B Score <code>S_c(B)</code></th>
+              <th>Granmo Product <code>S_c(A) × S_c(B)</code></th>
+              <th>Logical Interpretation</th>
+            </tr>
+          </thead>
+          <tbody id="topicTableBody"></tbody>
+        </table>
+      </div>
+
+      <!-- Level 2 Tsetlin Machine Propositional Rule Fired -->
+      <div class="card">
+        <div class="card-title">
+          <span>Level 2 Pair Tsetlin Machine: Fired Propositional Rule</span>
+          <span class="badge-sub">Interpretable Clause Logic</span>
+        </div>
+        <div class="rule-box" id="firedRule"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const PAIRS = [
+  {
+    "pair_id": 8,
+    "id_a": "train:7534",
+    "id_b": "train:4896",
+    "cat_a": "misc.forsale",
+    "cat_b": "misc.forsale",
+    "label": 1,
+    "n_shared": 0,
+    "shared_words": [],
+    "text_a": "******************F O R  S A L E  C H E A P*********************\nMacintosh-plus\n+++++++++++++++\n*includes:\n2 - 3.5\" drives( 1 external)\nsoftware: Word, Excel, Pascal, Intro package(Hypercard, Tour , etc)\n\nLeaving school in May, must sell!!!!!!\nA steal at $450\n\nplease reply e-mail",
+    "text_b": "I have the following Genesis/Megadrive games for sale or trade for other\nGenesis/MD (or SNES games). All games will work with both US and UK\nmachines (50 or 60Hz) except where stated and all are boxed with\ninstructions\n\nD&D Warriors of the Eternal Sun\nOutlander\nDeath Duel\nChakan the Forever man\nWonder Boy in Monster Land\nA.Sennas Super Monaco GP 2 (50Hz only)\n\nIll accept US$ or UK sterling.\nMake me an offer!\n\nCheers\nJonathan",
+    "topic_scores": [
+      {
+        "topic": "misc.forsale",
+        "score_a": 0.474,
+        "score_b": 0.474,
+        "granmo_prod": 0.224
+      },
+      {
+        "topic": "rec.sport.hockey",
+        "score_a": 0.038,
+        "score_b": 0.194,
+        "granmo_prod": 0.007
+      },
+      {
+        "topic": "comp.graphics",
+        "score_a": 0.038,
+        "score_b": 0.038,
+        "granmo_prod": 0.001
+      },
+      {
+        "topic": "sci.space",
+        "score_a": 0.038,
+        "score_b": 0.038,
+        "granmo_prod": 0.001
+      },
+      {
+        "topic": "soc.religion.christian",
+        "score_a": 0.038,
+        "score_b": 0.038,
+        "granmo_prod": 0.001
+      }
+    ],
+    "total_granmo_vote": 0.234,
+    "cosine_score": 0.01,
+    "cosine_pred": 0,
+    "cosine_correct": false,
+    "vanilla_pred": 0,
+    "vanilla_correct": false,
+    "hierarchical_pred": 1,
+    "hierarchical_correct": true,
+    "rule_fired": "IF Granmo_MultAND_T2.5 > 0.272 AND Granmo_TopicProd_misc.forsale > 0.000 THEN +11 Class 1 (Same Category)"
+  },
+  {
+    "pair_id": 20,
+    "id_a": "train:10447",
+    "id_b": "train:9501",
+    "cat_a": "talk.politics.misc",
+    "cat_b": "talk.politics.misc",
+    "label": 1,
+    "n_shared": 0,
+    "shared_words": [],
+    "text_a": "Correct me if I'm wrong, but isn't this irrelevant?\n\nEither the data shows something, or it doesn't. Regardless of what other\nstudies show.\n\nAdmit it. What you SHOWED to us doesn't prove that gay men are more likely\nto be molesters.\n\nBrian",
+    "text_b": "rites:\n,\nn\n\nBut drive UP to Cleveland and it is about 10,000 times better.  I from Toledo \noriginally (but that place always as sucked as long as I've been on the planet.\n\n\nRepublicans have been trying to pass a balanced budget amendment for the last \nten years.\n\n\nBecause for a while, the American companies couln't even compete in THEIR OWN \nCOUNTRY, where free trade isn't even an issue.  However, even the automobile\npendelum has swung back to the Big 3.\n\n\nOh, I don't know.  It's probably in the tens of thousands.",
+    "topic_scores": [
+      {
+        "topic": "talk.politics.misc",
+        "score_a": 0.474,
+        "score_b": 0.474,
+        "granmo_prod": 0.224
+      },
+      {
+        "topic": "comp.graphics",
+        "score_a": 0.038,
+        "score_b": 0.038,
+        "granmo_prod": 0.001
+      },
+      {
+        "topic": "rec.sport.hockey",
+        "score_a": 0.038,
+        "score_b": 0.038,
+        "granmo_prod": 0.001
+      },
+      {
+        "topic": "sci.space",
+        "score_a": 0.038,
+        "score_b": 0.038,
+        "granmo_prod": 0.001
+      },
+      {
+        "topic": "soc.religion.christian",
+        "score_a": 0.038,
+        "score_b": 0.038,
+        "granmo_prod": 0.001
+      }
+    ],
+    "total_granmo_vote": 0.228,
+    "cosine_score": 0.01,
+    "cosine_pred": 0,
+    "cosine_correct": false,
+    "vanilla_pred": 0,
+    "vanilla_correct": false,
+    "hierarchical_pred": 1,
+    "hierarchical_correct": true,
+    "rule_fired": "IF Granmo_MultAND_T2.5 > 0.272 AND Granmo_TopicProd_talk.politics.misc > 0.000 THEN +11 Class 1 (Same Category)"
+  },
+  {
+    "pair_id": 21,
+    "id_a": "train:807",
+    "id_b": "train:2716",
+    "cat_a": "comp.sys.ibm.pc.hardware",
+    "cat_b": "comp.sys.ibm.pc.hardware",
+    "label": 1,
+    "n_shared": 0,
+    "shared_words": [],
+    "text_a": "I can't imagine why someone would leave their computer on all of\nthe time to start with. Its like leaving your lights tv, radio\nand everything in the house on all of the time to me.....Nuts",
+    "text_b": "How hot should the CPU in a 486-33 DX machine be?\n\nCurrently it gets so hot that I can not hold a finger on it for more than\n0.5 s. \n\nI keep a big fan blowing on it, but am considering using a heat sink.\n\nAny advice?",
+    "topic_scores": [
+      {
+        "topic": "comp.sys.ibm.pc.hardware",
+        "score_a": 0.474,
+        "score_b": 0.474,
+        "granmo_prod": 0.224
+      },
+      {
+        "topic": "rec.sport.hockey",
+        "score_a": 0.038,
+        "score_b": 0.194,
+        "granmo_prod": 0.007
+      },
+      {
+        "topic": "soc.religion.christian",
+        "score_a": 0.038,
+        "score_b": 0.194,
+        "granmo_prod": 0.007
+      },
+      {
+        "topic": "comp.graphics",
+        "score_a": 0.038,
+        "score_b": 0.038,
+        "granmo_prod": 0.001
+      },
+      {
+        "topic": "sci.space",
+        "score_a": 0.038,
+        "score_b": 0.038,
+        "granmo_prod": 0.001
+      }
+    ],
+    "total_granmo_vote": 0.24,
+    "cosine_score": 0.01,
+    "cosine_pred": 0,
+    "cosine_correct": false,
+    "vanilla_pred": 0,
+    "vanilla_correct": false,
+    "hierarchical_pred": 1,
+    "hierarchical_correct": true,
+    "rule_fired": "IF Granmo_MultAND_T2.5 > 0.272 AND Granmo_TopicProd_comp.sys.ibm.pc.hardware > 0.000 THEN +11 Class 1 (Same Category)"
+  },
+  {
+    "pair_id": 40,
+    "id_a": "train:8456",
+    "id_b": "train:2281",
+    "cat_a": "alt.atheism",
+    "cat_b": "alt.atheism",
+    "label": 1,
+    "n_shared": 0,
+    "shared_words": [],
+    "text_a": "That's not true.    I gave you two examples.   One was the rather\npevasive anti-semitism in German Christianity well before Hitler\narrived.   The other was the system of social ranks that were used\nin Imperail Germany and Austria to distinguish Jews from the rest \nof the population.\n\nNeither of these were very terrible in themselves, but both helped\nto set a psychology in which the gradual disenfranchisement of Jews\nwas made easier.",
+    "text_b": "Thanks to whoever posted this wonderful parody of people who post without \nreading the FAQ!  I was laughing for a good 5 minutes.  Were there any \nparts of the FAQ that weren't mentioned?  I think there might have been one\nor two...\n\nPlease don't tell me this wasn't a joke.  I'm not ready to hear that yet...",
+    "topic_scores": [
+      {
+        "topic": "alt.atheism",
+        "score_a": 0.474,
+        "score_b": 0.474,
+        "granmo_prod": 0.224
+      },
+      {
+        "topic": "soc.religion.christian",
+        "score_a": 0.306,
+        "score_b": 0.038,
+        "granmo_prod": 0.012
+      },
+      {
+        "topic": "comp.graphics",
+        "score_a": 0.038,
+        "score_b": 0.038,
+        "granmo_prod": 0.001
+      },
+      {
+        "topic": "rec.sport.hockey",
+        "score_a": 0.038,
+        "score_b": 0.038,
+        "granmo_prod": 0.001
+      },
+      {
+        "topic": "sci.space",
+        "score_a": 0.038,
+        "score_b": 0.038,
+        "granmo_prod": 0.001
+      }
+    ],
+    "total_granmo_vote": 0.239,
+    "cosine_score": 0.01,
+    "cosine_pred": 0,
+    "cosine_correct": false,
+    "vanilla_pred": 0,
+    "vanilla_correct": false,
+    "hierarchical_pred": 1,
+    "hierarchical_correct": true,
+    "rule_fired": "IF Granmo_MultAND_T2.5 > 0.272 AND Granmo_TopicProd_alt.atheism > 0.000 THEN +11 Class 1 (Same Category)"
+  },
+  {
+    "pair_id": 4,
+    "id_a": "train:3386",
+    "id_b": "train:2905",
+    "cat_a": "rec.autos",
+    "cat_b": "rec.sport.hockey",
+    "label": 0,
+    "n_shared": 0,
+    "shared_words": [],
+    "text_a": "Why crawl under the car at all? I have a machine I got for my boat that \npulls the oil out under suction through the dip stick tube. It does an\nexcellent job and by moving the suction tube around, you can get more \nold oil out than by using the drain plug. I think I paid $25 at E&B Marine.\nThe oil goes into a steel 3 gal can - wait until it cools and decant into\nyour favorite device. I use soft drink bottles. Easy to take them down to\nthe local oil recycle center.",
+    "text_b": "Relying on Canadian tourists and transplanted Northeasterners to\nsupport a team in Miami is crazy; espaecially when you have really deserving \ncities without a team such as San Diego & Milwaukee. I wish the Panthers or\nwhatever their name is well but if they can't sell to Hispanics, they're in\ndeep doo-doo. Already, there are rumors that Tampa may move to Milwaukee.",
+    "topic_scores": [
+      {
+        "topic": "rec.sport.hockey",
+        "score_a": 0.194,
+        "score_b": 0.524,
+        "granmo_prod": 0.101
+      },
+      {
+        "topic": "rec.autos",
+        "score_a": 0.565,
+        "score_b": 0.038,
+        "granmo_prod": 0.022
+      },
+      {
+        "topic": "soc.religion.christian",
+        "score_a": 0.194,
+        "score_b": 0.038,
+        "granmo_prod": 0.007
+      },
+      {
+        "topic": "comp.graphics",
+        "score_a": 0.038,
+        "score_b": 0.038,
+        "granmo_prod": 0.001
+      },
+      {
+        "topic": "sci.space",
+        "score_a": 0.038,
+        "score_b": 0.038,
+        "granmo_prod": 0.001
+      }
+    ],
+    "total_granmo_vote": 0.132,
+    "cosine_score": 0.0,
+    "cosine_pred": 0,
+    "cosine_correct": true,
+    "vanilla_pred": 0,
+    "vanilla_correct": true,
+    "hierarchical_pred": 0,
+    "hierarchical_correct": true,
+    "rule_fired": "IF NOT Granmo_Composite_Top1_Match AND NOT Granmo_Bhatt_T2.5 > 0.060 THEN -13 Class 1, +23 Class 0 (Different Category)"
+  },
+  {
+    "pair_id": 31,
+    "id_a": "train:8295",
+    "id_b": "train:6464",
+    "cat_a": "misc.forsale",
+    "cat_b": "comp.sys.ibm.pc.hardware",
+    "label": 0,
+    "n_shared": 0,
+    "shared_words": [],
+    "text_a": "Hmmm... Interesting. What do you mean by WALKING distance? I lived in\nMoscow for 21 years, and if I am 5 minutes walk to Belorusskaya\nsubway station, I CANNOT be walking distance to Kremlin. Unless\n1 hour of walking is what you mean. By the way, what is\nthe price? I may plan a trip there (not sure yet, though) in\nlate summer.",
+    "text_b": "The F550iW is optimized for Windows.  It powers down when the screen\nblanker appears, it powers down with you turn your computer off, and it\nmeets all of the Swedish standards.  It's also protected against  EMI from\nadjacent monitors.",
+    "topic_scores": [
+      {
+        "topic": "comp.sys.ibm.pc.hardware",
+        "score_a": 0.038,
+        "score_b": 0.474,
+        "granmo_prod": 0.018
+      },
+      {
+        "topic": "misc.forsale",
+        "score_a": 0.474,
+        "score_b": 0.038,
+        "granmo_prod": 0.018
+      },
+      {
+        "topic": "rec.sport.hockey",
+        "score_a": 0.194,
+        "score_b": 0.038,
+        "granmo_prod": 0.007
+      },
+      {
+        "topic": "comp.graphics",
+        "score_a": 0.038,
+        "score_b": 0.038,
+        "granmo_prod": 0.001
+      },
+      {
+        "topic": "sci.space",
+        "score_a": 0.038,
+        "score_b": 0.038,
+        "granmo_prod": 0.001
+      }
+    ],
+    "total_granmo_vote": 0.045,
+    "cosine_score": 0.0,
+    "cosine_pred": 0,
+    "cosine_correct": true,
+    "vanilla_pred": 0,
+    "vanilla_correct": true,
+    "hierarchical_pred": 0,
+    "hierarchical_correct": true,
+    "rule_fired": "IF NOT Granmo_Composite_Top1_Match AND NOT Granmo_Bhatt_T2.5 > 0.060 THEN -13 Class 1, +23 Class 0 (Different Category)"
+  },
+  {
+    "pair_id": 37,
+    "id_a": "train:7839",
+    "id_b": "train:793",
+    "cat_a": "alt.atheism",
+    "cat_b": "sci.med",
+    "label": 0,
+    "n_shared": 0,
+    "shared_words": [],
+    "text_a": "The \"System\" refered to a \"moral system\". You havn't shown any \nreason that chimps \"must\" have a moral system. \n\tExcept if you would like to redefine everything.\n\n\n--- \n\n        \" Whatever promises that have been made can than be broken. \"",
+    "text_b": "Hi...\n\nI need information on scaring. Particularly as a result of grazing the skin\nI really wanted to know of \n\n\t1. would a scar occur as a result of grazing\n\t2. if yes, then would it disappear?\n\t3. how long does a graze take to heal?\n\t4. will hair grow on it once it has healed?\n\t5. what is 'scar tissue'?\n\t6. should antiseptic cream be applied to it regularly?\n\t7. is it better to keep it exposed and let fresh air at it?\n\nPlease help - any info - no matter how small will be appreciated greatly.",
+    "topic_scores": [
+      {
+        "topic": "alt.atheism",
+        "score_a": 0.474,
+        "score_b": 0.038,
+        "granmo_prod": 0.018
+      },
+      {
+        "topic": "sci.med",
+        "score_a": 0.038,
+        "score_b": 0.474,
+        "granmo_prod": 0.018
+      },
+      {
+        "topic": "comp.graphics",
+        "score_a": 0.038,
+        "score_b": 0.194,
+        "granmo_prod": 0.007
+      },
+      {
+        "topic": "rec.sport.hockey",
+        "score_a": 0.038,
+        "score_b": 0.038,
+        "granmo_prod": 0.001
+      },
+      {
+        "topic": "sci.space",
+        "score_a": 0.038,
+        "score_b": 0.038,
+        "granmo_prod": 0.001
+      }
+    ],
+    "total_granmo_vote": 0.045,
+    "cosine_score": 0.0,
+    "cosine_pred": 0,
+    "cosine_correct": true,
+    "vanilla_pred": 0,
+    "vanilla_correct": true,
+    "hierarchical_pred": 0,
+    "hierarchical_correct": true,
+    "rule_fired": "IF NOT Granmo_Composite_Top1_Match AND NOT Granmo_Bhatt_T2.5 > 0.060 THEN -13 Class 1, +23 Class 0 (Different Category)"
+  },
+  {
+    "pair_id": 0,
+    "id_a": "train:3406",
+    "id_b": "train:9369",
+    "cat_a": "comp.windows.x",
+    "cat_b": "comp.windows.x",
+    "label": 1,
+    "n_shared": 1,
+    "shared_words": [
+      "need"
+    ],
+    "text_a": "I need help positioning the slider of a List widget's horizontal scrollbar.  I am displaying the full\npath of a selected file in a list widget.  The horizontal's slider defaults to the left side of the\nlist widget; however, I need the slider on the right side.  This is so the user can SEE the file name\nthey selected.  I know it's possible, because when files are displayed in a file selection dialog box,\nthe slider is on the right side.\n\nThanking any and all who can help in advance,\nRodney F. Clay",
+    "text_b": "I need to port several OS/2 PM applications to X (OpenWindows or Motif),\nand desperately need any information on how to go about doing this (short\nof a complete rewrite.\n \nAre there any tool to make porting easer?\nAny References?\nAny talent out there to hire to do this?\nI will even take an OS/2 Presentation Mgr emulator for sun!\n \nAny, and all replies (except flames) welcome!\n \n \nBrian Colaric",
+    "topic_scores": [
+      {
+        "topic": "comp.windows.x",
+        "score_a": 0.565,
+        "score_b": 0.6,
+        "granmo_prod": 0.339
+      },
+      {
+        "topic": "comp.graphics",
+        "score_a": 0.038,
+        "score_b": 0.194,
+        "granmo_prod": 0.007
+      },
+      {
+        "topic": "rec.sport.hockey",
+        "score_a": 0.038,
+        "score_b": 0.038,
+        "granmo_prod": 0.001
+      },
+      {
+        "topic": "sci.space",
+        "score_a": 0.038,
+        "score_b": 0.038,
+        "granmo_prod": 0.001
+      },
+      {
+        "topic": "soc.religion.christian",
+        "score_a": 0.038,
+        "score_b": 0.038,
+        "granmo_prod": 0.001
+      }
+    ],
+    "total_granmo_vote": 0.349,
+    "cosine_score": 0.025,
+    "cosine_pred": 0,
+    "cosine_correct": false,
+    "vanilla_pred": 1,
+    "vanilla_correct": true,
+    "hierarchical_pred": 1,
+    "hierarchical_correct": true,
+    "rule_fired": "IF Granmo_MultAND_T2.5 > 0.272 AND Granmo_TopicProd_comp.windows.x > 0.000 THEN +11 Class 1 (Same Category)"
+  },
+  {
+    "pair_id": 1,
+    "id_a": "train:4238",
+    "id_b": "train:3109",
+    "cat_a": "sci.electronics",
+    "cat_b": "sci.electronics",
+    "label": 1,
+    "n_shared": 1,
+    "shared_words": [
+      "wondering"
+    ],
+    "text_a": ": The PADS*.ZIP files contain subdirectories, and have to be unzipped\n: via \"pkunzip -d\". Then an xcopy /s to three floppies creates the disks\n: needed to do the install.\n\nI'm still not sure how this is supposed to work, since the .ZIP files\ntook up about 2.5Mb, so it must be a tight squeeze on those floppies...\n\nHowever, I managed to install PADS and I'm pretty impressed.  I created\na couple of schematics without problem, but whenever I try to \ncreate a PCB layout from one of *my* circuits (rather than the demos)\nit doesn't work.  I'm wondering if maybe a file isn't where it should\nbe...\n\nCan anyone who has a printed manual comment on whether the registration\nfee is worth paying?\n\n\nChris",
+    "text_b": ": My 9 yr old son has signed up to do a science report on batteries.  I was\n: wondering if anyone could provide me with some information as to how to\n: construct a home-built battery.  In my grade school days, I remember seeing\n: the 'ice cube tray' version, but I don't remember what to use as a good\n: electrolyte or what the easily obtainable metals were.  \n: \n: Thank you in advance.\n \nI remember watching a whole \"Mr. Wizzard\" program on this subject when\nI was a kid.  The battery constructed on the program which made the \nbiggest impression on me, and generated the most power, was made using\na galvanized bucket (for the zinc) and a copper toilet tank float.  The\nelectrolyte was sauerkraut!",
+    "topic_scores": [
+      {
+        "topic": "sci.electronics",
+        "score_a": 0.565,
+        "score_b": 0.565,
+        "granmo_prod": 0.319
+      },
+      {
+        "topic": "soc.religion.christian",
+        "score_a": 0.194,
+        "score_b": 0.194,
+        "granmo_prod": 0.037
+      },
+      {
+        "topic": "comp.graphics",
+        "score_a": 0.038,
+        "score_b": 0.306,
+        "granmo_prod": 0.012
+      },
+      {
+        "topic": "rec.sport.hockey",
+        "score_a": 0.038,
+        "score_b": 0.194,
+        "granmo_prod": 0.007
+      },
+      {
+        "topic": "sci.space",
+        "score_a": 0.038,
+        "score_b": 0.038,
+        "granmo_prod": 0.001
+      }
+    ],
+    "total_granmo_vote": 0.376,
+    "cosine_score": 0.025,
+    "cosine_pred": 0,
+    "cosine_correct": false,
+    "vanilla_pred": 1,
+    "vanilla_correct": true,
+    "hierarchical_pred": 1,
+    "hierarchical_correct": true,
+    "rule_fired": "IF Granmo_MultAND_T2.5 > 0.272 AND Granmo_TopicProd_sci.electronics > 0.000 THEN +11 Class 1 (Same Category)"
+  },
+  {
+    "pair_id": 5,
+    "id_a": "train:4461",
+    "id_b": "train:7392",
+    "cat_a": "rec.sport.baseball",
+    "cat_b": "rec.sport.baseball",
+    "label": 1,
+    "n_shared": 1,
+    "shared_words": [
+      "got"
+    ],
+    "text_a": ": I think Dean got hit by a pitched ball the other night... he got pinch hit for\n: and didn't play against Baltimore tonight... whats up with that? Is he hurt?\n: Please tell me he's not...\n\nHe evidentally got hit in the elbow by a Fernando pitch.  His arm swelled\nfrom the elbow to the wrist (or something like that).  They took X-rays\nof the arm and there is nothing damaged.  He missed the last game with the\nOrioles, but he is suppose to be ready for the next game.\n\nHope this helps.",
+    "text_b": "Hmmm...what about walks and SB? Baerga got clobbered by Alomar in OBP and\nbeat him in SLG by a lesser margin. Even putting aside any other factors,\na player with a 51 point edge in OBP is more productive than a player with\na 28 point edge in SLG. The issue has been studied before, and I doubt you\ncould come up with any convincing argument the other way.\n People see the batting average and the HR, but they don't really know  \ntheir value is worth unless they've studied the issue closely. The fact is that\nBaerga ate up a LOT more outs than Alomar; while Baerga was making outs,\nAlomar was drawing walks and being on base for Carter, Winfield et.al.",
+    "topic_scores": [
+      {
+        "topic": "rec.sport.baseball",
+        "score_a": 0.474,
+        "score_b": 0.474,
+        "granmo_prod": 0.224
+      },
+      {
+        "topic": "comp.graphics",
+        "score_a": 0.194,
+        "score_b": 0.038,
+        "granmo_prod": 0.007
+      },
+      {
+        "topic": "rec.sport.hockey",
+        "score_a": 0.194,
+        "score_b": 0.038,
+        "granmo_prod": 0.007
+      },
+      {
+        "topic": "sci.space",
+        "score_a": 0.038,
+        "score_b": 0.038,
+        "granmo_prod": 0.001
+      },
+      {
+        "topic": "soc.religion.christian",
+        "score_a": 0.038,
+        "score_b": 0.038,
+        "granmo_prod": 0.001
+      }
+    ],
+    "total_granmo_vote": 0.24,
+    "cosine_score": 0.025,
+    "cosine_pred": 0,
+    "cosine_correct": false,
+    "vanilla_pred": 1,
+    "vanilla_correct": true,
+    "hierarchical_pred": 1,
+    "hierarchical_correct": true,
+    "rule_fired": "IF Granmo_MultAND_T2.5 > 0.272 AND Granmo_TopicProd_rec.sport.baseball > 0.000 THEN +11 Class 1 (Same Category)"
+  },
+  {
+    "pair_id": 2,
+    "id_a": "train:1200",
+    "id_b": "train:3736",
+    "cat_a": "talk.politics.misc",
+    "cat_b": "sci.crypt",
+    "label": 0,
+    "n_shared": 1,
+    "shared_words": [
+      "people"
+    ],
+    "text_a": "Wait a minute.  I agree with you that people have to take responsibility\nfor their own behavior (I assume that's what you meant by the word\n\"account\"), but also for \"the behavior of their immediate community\"?\n\nFirst of all, how \"immediate\" are you talking about, and secondly, I\nhave a lot of trouble with any theory of social behavior or justice\nwhich charges anyone with the duty of taking responsibility for or\naccounting for the actions of a different person...",
+    "text_b": "The people on usenet are clearly a special bunch.  We live the net, which\nis the future of our culture.  Usenetters have rapid electronic access to\ninformation.  Society in general must depend on CNN.  \n\nI can only hope we can make this information accessable by the public before\nthe radical fringe, which _is_ the majority, destroys the fabric of\nthis country.  Freedom is never easily won.",
+    "topic_scores": [
+      {
+        "topic": "sci.crypt",
+        "score_a": 0.038,
+        "score_b": 0.474,
+        "granmo_prod": 0.018
+      },
+      {
+        "topic": "comp.graphics",
+        "score_a": 0.038,
+        "score_b": 0.194,
+        "granmo_prod": 0.007
+      },
+      {
+        "topic": "rec.sport.hockey",
+        "score_a": 0.194,
+        "score_b": 0.038,
+        "granmo_prod": 0.007
+      },
+      {
+        "topic": "sci.space",
+        "score_a": 0.038,
+        "score_b": 0.038,
+        "granmo_prod": 0.001
+      },
+      {
+        "topic": "soc.religion.christian",
+        "score_a": 0.038,
+        "score_b": 0.038,
+        "granmo_prod": 0.001
+      }
+    ],
+    "total_granmo_vote": 0.034,
+    "cosine_score": 0.015,
+    "cosine_pred": 0,
+    "cosine_correct": true,
+    "vanilla_pred": 0,
+    "vanilla_correct": true,
+    "hierarchical_pred": 0,
+    "hierarchical_correct": true,
+    "rule_fired": "IF NOT Granmo_Composite_Top1_Match AND NOT Granmo_Bhatt_T2.5 > 0.060 THEN -13 Class 1, +23 Class 0 (Different Category)"
+  },
+  {
+    "pair_id": 26,
+    "id_a": "train:2498",
+    "id_b": "train:7846",
+    "cat_a": "comp.os.ms-windows.misc",
+    "cat_b": "comp.windows.x",
+    "label": 0,
+    "n_shared": 1,
+    "shared_words": [
+      "mouse"
+    ],
+    "text_a": "I had this problem when I first loaded windows.  My I/O card is for 2 HD's\n2 FD's 1 Parrelel 2 serial (1 for mouse and 1 for my external modem) and\na game port.  PROBLEM enters.  The DARN serial ports have no selection for \nCOM settings, they are stuck on 3 and 4.  \nGood card for HD's and FD's but lousy for serial. \n\nI called Microsoft and other places.  The long and short of it is\nWINDOWS wants com1 and 2 ONLY!, for mouse selection.\nI went out and bought a small I/O card just for parrelel and serial.\nNow I have ALL 4 active COM ports and LPT1 and LPT2.\nThis Half card was less than $20.\n\nMouse on COM 1  external modem on COM 2,  I disabled the LPT2 so I could use\nthe interupt for my scanner card IRQ.\nC-ya..... /\\/\\artin",
+    "text_b": "Please don't misuse newsgroup hierarchy names as distributions.\n\n\n\nYes, but it's not an attribute of the window; it's an attribute of the\nGC used to do the drawing.  Set the subwindow-mode to IncludeInferiors\nrather than the default ClipByChildren.\n\n\t\t\t\t\tder Mouse",
+    "topic_scores": [
+      {
+        "topic": "comp.windows.x",
+        "score_a": 0.194,
+        "score_b": 0.524,
+        "granmo_prod": 0.101
+      },
+      {
+        "topic": "comp.os.ms-windows.misc",
+        "score_a": 0.474,
+        "score_b": 0.038,
+        "granmo_prod": 0.018
+      },
+      {
+        "topic": "rec.sport.hockey",
+        "score_a": 0.194,
+        "score_b": 0.038,
+        "granmo_prod": 0.007
+      },
+      {
+        "topic": "comp.graphics",
+        "score_a": 0.038,
+        "score_b": 0.038,
+        "granmo_prod": 0.001
+      },
+      {
+        "topic": "sci.space",
+        "score_a": 0.038,
+        "score_b": 0.038,
+        "granmo_prod": 0.001
+      }
+    ],
+    "total_granmo_vote": 0.128,
+    "cosine_score": 0.015,
+    "cosine_pred": 0,
+    "cosine_correct": true,
+    "vanilla_pred": 0,
+    "vanilla_correct": true,
+    "hierarchical_pred": 0,
+    "hierarchical_correct": true,
+    "rule_fired": "IF NOT Granmo_Composite_Top1_Match AND NOT Granmo_Bhatt_T2.5 > 0.060 THEN -13 Class 1, +23 Class 0 (Different Category)"
+  },
+  {
+    "pair_id": 54,
+    "id_a": "train:8944",
+    "id_b": "train:5382",
+    "cat_a": "soc.religion.christian",
+    "cat_b": "soc.religion.christian",
+    "label": 1,
+    "n_shared": 2,
+    "shared_words": [
+      "figure",
+      "maybe"
+    ],
+    "text_a": "Was it Pascal, or maybe Descartes, who first used this figure of speech? \nI seem to have some vague recollections from reading some of their essays,\nbut I certainly couldn't say it was one of them for sure.",
+    "text_b": "Greetings,\n\nProbably a tired old horse, but...  maybe with a slightly different\ntwist.  I wanted to know if there are any good English-language texts\nfor learning ancient Hebrew, and how these compare with German\neducational texts qualitywise, if anybody has an idea.  I can't figure\nout if I should buy one here for later study or wait until I get back to\nthe U.S.\n\nSomething I find interesting about studying theology in Germany is the\nfact that the students get their ancient language-learning out of the\nway early [I'm not a theology student, but I spend a lot of time with\nsuch folks] in their careers.  They take the first two years or so to just\ndo Greek and Latin and Hebrew [possibly Aramaic, too--who knows].\nWhat's it like at divinity schools or seminaries in the States?  Is\nthere a lot of language instruction done?  I really don't have a basis\nfor comparison.\n\nRegards, Phil\n-- \nPhilip Sells                 Is anything too hard for the LORD?\nk053730@hobbes.kzoo.edu           --Gen. 18:14",
+    "topic_scores": [
+      {
+        "topic": "soc.religion.christian",
+        "score_a": 0.474,
+        "score_b": 0.524,
+        "granmo_prod": 0.248
+      },
+      {
+        "topic": "comp.graphics",
+        "score_a": 0.038,
+        "score_b": 0.038,
+        "granmo_prod": 0.001
+      },
+      {
+        "topic": "rec.sport.hockey",
+        "score_a": 0.038,
+        "score_b": 0.038,
+        "granmo_prod": 0.001
+      },
+      {
+        "topic": "sci.space",
+        "score_a": 0.038,
+        "score_b": 0.038,
+        "granmo_prod": 0.001
+      }
+    ],
+    "total_granmo_vote": 0.251,
+    "cosine_score": 0.04,
+    "cosine_pred": 1,
+    "cosine_correct": true,
+    "vanilla_pred": 1,
+    "vanilla_correct": true,
+    "hierarchical_pred": 1,
+    "hierarchical_correct": true,
+    "rule_fired": "IF Granmo_MultAND_T2.5 > 0.272 AND Granmo_TopicProd_soc.religion.christian > 0.000 THEN +11 Class 1 (Same Category)"
+  },
+  {
+    "pair_id": 68,
+    "id_a": "train:1201",
+    "id_b": "train:9541",
+    "cat_a": "misc.forsale",
+    "cat_b": "misc.forsale",
+    "label": 1,
+    "n_shared": 2,
+    "shared_words": [
+      "interested",
+      "nice"
+    ],
+    "text_a": "This is yet for a friend again.\n\nEMS Freq. Shifter. (The machine that made those 3-D swirling guitar effects\n                    way back in the 70's.)\n\nSpacial panner with harmonic shifting. Very rare - A collectors Item. This\nis the last unit EMS ever made. Rack mountable. Mono in, Up/Down signals out\nwith seperate Pan out and sine/unsine voltage outs. VCO input too to control\nLFO. If interested contact Kevin before 9 pm PST (California) at 818-362-7883\nand make an offer.\n\nDo not reply to this account.\n\nHave a nice day\n\n__________________________________________________________________________\n   |       /         |\\\n   | H E   \\ Y B E R |/ E N            [ xorcist@cyberden.sf.ca.us ]",
+    "text_b": "I have an old Optonica tuner and integrated amp that I no longer\nuse.  The integrated amp section does not work right now but should\nnot cost much to fix.  I believe that it is just a Chip.  I have \nused it as a preamp and it works great!\n\nThis is a very nice looking and well built set.  They both are low \nprofile but the amp is rather heavy.\n\nThe tuner is in fine working condition and is a match to the amp.\n\nThe amp is rated at 75w/ch.\n\nThese peices went for about $850 New.\n\nI would like to get $150.  obo  for the pair. \n\nIf anybody has knowledge anough to fix the amp, I have had an estimate\ndone that it should cost less than $50 in parts.\n\nPlease email me if you are interested.  I will be moving back home for\nthe summer and will sell it back there if I do not do so here.\n\nTodd",
+    "topic_scores": [
+      {
+        "topic": "misc.forsale",
+        "score_a": 0.474,
+        "score_b": 0.474,
+        "granmo_prod": 0.224
+      },
+      {
+        "topic": "rec.sport.hockey",
+        "score_a": 0.194,
+        "score_b": 0.194,
+        "granmo_prod": 0.037
+      },
+      {
+        "topic": "soc.religion.christian",
+        "score_a": 0.194,
+        "score_b": 0.038,
+        "granmo_prod": 0.007
+      },
+      {
+        "topic": "comp.graphics",
+        "score_a": 0.038,
+        "score_b": 0.038,
+        "granmo_prod": 0.001
+      },
+      {
+        "topic": "sci.space",
+        "score_a": 0.038,
+        "score_b": 0.038,
+        "granmo_prod": 0.001
+      }
+    ],
+    "total_granmo_vote": 0.27,
+    "cosine_score": 0.04,
+    "cosine_pred": 1,
+    "cosine_correct": true,
+    "vanilla_pred": 1,
+    "vanilla_correct": true,
+    "hierarchical_pred": 1,
+    "hierarchical_correct": true,
+    "rule_fired": "IF Granmo_MultAND_T2.5 > 0.272 AND Granmo_TopicProd_misc.forsale > 0.000 THEN +11 Class 1 (Same Category)"
+  },
+  {
+    "pair_id": 74,
+    "id_a": "train:7516",
+    "id_b": "train:1120",
+    "cat_a": "talk.religion.misc",
+    "cat_b": "talk.religion.misc",
+    "label": 1,
+    "n_shared": 5,
+    "shared_words": [
+      "bible",
+      "christian",
+      "christians",
+      "jesus",
+      "people"
+    ],
+    "text_a": "Sorry, but it doesn't matter what _you_ think, I am a Christian, who happens to\nbelong to the LDS Church.  [The Church of Jesus Christ of Latter-Day Saints].\n\nI don't usually read t.r.m.  It is truly informative to stop by, and see that there\nare still people in the world like those that forced my ancestors into the deserts\nof Utah, and then out of the country entirely.  (My grandmother was born in Mexico,\nwhere her family had moved to escape religious persecution in the US).  I'm willing\nto admit that members of other churches are Christians, if they believe in Christ and\n(try to) follow his teachings, even though they have different interpretations of \nthe bible.  And yet these other churches often go out of their way to define whether\nor not I am considered to be Christian.  Could someone mail me a set of rules/beliefs\nthat must be followed to be a Christian?  Does this set of rules exclude other large\nbodies of believers?  \n\nI know, this is a waste of everyone's time, this has probably been discussed N times,\netc.  I guess I'm more sensitive to this 'demonization' after what went on in Texas.",
+    "text_b": "Very well put.  And, in the case of someone who calls himself a Christian\nbrother yet continues in his sin (and claims that his sin is not a sin at \nall, but perfectly acceptable), what should be done?  Should Christians \njust ignore a sinful lifestyle in order to not offend the person?  By \nreaffirming that the lifestyle is sinful according to the Bible, are \nthey using \"a bullwhip to drive people from Jesus\"? \n\nFrankly, I find the occurance of a homosexual Christian attempting to \npass himself off as a 'straight' Christian in order to have other \nChristians accept his chastisement better a *lot* more serious than \npeople reaffirming that the Bible teaches homosexuality is a sin.",
+    "topic_scores": [
+      {
+        "topic": "soc.religion.christian",
+        "score_a": 0.554,
+        "score_b": 0.554,
+        "granmo_prod": 0.306
+      },
+      {
+        "topic": "talk.religion.misc",
+        "score_a": 0.474,
+        "score_b": 0.474,
+        "granmo_prod": 0.224
+      },
+      {
+        "topic": "comp.graphics",
+        "score_a": 0.194,
+        "score_b": 0.038,
+        "granmo_prod": 0.007
+      },
+      {
+        "topic": "rec.sport.hockey",
+        "score_a": 0.038,
+        "score_b": 0.038,
+        "granmo_prod": 0.001
+      },
+      {
+        "topic": "sci.space",
+        "score_a": 0.038,
+        "score_b": 0.038,
+        "granmo_prod": 0.001
+      }
+    ],
+    "total_granmo_vote": 0.539,
+    "cosine_score": 0.085,
+    "cosine_pred": 1,
+    "cosine_correct": true,
+    "vanilla_pred": 1,
+    "vanilla_correct": true,
+    "hierarchical_pred": 1,
+    "hierarchical_correct": true,
+    "rule_fired": "IF Granmo_MultAND_T2.5 > 0.272 AND Granmo_TopicProd_soc.religion.christian > 0.000 THEN +11 Class 1 (Same Category)"
+  },
+  {
+    "pair_id": 141,
+    "id_a": "train:10343",
+    "id_b": "train:10863",
+    "cat_a": "comp.os.ms-windows.misc",
+    "cat_b": "comp.os.ms-windows.misc",
+    "label": 1,
+    "n_shared": 3,
+    "shared_words": [
+      "directory",
+      "thanks",
+      "windows"
+    ],
+    "text_a": "Hello,\n\nI'm trying to get a drum program to work that I downloaded from\nftp.cica.indiana.edu in the pub/pc/win3/sounds directory.  It's called\ndrum.zip.  \n\nI have an ATI Stereo FX card with the latest Windows drivers installed. \nWhen I try to run the drum program, it reports that a MIDI device is not\ninstalled, however the drivers utility in the control panel reports that it\nis installed.  \n\nAnyone have any idea how to set up the MIDI device so that the drum program\nwill work with my setup?  What I'm trying to do is use my computer as a\nmetronome.  Someone suggested that I try one of the drum machines that are\ncirculating around out there.  Any help would be appreciated.\n\nThanks,\n\nTerry",
+    "text_b": ": Thanks to all those people who recommended Workspace managers for\n: Windows 3.1.  I found 3 shareware Workspace Managers, from Australia's\n: MS-WINDOWS archive (monu6.cc.monash.edu.au), which mirrors some\n: sites in the U.S.  The three I found were:\n: \n: 1. WORKSPACES 1.10 (wspace.zip)\n[ review deleted ]\n: 2. WORKSHIFT 1.6 (wrksft16.zip)\n[ review deleted ]\n: 3. BIGDESK 2.30 and BACKMENU (backdesk.zip)\n[ review deleted ]\n\nI really appreciate this information.  However, given that I don't have\ndirect Internet access - which means I don't have Archie access - I must\nresort to using FTPMAIL.  This means that I need the site name and the \ndirectory where these workspace managers are located.\n\nSo, can you (or anyone else) post or Email me the needed information?\n\nThanks very much!!!\n\nChris\n--",
+    "topic_scores": [
+      {
+        "topic": "comp.os.ms-windows.misc",
+        "score_a": 0.474,
+        "score_b": 0.474,
+        "granmo_prod": 0.224
+      },
+      {
+        "topic": "comp.graphics",
+        "score_a": 0.038,
+        "score_b": 0.194,
+        "granmo_prod": 0.007
+      },
+      {
+        "topic": "rec.sport.hockey",
+        "score_a": 0.194,
+        "score_b": 0.038,
+        "granmo_prod": 0.007
+      },
+      {
+        "topic": "sci.space",
+        "score_a": 0.038,
+        "score_b": 0.194,
+        "granmo_prod": 0.007
+      },
+      {
+        "topic": "soc.religion.christian",
+        "score_a": 0.038,
+        "score_b": 0.194,
+        "granmo_prod": 0.007
+      }
+    ],
+    "total_granmo_vote": 0.252,
+    "cosine_score": 0.055,
+    "cosine_pred": 1,
+    "cosine_correct": true,
+    "vanilla_pred": 1,
+    "vanilla_correct": true,
+    "hierarchical_pred": 1,
+    "hierarchical_correct": true,
+    "rule_fired": "IF Granmo_MultAND_T2.5 > 0.272 AND Granmo_TopicProd_comp.os.ms-windows.misc > 0.000 THEN +11 Class 1 (Same Category)"
+  }
+];
+    let currentFilter = 'all';
+    let selectedIndex = 0;
+
+    function renderList() {
+      const listEl = document.getElementById('pairList');
+      listEl.innerHTML = '';
+      
+      PAIRS.forEach((p, idx) => {
+        if (currentFilter === 'zero_same' && !(p.n_shared === 0 && p.label === 1)) return;
+        if (currentFilter === 'zero_diff' && !(p.n_shared === 0 && p.label === 0)) return;
+        if (currentFilter === 'shared' && p.n_shared === 0) return;
+
+        const item = document.createElement('div');
+        item.className = 'pair-item' + (idx === selectedIndex ? ' active' : '');
+        item.onclick = () => selectPair(idx);
+        
+        const isSame = p.label === 1;
+        item.innerHTML = `
+          <div class="pair-title">
+            <span>Pair #${p.pair_id}</span>
+            <span class="tag ${isSame ? 'tag-same' : 'tag-diff'}">${isSame ? 'Same (Y=1)' : 'Diff (Y=0)'}</span>
+          </div>
+          <div class="pair-desc">
+            ${p.cat_a.split('.')[0]} vs ${p.cat_b.split('.')[0]} • <strong>${p.n_shared} shared words</strong>
+          </div>
+        `;
+        listEl.appendChild(item);
+      });
+    }
+
+    function setFilter(f) {
+      currentFilter = f;
+      document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+      event.target.classList.add('active');
+      renderList();
+      // Select first matching
+      const first = PAIRS.findIndex(p => {
+        if (f === 'zero_same') return p.n_shared === 0 && p.label === 1;
+        if (f === 'zero_diff') return p.n_shared === 0 && p.label === 0;
+        if (f === 'shared') return p.n_shared > 0;
+        return true;
+      });
+      if (first !== -1) selectPair(first);
+    }
+
+    function highlightText(text, kws) {
+      let res = text;
+      kws.forEach(kw => {
+        const regex = new RegExp(`\\b(${kw})\\b`, 'gi');
+        res = res.replace(regex, '<span class="highlight">$1</span>');
+      });
+      return res;
+    }
+
+    function selectPair(idx) {
+      selectedIndex = idx;
+      renderList();
+      const p = PAIRS[idx];
+
+      const isSame = p.label === 1;
+      document.getElementById('selectedPairTitle').innerText = `Pair #${p.pair_id}: ${p.cat_a} vs. ${p.cat_b}`;
+      document.getElementById('pairTruthBadge').innerHTML = `
+        <span class="tag ${isSame ? 'tag-same' : 'tag-diff'}">${isSame ? 'True: Same Category (Y=1)' : 'True: Different Categories (Y=0)'}</span>
+        <span class="tag tag-overlap">${p.n_shared} Shared 1k-Words</span>
+      `;
+
+      // Model Comparison
+      document.getElementById('modelComparison').innerHTML = `
+        <div class="model-card">
+          <div class="model-name">TF-IDF Cosine (Baseline)</div>
+          <div class="model-result ${p.cosine_correct ? 'res-correct' : 'res-wrong'}">
+            ${p.cosine_correct ? '✓' : '✗'} Predicts: ${p.cosine_pred === 1 ? 'Same' : 'Different'} (cos=${p.cosine_score.toFixed(3)})
+          </div>
+        </div>
+        <div class="model-card">
+          <div class="model-name">Vanilla TM (Stage 1, s=1.0)</div>
+          <div class="model-result ${p.vanilla_correct ? 'res-correct' : 'res-wrong'}">
+            ${p.vanilla_correct ? '✓' : '✗'} Predicts: ${p.vanilla_pred === 1 ? 'Same' : 'Different'}
+          </div>
+        </div>
+        <div class="model-card">
+          <div class="model-name">Hierarchical TM (Granmo Stage 2)</div>
+          <div class="model-result ${p.hierarchical_correct ? 'res-correct' : 'res-wrong'}">
+            ${p.hierarchical_correct ? '✓' : '✗'} Predicts: ${p.hierarchical_pred === 1 ? 'Same' : 'Different'} (vote=${p.total_granmo_vote.toFixed(3)})
+          </div>
+        </div>
+      `;
+
+      // Highlight keywords in Doc A and B
+      const kwsA = [p.cat_a.split('.').pop(), ...(p.shared_words || [])];
+      const kwsB = [p.cat_b.split('.').pop(), ...(p.shared_words || [])];
+      document.getElementById('docACat').innerText = p.cat_a;
+      document.getElementById('docAText').innerHTML = highlightText(p.text_a, kwsA);
+      document.getElementById('docBCat').innerText = p.cat_b;
+      document.getElementById('docBText').innerHTML = highlightText(p.text_b, kwsB);
+
+      // Topic Table
+      document.getElementById('totalVoteBadge').innerText = `Total Granmo Multiplicative Vote: ${p.total_granmo_vote.toFixed(3)}`;
+      const tbody = document.getElementById('topicTableBody');
+      tbody.innerHTML = '';
+      p.topic_scores.forEach(ts => {
+        const isMatch = ts.granmo_prod > 0.08;
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td><strong>${ts.topic}</strong></td>
+          <td>${ts.score_a.toFixed(3)}</td>
+          <td>${ts.score_b.toFixed(3)}</td>
+          <td><strong style="color: ${isMatch ? 'var(--success)' : 'inherit'}">${ts.granmo_prod.toFixed(3)}</strong></td>
+          <td style="color: ${isMatch ? 'var(--success)' : 'var(--text-muted)'}">
+            ${isMatch ? '✓ Multiplicative match: Both docs activate concept!' : 'Near zero: At least one doc inactive.'}
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+
+      // Rule fired
+      document.getElementById('firedRule').innerText = p.rule_fired;
+    }
+
+    // Initial render
+    renderList();
+    selectPair(0);
+  </script>
+</body>
+</html>
