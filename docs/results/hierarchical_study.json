@@ -52,7 +52,7 @@
         ],
         "seed": 42,
         "roc_auc": 0.8157205,
-        "train_seconds": 34.50469560001511
+        "train_seconds": 44.27190970000811
       },
       {
         "accuracy": 0.73975,
@@ -71,7 +71,7 @@
         ],
         "seed": 43,
         "roc_auc": 0.80412425,
-        "train_seconds": 30.37526729993988
+        "train_seconds": 44.0853858999908
       },
       {
         "accuracy": 0.7465,
@@ -90,7 +90,7 @@
         ],
         "seed": 44,
         "roc_auc": 0.81338225,
-        "train_seconds": 36.341080100042745
+        "train_seconds": 43.768098299973644
       }
     ],
     "acc_mean": 0.7450000000000001,
@@ -772,135 +772,135 @@
       "l1_epochs": 15,
       "l2_clauses_per_class": 200,
       "l2_T": 50,
-      "l2_s": 3.0,
+      "l2_s": 3.5,
       "l2_epochs": 20,
       "l2_vocabulary": null,
       "include_raw_words": false
     },
     "runs": [
       {
-        "accuracy": 0.86,
-        "precision": 0.8512195121951219,
-        "recall": 0.8725,
-        "f1": 0.8617283950617284,
+        "accuracy": 0.8565,
+        "precision": 0.8952328159645233,
+        "recall": 0.8075,
+        "f1": 0.849106203995794,
         "confusion_matrix": [
           [
-            1695,
-            305
+            1811,
+            189
           ],
           [
-            255,
-            1745
+            385,
+            1615
           ]
         ],
         "seed": 42,
-        "roc_auc": 0.92875525,
-        "train_seconds": 47.879389000008814
+        "roc_auc": 0.9359343750000002,
+        "train_seconds": 112.37791899999138
       },
       {
-        "accuracy": 0.854,
-        "precision": 0.8638232271325796,
-        "recall": 0.8405,
-        "f1": 0.852002027369488,
+        "accuracy": 0.858,
+        "precision": 0.8664278403275333,
+        "recall": 0.8465,
+        "f1": 0.8563480020232676,
         "confusion_matrix": [
           [
-            1735,
-            265
+            1739,
+            261
           ],
           [
-            319,
-            1681
+            307,
+            1693
           ]
         ],
         "seed": 43,
-        "roc_auc": 0.929814,
-        "train_seconds": 44.20629420003388
+        "roc_auc": 0.93269075,
+        "train_seconds": 110.69605770008639
       },
       {
-        "accuracy": 0.85575,
-        "precision": 0.8595250126326428,
-        "recall": 0.8505,
-        "f1": 0.8549886906257854,
+        "accuracy": 0.8575,
+        "precision": 0.8735632183908046,
+        "recall": 0.836,
+        "f1": 0.8543689320388349,
         "confusion_matrix": [
           [
-            1722,
-            278
+            1758,
+            242
           ],
           [
-            299,
-            1701
+            328,
+            1672
           ]
         ],
         "seed": 44,
-        "roc_auc": 0.93227875,
-        "train_seconds": 45.99405710003339
+        "roc_auc": 0.92261325,
+        "train_seconds": 100.77815330005251
       }
     ],
-    "acc_mean": 0.8565833333333334,
-    "acc_std": 0.0025193694096384946,
-    "precision_mean": 0.8581892506534482,
-    "recall_mean": 0.8545000000000001,
-    "f1_mean": 0.8562397043523339,
-    "auc_mean": 0.9302826666666667,
-    "auc_std": 0.001476143488019454,
+    "acc_mean": 0.8573333333333334,
+    "acc_std": 0.0006236095644623044,
+    "precision_mean": 0.8784079582276204,
+    "recall_mean": 0.83,
+    "f1_mean": 0.8532743793526322,
+    "auc_mean": 0.9304127916666668,
+    "auc_std": 0.005671855278049626,
     "seed42_overlap_buckets": [
       {
         "bucket": "0 shared words",
         "pairs": 1856,
-        "accuracy": 0.8243534482758621,
-        "precision": 0.783625730994152,
-        "recall": 0.8261405672009864,
-        "f1": 0.8043217286914766
+        "accuracy": 0.818426724137931,
+        "precision": 0.8444767441860465,
+        "recall": 0.7163995067817509,
+        "f1": 0.7751834556370913
       },
       {
         "bucket": "1 shared word",
         "pairs": 939,
-        "accuracy": 0.8945686900958466,
-        "precision": 0.9032258064516129,
-        "recall": 0.8860759493670886,
-        "f1": 0.8945686900958466
+        "accuracy": 0.8828541001064962,
+        "precision": 0.9193548387096774,
+        "recall": 0.8417721518987342,
+        "f1": 0.8788546255506607
       },
       {
         "bucket": "2 shared words",
         "pairs": 484,
-        "accuracy": 0.8739669421487604,
-        "precision": 0.8920863309352518,
-        "recall": 0.8888888888888888,
-        "f1": 0.8904847396768402
+        "accuracy": 0.8863636363636364,
+        "precision": 0.9375,
+        "recall": 0.8602150537634409,
+        "f1": 0.897196261682243
       },
       {
         "bucket": "3 shared words",
         "pairs": 271,
-        "accuracy": 0.8929889298892989,
-        "precision": 0.9012345679012346,
-        "recall": 0.9182389937106918,
-        "f1": 0.9096573208722741
+        "accuracy": 0.9188191881918819,
+        "precision": 0.9536423841059603,
+        "recall": 0.9056603773584906,
+        "f1": 0.9290322580645162
       },
       {
         "bucket": "4+ shared words",
         "pairs": 450,
-        "accuracy": 0.9,
-        "precision": 0.9,
-        "recall": 0.9422382671480144,
-        "f1": 0.9206349206349206
+        "accuracy": 0.8888888888888888,
+        "precision": 0.9127272727272727,
+        "recall": 0.9061371841155235,
+        "f1": 0.9094202898550725
       }
     ],
     "level2_top_rules_seed42": [
-      "IF NOT L1_CNB01_T1.5_ProbDot>0.343 AND NOT L1_CNB01_T1.5_ProbMax>0.014 AND NOT L1_CNB01_T2.5_ProbMax>0.986 AND NOT L1_CNB01_T4.0_ProbDot>1.000 AND NOT L1_CNB01_T4.0_ProbMax>0.000 AND NOT L1_CNB05_LogitCosine>0.905 AND NOT L1_CNB05_T1.5_ProbDot>0.021 AND NOT L1_CNB05_T2.5_ProbDot>0.003 AND NOT L1_CNB05_T2.5_ProbDot>0.981 AND NOT L1_CNB05_T2.5_Bhattacharyya>0.442 AND NOT L1_Ridge_T1.5_ProbDot>0.130 AND NOT L1_Ridge_T1.5_ProbMax>0.287 AND NOT L1_Ridge_T1.5_ProbMax>0.754 THEN -82 0",
-      "IF NOT L1_CNB01_T1.5_ProbDot>0.146 AND NOT L1_CNB01_T2.5_ProbDot>0.002 AND NOT L1_CNB01_T4.0_ProbDot>0.000 AND NOT L1_CNB05_T1.5_ProbDot>0.040 AND NOT L1_CNB05_T2.5_ProbDot>0.001 AND NOT L1_CNB05_T2.5_ProbDot>0.999 AND NOT L1_CNB05_T2.5_ProbMax>0.001 AND NOT L1_CNB05_T2.5_ProbMax>0.470 AND NOT L1_CNB05_T4.0_ProbMax>0.000 THEN +82 1",
-      "IF NOT L1_CNB01_T1.5_ProbMax>0.055 AND NOT L1_CNB01_T1.5_Bhattacharyya>0.976 AND NOT L1_CNB01_T1.5_Bhattacharyya>0.999 AND NOT L1_CNB01_T2.5_ProbMax>0.002 AND NOT L1_CNB01_T4.0_Bhattacharyya>1.000 AND NOT L1_CNB05_T1.5_ProbDot>0.941 AND NOT L1_CNB05_T1.5_ProbMax>0.016 AND NOT L1_CNB05_T1.5_ProbMax>0.613 AND NOT L1_CNB05_T2.5_ProbDot>0.001 AND NOT L1_CNB05_T2.5_ProbMax>0.999 THEN -71 0",
-      "IF L1_CNB01_T1.5_Bhattacharyya>0.115 AND L1_CNB01_T2.5_ProbDot>0.000 AND L1_CNB05_T4.0_ProbMax>0.000 AND NOT Ridge_Top1_Match AND NOT L1_CNB01_T2.5_ProbDot>0.113 AND NOT L1_CNB05_T1.5_ProbDot>0.342 AND NOT L1_CNB05_T1.5_ProbDot>0.941 AND NOT L1_CNB05_T1.5_ProbMax>0.060 AND NOT L1_CNB05_T2.5_ProbDot>0.472 AND NOT L1_Ridge_LogitCosine>0.581 AND NOT L1_Ridge_T1.5_ProbMax>0.056 AND NOT L1_Ridge_T1.5_Bhattacharyya>0.995 AND NOT L1_Ridge_T4.0_Bhattacharyya>0.248 THEN +71 1",
-      "IF L1_CNB01_LogitCosine>-0.001 AND L1_CNB01_T2.5_Bhattacharyya>0.069 AND L1_CNB01_T4.0_ProbDot>0.000 AND L1_CNB05_T1.5_ProbDot>0.013 AND L1_CNB05_T1.5_Bhattacharyya>0.306 AND L1_CNB05_T2.5_ProbMax>0.008 AND L1_Ridge_T1.5_ProbMax>0.002 AND L1_Ridge_T2.5_Bhattacharyya>0.063 AND NOT L1_CNB01_T4.0_ProbDot>1.000 AND NOT L1_CNB05_T1.5_Bhattacharyya>0.998 AND NOT L1_Ridge_T4.0_ProbMax>1.000 THEN -71 1",
-      "IF L1_CNB01_T4.0_ProbDot>0.000 AND L1_CNB05_T1.5_ProbDot>0.021 AND L1_CNB05_T2.5_ProbDot>0.000 AND L1_CNB05_T2.5_ProbMax>0.002 AND L1_CNB05_T2.5_Bhattacharyya>0.079 AND L1_Ridge_LogitCosine>-0.049 AND L1_Ridge_T1.5_ProbDot>0.016 AND L1_Ridge_T2.5_ProbMax>0.000 AND L1_Ridge_T2.5_ProbMax>0.001 AND L1_Ridge_T2.5_Bhattacharyya>0.063 AND NOT L1_Ridge_T4.0_ProbMax>1.000 AND NOT L1_Ridge_T4.0_Bhattacharyya>1.000 THEN +70 0",
-      "IF NOT CNB05_Top1_Match AND NOT L1_CNB01_T1.5_ProbDot>0.343 AND NOT L1_CNB01_T4.0_Bhattacharyya>1.000 AND NOT L1_CNB05_T1.5_Bhattacharyya>0.998 AND NOT L1_CNB05_T2.5_ProbDot>0.144 AND NOT L1_CNB05_T2.5_ProbMax>0.008 AND NOT L1_CNB05_T2.5_Bhattacharyya>1.000 AND NOT L1_CNB05_T4.0_ProbMax>0.001 AND NOT L1_CNB05_T4.0_ProbMax>0.999 AND NOT L1_Ridge_T1.5_ProbDot>0.864 AND NOT L1_Ridge_T2.5_ProbDot>0.831 AND NOT L1_Ridge_T2.5_Bhattacharyya>0.998 THEN +70 1",
-      "IF L1_CNB01_T2.5_Bhattacharyya>0.008 AND NOT L1_CNB01_LogitCosine>0.846 AND NOT L1_CNB01_T2.5_ProbMax>0.997 AND NOT L1_CNB01_T2.5_Bhattacharyya>0.113 AND NOT L1_CNB01_T4.0_Bhattacharyya>0.026 AND NOT L1_CNB05_T1.5_ProbMax>0.030 AND NOT L1_CNB05_T4.0_Bhattacharyya>0.774 AND NOT L1_CNB05_T4.0_Bhattacharyya>1.000 AND NOT L1_Ridge_T1.5_ProbDot>0.023 AND NOT L1_Ridge_T1.5_Bhattacharyya>0.587 THEN -68 0",
-      "IF L1_CNB01_T2.5_Bhattacharyya>0.008 AND NOT L1_CNB01_T1.5_ProbMax>0.055 AND NOT L1_CNB01_T4.0_ProbDot>0.000 AND NOT L1_CNB01_T4.0_ProbDot>1.000 AND NOT L1_CNB05_LogitCosine>0.427 AND NOT L1_CNB05_T1.5_ProbDot>0.342 AND NOT L1_CNB05_T1.5_ProbMax>0.813 AND NOT L1_CNB05_T1.5_Bhattacharyya>0.618 AND NOT L1_CNB05_T1.5_Bhattacharyya>0.993 AND NOT L1_Ridge_LogitCosine>0.581 AND NOT L1_Ridge_T1.5_ProbMax>0.120 AND NOT L1_Ridge_T4.0_ProbMax>0.998 THEN +68 1",
-      "IF L1_CNB05_T1.5_ProbMax>0.001 AND L1_CNB05_T1.5_Bhattacharyya>0.122 AND NOT L1_CNB01_T2.5_ProbDot>0.007 AND NOT L1_CNB05_T1.5_ProbMax>0.328 AND NOT L1_CNB05_T1.5_Bhattacharyya>0.491 AND NOT L1_CNB05_T2.5_ProbMax>0.996 AND NOT L1_Ridge_T1.5_Bhattacharyya>0.725 AND NOT L1_Ridge_T2.5_ProbMax>0.028 AND NOT L1_Ridge_T4.0_ProbDot>1.000 AND NOT L1_Ridge_T4.0_Bhattacharyya>0.085 AND NOT L1_Ridge_T4.0_Bhattacharyya>1.000 THEN -65 0",
-      "IF NOT L1_CNB01_T1.5_Bhattacharyya>0.976 AND NOT L1_CNB01_T2.5_ProbDot>0.113 AND NOT L1_CNB01_T4.0_Bhattacharyya>0.078 AND NOT L1_CNB05_T1.5_ProbDot>0.342 AND NOT L1_CNB05_T2.5_ProbMax>0.137 AND NOT L1_CNB05_T2.5_Bhattacharyya>0.442 AND NOT L1_CNB05_T2.5_Bhattacharyya>0.748 AND NOT L1_Ridge_T1.5_ProbMax>0.120 AND NOT L1_Ridge_T2.5_ProbDot>0.030 AND NOT L1_Ridge_T2.5_Bhattacharyya>0.925 AND NOT L1_Ridge_T4.0_ProbMax>0.000 AND NOT L1_Ridge_T4.0_ProbMax>0.052 AND NOT L1_Ridge_T4.0_Bhattacharyya>0.016 THEN -64 0",
-      "IF L1_CNB01_LogitCosine>-0.056 AND L1_CNB01_T1.5_ProbMax>0.014 AND L1_CNB01_T2.5_ProbDot>0.002 AND L1_CNB01_T2.5_ProbMax>0.000 AND L1_CNB05_T1.5_Bhattacharyya>0.216 AND L1_Ridge_T1.5_ProbMax>0.002 AND L1_Ridge_T2.5_ProbMax>0.009 AND L1_Ridge_T2.5_Bhattacharyya>0.046 AND L1_Ridge_T4.0_Bhattacharyya>0.005 AND NOT L1_Ridge_LogitCosine>0.862 AND NOT L1_Ridge_T2.5_ProbDot>0.998 AND NOT L1_Ridge_T2.5_ProbMax>0.998 THEN -62 1",
-      "IF L1_CNB01_T1.5_ProbDot>0.035 AND L1_CNB01_T1.5_Bhattacharyya>0.357 AND L1_CNB01_T2.5_ProbDot>0.002 AND L1_CNB01_T2.5_ProbMax>0.000 AND L1_CNB01_T2.5_Bhattacharyya>0.045 AND L1_CNB01_T4.0_ProbDot>0.000 AND L1_CNB01_T4.0_Bhattacharyya>0.078 AND L1_CNB05_T1.5_ProbDot>0.004 AND L1_CNB05_T1.5_ProbDot>0.040 AND L1_Ridge_T2.5_Bhattacharyya>0.034 THEN -61 1",
-      "IF NOT L1_CNB01_T1.5_ProbMax>0.055 AND NOT L1_CNB01_T2.5_ProbDot>0.029 AND NOT L1_CNB05_T1.5_ProbMax>0.030 AND NOT L1_CNB05_T2.5_ProbMax>0.001 AND NOT L1_CNB05_T4.0_ProbDot>0.000 AND NOT L1_CNB05_T4.0_ProbDot>0.570 AND NOT L1_CNB05_T4.0_ProbMax>0.007 AND NOT L1_CNB05_T4.0_Bhattacharyya>0.774 AND NOT L1_Ridge_T2.5_ProbDot>0.831 AND NOT L1_Ridge_T4.0_ProbMax>0.952 THEN -53 1",
-      "IF NOT L1_CNB01_T1.5_ProbDot>0.343 AND NOT L1_CNB01_T2.5_ProbMax>0.900 AND NOT L1_CNB01_T2.5_ProbMax>0.999 AND NOT L1_CNB05_T1.5_ProbDot>0.021 AND NOT L1_CNB05_T2.5_ProbDot>0.036 AND NOT L1_CNB05_T2.5_ProbDot>0.895 AND NOT L1_CNB05_T4.0_ProbDot>0.001 AND NOT L1_CNB05_T4.0_ProbDot>0.570 AND NOT L1_CNB05_T4.0_ProbMax>0.001 AND NOT L1_CNB05_T4.0_ProbMax>0.570 AND NOT L1_Ridge_T1.5_ProbDot>0.296 AND NOT L1_Ridge_T1.5_ProbMax>0.287 AND NOT L1_Ridge_T2.5_Bhattacharyya>1.000 THEN +52 0"
+      "IF NOT CNB01_Top2_Overlap AND NOT Granmo_Composite_LogitCosine>0.870 AND NOT Granmo_MultAND_T1.5>0.716 AND NOT Granmo_MultMax_T1.5>0.530 AND NOT Granmo_Bhatt_T1.5>0.486 AND NOT Granmo_MultMax_T2.5>0.960 AND NOT Granmo_Bhatt_T2.5>0.988 AND NOT Granmo_TopicProd_soc.religion.christian>0.000 AND NOT Granmo_TopicProd_talk.politics.misc>0.000 AND NOT L1_Ridge_LogitCosine>0.781 THEN -25 1",
+      "IF Granmo_MultMax_T1.5>0.010 AND Granmo_MultMax_T2.5>0.050 AND Granmo_TopicProd_comp.sys.mac.hardware>0.000 AND Granmo_TopicProd_comp.sys.mac.hardware>0.000 AND Granmo_TopicProd_rec.motorcycles>0.000 AND Granmo_TopicProd_soc.religion.christian>0.000 AND Granmo_TopicProd_talk.politics.misc>0.000 AND Granmo_MultAND_T4.0>0.001 AND Granmo_MultAND_T4.0>0.017 AND Granmo_MultMax_T4.0>0.001 AND Granmo_Bhatt_T4.0>0.151 AND L1_Ridge_LogitCosine>-0.243 AND NOT Granmo_TopicProd_sci.med>0.000 THEN +18 0",
+      "IF NOT Enriched_TFIDF_Cosine>0.000 AND NOT Enriched_TFIDF_Cosine>0.005 AND NOT Granmo_TopicProd_alt.atheism>0.000 THEN -18 0",
+      "IF Granmo_TopicProd_rec.motorcycles>0.000 AND Granmo_TopicProd_rec.sport.baseball>0.000 AND Granmo_TopicProd_sci.med>0.000 AND Granmo_TopicProd_soc.religion.christian>0.000 AND NOT CharCNB_Top2_Overlap AND NOT Granmo_Composite_LogitCosine>0.416 AND NOT Granmo_MultAND_T1.5>0.053 THEN +17 0",
+      "IF Granmo_MultMax_T1.5>0.004 AND Granmo_Bhatt_T1.5>0.195 AND Granmo_MultMax_T2.5>0.000 AND Granmo_TopicProd_alt.atheism>0.000 AND Granmo_MultAND_T4.0>0.000 AND Granmo_Bhatt_T4.0>0.005 AND L1_Ridge_LogitCosine>-0.088 AND L1_Ridge_LogitCosine>-0.006 AND NOT Enriched_TFIDF_Cosine>0.066 AND NOT Granmo_TopicProd_comp.sys.ibm.pc.hardware>0.000 AND NOT Granmo_TopicProd_sci.electronics>0.000 AND NOT Granmo_TopicProd_sci.electronics>0.000 AND NOT Granmo_TopicProd_sci.med>0.000 THEN -17 0",
+      "IF Granmo_TopicProd_rec.motorcycles>0.000 AND Granmo_TopicProd_talk.politics.misc>0.000 AND NOT Enriched_TFIDF_Cosine>0.000 AND NOT Enriched_TFIDF_Cosine>0.000 AND NOT Granmo_MultMax_T1.5>0.023 AND NOT Granmo_Bhatt_T2.5>0.988 AND NOT L1_CNB01_LogitCosine>0.535 AND NOT L1_Ridge_LogitCosine>0.781 THEN -17 0",
+      "IF Granmo_TopicProd_sci.crypt>0.000 AND NOT CNB01_Top1_Match AND NOT CNB01_Top2_Overlap AND NOT Granmo_MultMax_T1.5>0.319 AND NOT Granmo_TopicProd_comp.os.ms-windows.misc>0.000 AND NOT Granmo_TopicProd_talk.politics.guns>0.000 AND NOT Granmo_MultAND_T4.0>0.997 AND NOT Granmo_MultMax_T4.0>0.148 AND NOT Granmo_MultMax_T4.0>1.000 AND NOT L1_CNB01_LogitCosine>0.153 AND NOT L1_Ridge_LogitCosine>0.781 THEN +16 0",
+      "IF CharCNB_Top2_Overlap AND Granmo_TopicProd_comp.sys.ibm.pc.hardware>0.000 AND Granmo_TopicProd_rec.sport.baseball>0.000 AND Granmo_TopicProd_sci.electronics>0.000 AND Granmo_TopicProd_soc.religion.christian>0.000 AND Granmo_TopicProd_talk.politics.guns>0.000 AND Granmo_TopicProd_talk.politics.misc>0.000 AND Granmo_Bhatt_T4.0>0.001 AND L1_CharCNB_LogitCosine>-0.225 AND NOT Granmo_Bhatt_T1.5>0.984 THEN +16 0",
+      "IF Granmo_MultAND_T1.5>0.034 AND Granmo_TopicProd_comp.windows.x>0.000 AND Granmo_TopicProd_rec.motorcycles>0.000 THEN -16 0",
+      "IF NOT Granmo_TopicProd_comp.os.ms-windows.misc>0.000 THEN -16 0",
+      "IF NOT Granmo_MultMax_T1.5>0.149 AND NOT Granmo_Bhatt_T1.5>0.689 AND NOT Granmo_MultAND_T2.5>0.535 AND NOT Granmo_Bhatt_T2.5>0.319 AND NOT Granmo_TopicProd_comp.sys.mac.hardware>0.000 THEN +16 1",
+      "IF Granmo_MultAND_T2.5>0.000 AND Granmo_TopicProd_comp.graphics>0.000 AND Granmo_TopicProd_comp.os.ms-windows.misc>0.000 AND Granmo_Bhatt_T4.0>0.001 AND NOT Granmo_Bhatt_T1.5>0.959 AND NOT Granmo_MultAND_T2.5>0.535 AND NOT Granmo_MultMax_T2.5>0.182 AND NOT Granmo_TopicProd_comp.sys.ibm.pc.hardware>0.000 AND NOT Granmo_TopicProd_sci.space>0.000 AND NOT Granmo_MultAND_T4.0>0.017 AND NOT Granmo_MultAND_T4.0>0.694 AND NOT Granmo_Bhatt_T4.0>0.849 THEN +15 0",
+      "IF NOT Granmo_Bhatt_T4.0>0.009 THEN +15 0",
+      "IF Granmo_Composite_LogitCosine>-0.040 AND Granmo_Composite_LogitCosine>0.023 AND Granmo_MultMax_T1.5>0.002 AND Granmo_TopicProd_misc.forsale>0.000 AND Granmo_TopicProd_rec.autos>0.000 AND Granmo_TopicProd_sci.space>0.000 AND L1_CNB01_LogitCosine>-0.001 AND L1_CNB01_LogitCosine>0.403 AND L1_CharCNB_LogitCosine>-0.127 AND NOT Granmo_Bhatt_T2.5>1.000 THEN +15 1",
+      "IF Granmo_Composite_LogitCosine>-0.099 AND Granmo_Composite_LogitCosine>0.099 AND Granmo_MultAND_T1.5>0.053 AND Granmo_MultAND_T2.5>0.000 AND Granmo_TopicProd_comp.graphics>0.000 AND Granmo_TopicProd_rec.motorcycles>0.000 AND L1_Ridge_LogitCosine>0.097 AND NOT Granmo_TopicProd_talk.politics.guns>0.000 THEN +15 1"
     ],
     "sample_level1_topic_clauses_seed42": [
       {
@@ -1117,135 +1117,135 @@
       "l1_epochs": 15,
       "l2_clauses_per_class": 200,
       "l2_T": 50,
-      "l2_s": 3.0,
+      "l2_s": 4.0,
       "l2_epochs": 20,
       "l2_vocabulary": 3000,
       "include_raw_words": false
     },
     "runs": [
       {
-        "accuracy": 0.87725,
-        "precision": 0.8919480519480519,
-        "recall": 0.8585,
-        "f1": 0.8749044585987261,
+        "accuracy": 0.87925,
+        "precision": 0.8981627296587926,
+        "recall": 0.8555,
+        "f1": 0.8763124199743918,
         "confusion_matrix": [
           [
-            1792,
-            208
+            1806,
+            194
           ],
           [
-            283,
-            1717
+            289,
+            1711
           ]
         ],
         "seed": 42,
-        "roc_auc": 0.94603725,
-        "train_seconds": 71.737577999942
+        "roc_auc": 0.952448375,
+        "train_seconds": 180.30024909996428
       },
       {
-        "accuracy": 0.8775,
-        "precision": 0.8969505783385909,
-        "recall": 0.853,
-        "f1": 0.8744233726294208,
+        "accuracy": 0.88025,
+        "precision": 0.889002557544757,
+        "recall": 0.869,
+        "f1": 0.8788874841972187,
         "confusion_matrix": [
           [
-            1804,
-            196
+            1783,
+            217
           ],
           [
-            294,
-            1706
+            262,
+            1738
           ]
         ],
         "seed": 43,
-        "roc_auc": 0.9446965,
-        "train_seconds": 65.79497659998015
+        "roc_auc": 0.9464552500000001,
+        "train_seconds": 179.952010900015
       },
       {
-        "accuracy": 0.874,
-        "precision": 0.8804679552390641,
-        "recall": 0.8655,
-        "f1": 0.8729198184568835,
+        "accuracy": 0.88175,
+        "precision": 0.8970358814352574,
+        "recall": 0.8625,
+        "f1": 0.8794290084119296,
         "confusion_matrix": [
           [
-            1765,
-            235
+            1802,
+            198
           ],
           [
-            269,
-            1731
+            275,
+            1725
           ]
         ],
         "seed": 44,
-        "roc_auc": 0.9395196249999999,
-        "train_seconds": 64.60421089990996
+        "roc_auc": 0.9528082499999999,
+        "train_seconds": 178.65438480000012
       }
     ],
-    "acc_mean": 0.8762500000000001,
-    "acc_std": 0.001594260539142397,
-    "precision_mean": 0.8897888618419024,
-    "recall_mean": 0.859,
-    "f1_mean": 0.8740825498950101,
-    "auc_mean": 0.9434177916666666,
-    "auc_std": 0.0028102408154769805,
+    "acc_mean": 0.8804166666666667,
+    "acc_std": 0.0010274023338281877,
+    "precision_mean": 0.8947337228796024,
+    "recall_mean": 0.8623333333333333,
+    "f1_mean": 0.8782096375278469,
+    "auc_mean": 0.950570625,
+    "auc_std": 0.002913715960404571,
     "seed42_overlap_buckets": [
       {
         "bucket": "0 shared words",
         "pairs": 1856,
-        "accuracy": 0.8426724137931034,
-        "precision": 0.8383311603650587,
-        "recall": 0.7928483353884094,
-        "f1": 0.8149556400506971
+        "accuracy": 0.8480603448275862,
+        "precision": 0.8412903225806452,
+        "recall": 0.8039457459926017,
+        "f1": 0.8221941992433796
       },
       {
         "bucket": "1 shared word",
         "pairs": 939,
-        "accuracy": 0.9052183173588925,
-        "precision": 0.9287305122494433,
-        "recall": 0.879746835443038,
-        "f1": 0.9035752979414952
+        "accuracy": 0.8998935037273695,
+        "precision": 0.9279279279279279,
+        "recall": 0.869198312236287,
+        "f1": 0.8976034858387799
       },
       {
         "bucket": "2 shared words",
         "pairs": 484,
-        "accuracy": 0.9028925619834711,
-        "precision": 0.9264705882352942,
-        "recall": 0.9032258064516129,
-        "f1": 0.9147005444646098
+        "accuracy": 0.9049586776859504,
+        "precision": 0.9498069498069498,
+        "recall": 0.8817204301075269,
+        "f1": 0.9144981412639405
       },
       {
         "bucket": "3 shared words",
         "pairs": 271,
-        "accuracy": 0.9077490774907749,
-        "precision": 0.9294871794871795,
-        "recall": 0.9119496855345912,
-        "f1": 0.9206349206349206
+        "accuracy": 0.9372693726937269,
+        "precision": 0.961038961038961,
+        "recall": 0.9308176100628931,
+        "f1": 0.9456869009584664
       },
       {
         "bucket": "4+ shared words",
         "pairs": 450,
-        "accuracy": 0.9155555555555556,
-        "precision": 0.9252669039145908,
-        "recall": 0.9386281588447654,
-        "f1": 0.931899641577061
+        "accuracy": 0.9022222222222223,
+        "precision": 0.9267399267399268,
+        "recall": 0.9133574007220217,
+        "f1": 0.92
       }
     ],
     "level2_top_rules_seed42": [
-      "IF L1_CNB01_T2.5_Bhattacharyya>0.036 AND L1_CNB01_T4.0_ProbDot>0.000 AND L1_CNB05_T1.5_ProbMax>0.001 AND L1_CNB05_T1.5_ProbMax>0.003 AND L1_CNB05_T1.5_ProbMax>0.015 AND L1_CNB05_T2.5_ProbDot>0.001 AND L1_CNB05_T2.5_ProbMax>0.000 AND L1_CNB05_T2.5_Bhattacharyya>0.018 AND L1_CNB05_T4.0_ProbDot>0.000 AND L1_CNB05_T4.0_ProbDot>0.000 AND L1_Ridge_T4.0_ProbMax>0.000 AND NOT L1_CNB01_LogitCosine>0.969 AND NOT L1_CNB01_T1.5_ProbMax>0.764 THEN +54 0",
-      "IF L1_CNB01_T2.5_Bhattacharyya>0.009 AND NOT L1_CNB01_LogitCosine>0.408 AND NOT L1_CNB05_T1.5_ProbDot>0.020 AND NOT L1_CNB05_T1.5_ProbDot>0.224 AND NOT L1_CNB05_T1.5_Bhattacharyya>0.367 AND NOT L1_CNB05_T1.5_Bhattacharyya>0.667 AND NOT L1_CNB05_T2.5_Bhattacharyya>0.123 AND NOT L1_CNB05_T4.0_ProbDot>1.000 AND NOT L1_Ridge_LogitCosine>0.746 AND NOT L1_Ridge_T1.5_ProbDot>0.813 THEN +43 1",
-      "IF Pair_Guided_Bilinear_Lift>-0.000 AND NOT L1_CNB01_LogitCosine>0.686 AND NOT L1_CNB01_T1.5_ProbDot>0.032 AND NOT L1_CNB01_T4.0_Bhattacharyya>0.082 AND NOT L1_CNB05_T1.5_Bhattacharyya>0.851 AND NOT L1_CNB05_T4.0_ProbDot>1.000 AND NOT L1_CNB05_T4.0_Bhattacharyya>1.000 AND NOT L1_Ridge_T1.5_ProbMax>0.813 AND NOT L1_Ridge_T2.5_ProbDot>0.910 AND NOT L1_Ridge_T2.5_Bhattacharyya>1.000 AND NOT L1_Ridge_T4.0_ProbDot>1.000 AND NOT L1_Ridge_T4.0_ProbMax>1.000 THEN +42 1",
-      "IF L1_CNB01_T1.5_ProbMax>0.002 AND L1_CNB01_T4.0_ProbMax>0.000 AND L1_CNB05_T2.5_ProbDot>0.000 AND L1_CNB05_T2.5_ProbMax>0.000 AND L1_CNB05_T2.5_ProbMax>0.008 AND L1_CNB05_T4.0_ProbDot>0.000 AND L1_Ridge_T4.0_ProbDot>0.000 AND L1_Ridge_T4.0_Bhattacharyya>0.003 AND NOT L1_CNB05_T1.5_ProbMax>0.724 AND NOT L1_CNB05_T1.5_Bhattacharyya>0.999 AND NOT L1_Ridge_T1.5_ProbMax>0.654 AND NOT L1_Ridge_T1.5_ProbMax>0.931 AND NOT L1_Ridge_T2.5_Bhattacharyya>0.994 AND NOT L1_Ridge_T4.0_Bhattacharyya>1.000 THEN -41 1",
-      "IF L1_CNB01_T4.0_ProbMax>0.000 AND L1_CNB05_T2.5_Bhattacharyya>0.008 AND NOT L1_CNB01_T1.5_ProbDot>0.951 AND NOT L1_CNB01_T2.5_Bhattacharyya>0.213 AND NOT L1_CNB05_T1.5_Bhattacharyya>0.999 AND NOT L1_Ridge_LogitCosine>0.746 AND NOT L1_Ridge_T1.5_ProbDot>0.163 AND NOT L1_Ridge_T1.5_ProbMax>0.895 AND NOT L1_Ridge_T2.5_Bhattacharyya>0.227 THEN +40 1",
-      "IF L1_CNB05_T4.0_ProbMax>0.000 AND L1_CNB05_T4.0_Bhattacharyya>0.001 AND L1_Ridge_T2.5_ProbMax>0.000 AND NOT L1_CNB01_T1.5_ProbDot>0.878 AND NOT L1_CNB01_T1.5_ProbMax>0.877 AND NOT L1_CNB01_T2.5_ProbMax>0.963 AND NOT L1_CNB01_T4.0_ProbMax>0.860 AND NOT L1_CNB01_T4.0_Bhattacharyya>0.933 AND NOT L1_CNB05_LogitCosine>0.792 AND NOT L1_CNB05_T1.5_ProbMax>0.945 AND NOT L1_CNB05_T1.5_Bhattacharyya>0.946 AND NOT L1_Ridge_T4.0_ProbMax>1.000 THEN -39 1",
-      "IF L1_CNB01_T4.0_Bhattacharyya>0.000 AND L1_Ridge_T1.5_Bhattacharyya>0.221 AND L1_Ridge_T4.0_ProbMax>0.000 AND NOT L1_CNB01_LogitCosine>0.408 AND NOT L1_CNB01_T2.5_Bhattacharyya>0.213 AND NOT L1_CNB01_T2.5_Bhattacharyya>1.000 AND NOT L1_CNB01_T4.0_ProbMax>0.006 AND NOT L1_CNB05_T1.5_Bhattacharyya>0.496 AND NOT L1_CNB05_T4.0_ProbMax>0.175 AND NOT L1_Ridge_LogitCosine>0.895 AND NOT L1_Ridge_T2.5_Bhattacharyya>0.964 THEN -38 1",
-      "IF L1_CNB01_LogitCosine>-0.095 AND L1_CNB01_T4.0_ProbDot>0.000 AND L1_CNB01_T4.0_ProbDot>0.000 AND L1_CNB05_T1.5_ProbMax>0.003 AND L1_CNB05_T1.5_Bhattacharyya>0.235 AND L1_CNB05_T2.5_ProbMax>0.000 AND L1_CNB05_T2.5_ProbMax>0.001 AND NOT L1_CNB01_T2.5_ProbMax>0.999 AND NOT L1_CNB01_T4.0_Bhattacharyya>1.000 AND NOT L1_CNB05_T2.5_ProbDot>0.999 AND NOT L1_CNB05_T4.0_ProbMax>1.000 AND NOT L1_Ridge_T1.5_ProbDot>0.895 AND NOT L1_Ridge_T2.5_ProbDot>0.983 THEN -37 1",
-      "IF L1_CNB01_T4.0_ProbDot>0.000 AND L1_CNB05_T1.5_ProbDot>0.008 AND L1_CNB05_T1.5_Bhattacharyya>0.132 AND L1_CNB05_T1.5_Bhattacharyya>0.152 AND L1_CNB05_T2.5_ProbDot>0.000 AND L1_CNB05_T4.0_ProbDot>0.000 AND L1_Ridge_T4.0_ProbMax>0.000 AND L1_Ridge_T4.0_Bhattacharyya>0.000 AND L1_Ridge_T4.0_Bhattacharyya>0.001 AND NOT L1_CNB01_T1.5_ProbMax>0.931 AND NOT L1_CNB05_T4.0_Bhattacharyya>0.434 AND NOT L1_Ridge_T1.5_ProbDot>0.813 THEN -36 0",
-      "IF Pair_Guided_Bilinear_Lift>-0.001 AND L1_CNB01_T4.0_ProbDot>0.000 AND L1_CNB05_T1.5_Bhattacharyya>0.132 AND L1_CNB05_T4.0_Bhattacharyya>0.001 AND L1_Ridge_T2.5_ProbMax>0.000 AND NOT L1_CNB01_T1.5_ProbMax>0.951 AND NOT L1_CNB01_T1.5_Bhattacharyya>0.999 AND NOT L1_CNB05_T2.5_ProbMax>0.990 AND NOT L1_CNB05_T4.0_Bhattacharyya>1.000 AND NOT L1_CNB05_T4.0_Bhattacharyya>1.000 AND NOT L1_Ridge_T2.5_ProbDot>0.910 AND NOT L1_Ridge_T4.0_ProbDot>0.985 THEN +35 0",
-      "IF L1_CNB01_T1.5_ProbMax>0.002 AND L1_CNB05_T2.5_ProbDot>0.000 AND L1_CNB05_T2.5_Bhattacharyya>0.031 AND L1_CNB05_T4.0_Bhattacharyya>0.001 AND L1_Ridge_T4.0_Bhattacharyya>0.000 AND NOT L1_CNB01_T2.5_ProbDot>0.035 AND NOT L1_CNB01_T4.0_Bhattacharyya>0.007 THEN -35 1",
-      "IF L1_CNB01_T1.5_ProbDot>0.005 AND L1_CNB01_T4.0_Bhattacharyya>0.020 AND L1_CNB05_T1.5_Bhattacharyya>0.172 AND L1_CNB05_T1.5_Bhattacharyya>0.199 AND L1_CNB05_T2.5_ProbMax>0.000 AND L1_CNB05_T2.5_ProbMax>0.000 AND L1_CNB05_T4.0_Bhattacharyya>0.000 AND L1_CNB05_T4.0_Bhattacharyya>0.030 AND L1_Ridge_T4.0_ProbDot>0.000 AND NOT L1_CNB01_T1.5_Bhattacharyya>0.986 AND NOT L1_CNB01_T2.5_ProbMax>0.993 AND NOT L1_Ridge_T2.5_ProbDot>0.983 AND NOT L1_Ridge_T4.0_ProbDot>1.000 THEN +34 0",
-      "IF L1_CNB01_T1.5_Bhattacharyya>0.090 AND L1_CNB01_T4.0_Bhattacharyya>0.000 AND L1_CNB05_T4.0_ProbMax>0.000 AND NOT L1_CNB01_T1.5_Bhattacharyya>0.626 AND NOT L1_CNB01_T4.0_ProbDot>0.006 AND NOT L1_CNB05_T1.5_ProbMax>0.210 AND NOT L1_CNB05_T2.5_ProbDot>0.998 AND NOT L1_CNB05_T2.5_ProbMax>0.008 AND NOT L1_CNB05_T2.5_ProbMax>0.228 AND NOT L1_Ridge_T1.5_ProbDot>0.656 AND NOT L1_Ridge_T4.0_Bhattacharyya>0.321 THEN -34 0",
-      "IF L1_CNB05_T2.5_ProbDot>0.000 AND L1_CNB05_T4.0_ProbDot>0.000 AND L1_CNB05_T4.0_Bhattacharyya>0.001 AND L1_Ridge_T2.5_ProbMax>0.000 AND NOT CNB05_Top1_Match AND NOT L1_CNB01_LogitCosine>0.408 AND NOT L1_CNB01_T1.5_ProbMax>0.951 AND NOT L1_CNB01_T4.0_ProbDot>0.006 AND NOT L1_CNB01_T4.0_ProbDot>0.862 AND NOT L1_CNB05_T1.5_ProbMax>0.487 AND NOT L1_CNB05_T1.5_Bhattacharyya>0.999 AND NOT L1_CNB05_T4.0_Bhattacharyya>0.434 AND NOT L1_Ridge_T1.5_Bhattacharyya>0.997 THEN +33 0",
-      "IF Pair_Guided_Bilinear_Lift>-0.001 AND L1_CNB05_T4.0_ProbDot>0.000 AND NOT L1_CNB01_LogitCosine>0.929 AND NOT L1_CNB01_T1.5_Bhattacharyya>0.328 AND NOT L1_CNB01_T2.5_ProbDot>0.963 AND NOT L1_CNB05_T1.5_Bhattacharyya>0.286 AND NOT L1_CNB05_T2.5_ProbMax>0.999 AND NOT L1_CNB05_T2.5_Bhattacharyya>0.067 AND NOT L1_CNB05_T2.5_Bhattacharyya>1.000 AND NOT L1_CNB05_T4.0_ProbDot>0.994 AND NOT L1_Ridge_T1.5_ProbDot>0.022 THEN -32 0"
+      "IF NOT Granmo_Bhatt_T1.5>0.246 THEN +23 0",
+      "IF Granmo_MultMax_T2.5>0.006 AND Granmo_TopicProd_comp.sys.ibm.pc.hardware>0.000 AND Granmo_TopicProd_comp.windows.x>0.000 AND Granmo_TopicProd_sci.med>0.000 AND Granmo_MultAND_T4.0>0.001 AND Granmo_MultMax_T4.0>0.001 THEN -16 0",
+      "IF Granmo_TopicProd_comp.graphics>0.000 AND Granmo_TopicProd_rec.motorcycles>0.000 AND Granmo_TopicProd_talk.politics.guns>0.000 AND Granmo_TopicProd_talk.politics.misc>0.000 AND Granmo_TopicProd_talk.politics.misc>0.000 AND Granmo_TopicProd_talk.religion.misc>0.000 AND Granmo_MultMax_T4.0>0.000 AND Granmo_Bhatt_T4.0>0.002 AND Granmo_Bhatt_T4.0>0.014 AND L1_Ridge_LogitCosine>-0.235 AND NOT Granmo_Bhatt_T2.5>0.998 AND NOT L1_Ridge_LogitCosine>0.746 THEN -16 0",
+      "IF Granmo_TopicProd_alt.atheism>0.000 AND Granmo_TopicProd_alt.atheism>0.000 AND Granmo_TopicProd_alt.atheism>0.000 AND Granmo_TopicProd_rec.autos>0.000 AND Granmo_TopicProd_rec.motorcycles>0.000 AND Granmo_TopicProd_soc.religion.christian>0.000 AND Granmo_TopicProd_talk.politics.guns>0.000 AND Granmo_TopicProd_talk.politics.mideast>0.000 AND Granmo_TopicProd_talk.politics.misc>0.000 AND NOT Granmo_TopicProd_comp.sys.ibm.pc.hardware>0.000 AND NOT Granmo_MultMax_T4.0>0.999 THEN +15 0",
+      "IF Granmo_TopicProd_rec.motorcycles>0.000 AND L1_Ridge_LogitCosine>-0.087 AND NOT Pair_Guided_Bilinear_Lift>0.000 AND NOT Granmo_MultAND_T2.5>0.272 AND NOT Granmo_TopicProd_soc.religion.christian>0.000 AND NOT L1_Ridge_LogitCosine>0.410 AND NOT L1_Ridge_LogitCosine>0.746 THEN +14 0",
+      "IF Granmo_MultAND_T1.5>0.006 AND Granmo_MultAND_T1.5>0.033 AND Granmo_MultMax_T2.5>0.000 AND Granmo_MultMax_T2.5>0.019 AND Granmo_MultAND_T4.0>0.000 AND NOT Granmo_TopicProd_rec.autos>0.000 AND NOT Granmo_TopicProd_sci.med>0.000 THEN -14 0",
+      "IF Granmo_MultMax_T1.5>0.002 AND Granmo_MultAND_T2.5>0.000 AND Granmo_TopicProd_rec.autos>0.000 AND Granmo_TopicProd_rec.autos>0.000 AND Granmo_TopicProd_sci.med>0.000 AND Granmo_TopicProd_sci.space>0.000 AND NOT CNB01_Top2_Overlap AND NOT Enriched_TFIDF_Cosine>0.045 AND NOT Granmo_MultAND_T1.5>0.204 AND NOT Granmo_MultAND_T1.5>0.852 AND NOT Granmo_MultMax_T1.5>0.851 AND NOT Granmo_MultMax_T4.0>0.023 THEN +13 0",
+      "IF NOT Granmo_Composite_Top1_Match AND NOT Granmo_Bhatt_T2.5>0.060 THEN -13 1",
+      "IF NOT Pair_Guided_Bilinear_Lift>-0.000 THEN +12 0, -5 1",
+      "IF Pair_Guided_Bilinear_Lift>-0.000 AND L1_CNB01_LogitCosine>-0.180 AND NOT Granmo_MultAND_T1.5>0.033 AND NOT Granmo_Bhatt_T1.5>0.400 AND NOT Granmo_MultAND_T2.5>0.022 AND NOT Granmo_TopicProd_rec.sport.baseball>0.000 AND NOT Granmo_TopicProd_rec.sport.hockey>0.000 AND NOT Granmo_TopicProd_sci.med>0.000 THEN -12 0",
+      "IF Granmo_TopicProd_alt.atheism>0.000 AND Granmo_TopicProd_talk.politics.mideast>0.000 AND Granmo_TopicProd_talk.politics.mideast>0.000 THEN +11 0",
+      "IF NOT Granmo_TopicProd_rec.autos>0.000 THEN +11 0",
+      "IF Granmo_MultAND_T4.0>0.257 THEN -11 0",
+      "IF CNB01_Top1_Match AND Granmo_Bhatt_T1.5>0.482 AND Granmo_MultMax_T2.5>0.001 AND Granmo_MultMax_T2.5>0.006 AND Granmo_MultMax_T2.5>0.019 AND L1_CNB01_LogitCosine>0.554 THEN -11 0",
+      "IF Granmo_MultAND_T2.5>0.272 THEN +11 1"
     ],
     "sample_or_concepts_seed42": [
       {

@@ -232,6 +232,8 @@ class HierarchicalPairTM:
         self.cnb1_ = None
         self.cnb2_ = None
         self.ridge_ = None
+        self.char_tfidf_vec_ = None
+        self.char_cnb_ = None
         self.oof_scores_ = None
         self.or_masks_ = None
         self.or_concepts_ = None
@@ -335,16 +337,25 @@ class HierarchicalPairTM:
                 oof_cnb1 = np.zeros((len(train_docs), n_cats), dtype=np.float32)
                 oof_cnb2 = np.zeros((len(train_docs), n_cats), dtype=np.float32)
                 oof_ridge = np.zeros((len(train_docs), n_cats), dtype=np.float32)
+                oof_char = np.zeros((len(train_docs), n_cats), dtype=np.float32)
+
+                self.char_tfidf_vec_ = TfidfVectorizer(
+                    analyzer="char_wb", ngram_range=(3, 5), max_features=12000, sublinear_tf=True, min_df=5
+                )
+                X_char_tr = self.char_tfidf_vec_.fit_transform(texts_tr)
+
                 skf = StratifiedKFold(n_splits=5, shuffle=True, random_state=self.seed)
                 for f_tr, f_va in skf.split(X_tf_tr, y_tr_cats):
                     oof_cnb1[f_va] = ComplementNB(alpha=0.1).fit(X_tf_tr[f_tr], y_tr_cats[f_tr]).predict_log_proba(X_tf_tr[f_va])
                     oof_cnb2[f_va] = ComplementNB(alpha=0.5).fit(X_tf_tr[f_tr], y_tr_cats[f_tr]).predict_log_proba(X_tf_tr[f_va])
                     oof_ridge[f_va] = RidgeClassifier(alpha=1.0).fit(X_tf_tr[f_tr], y_tr_cats[f_tr]).decision_function(X_tf_tr[f_va])
+                    oof_char[f_va] = ComplementNB(alpha=0.1).fit(X_char_tr[f_tr], y_tr_cats[f_tr]).predict_log_proba(X_char_tr[f_va])
                 self.cnb1_ = ComplementNB(alpha=0.1).fit(X_tf_tr, y_tr_cats)
                 self.cnb2_ = ComplementNB(alpha=0.5).fit(X_tf_tr, y_tr_cats)
                 self.ridge_ = RidgeClassifier(alpha=1.0).fit(X_tf_tr, y_tr_cats)
+                self.char_cnb_ = ComplementNB(alpha=0.1).fit(X_char_tr, y_tr_cats)
                 self.oof_scores_ = {
-                    d["id"]: (oof_cnb1[i], oof_cnb2[i], oof_ridge[i])
+                    d["id"]: (oof_cnb1[i], oof_cnb2[i], oof_ridge[i], oof_char[i])
                     for i, d in enumerate(train_docs)
                 }
 
@@ -501,36 +512,78 @@ class HierarchicalPairTM:
                             cols.extend([cos_k, l1_k, max_k])
                             col_names.extend([f"SVD{k}_Cosine", f"SVD{k}_NegL1", f"SVD{k}_MaxDim"])
 
-            if self.cnb1_ is not None and self.cnb2_ is not None and self.ridge_ is not None:
+            if self.cnb1_ is not None and self.ridge_ is not None:
                 # Use Out-Of-Fold scores for training documents to prevent in-sample overconfidence
                 if self.oof_scores_ is not None and all(d["id"] in self.oof_scores_ for d in documents):
                     s_cnb1 = np.array([self.oof_scores_[d["id"]][0] for d in documents], dtype=np.float32)
                     s_cnb2 = np.array([self.oof_scores_[d["id"]][1] for d in documents], dtype=np.float32)
                     s_ridge = np.array([self.oof_scores_[d["id"]][2] for d in documents], dtype=np.float32)
+                    s_char = (
+                        np.array([self.oof_scores_[d["id"]][3] for d in documents], dtype=np.float32)
+                        if self.char_cnb_ is not None and len(self.oof_scores_[documents[0]["id"]]) > 3
+                        else None
+                    )
                 else:
                     s_cnb1 = self.cnb1_.predict_log_proba(X_tf).astype(np.float32)
                     s_cnb2 = self.cnb2_.predict_log_proba(X_tf).astype(np.float32)
                     s_ridge = self.ridge_.decision_function(X_tf).astype(np.float32)
+                    if self.char_cnb_ is not None and self.char_tfidf_vec_ is not None:
+                        X_char = self.char_tfidf_vec_.transform([d["text"] for d in documents])
+                        s_char = self.char_cnb_.predict_log_proba(X_char).astype(np.float32)
+                    else:
+                        s_char = None
 
-                for m_name, raw_s in (("CNB01", s_cnb1), ("CNB05", s_cnb2), ("Ridge", s_ridge)):
-                    z = (raw_s - raw_s.mean(axis=1, keepdims=True)) / (raw_s.std(axis=1, keepdims=True) + 1e-8)
+                def _z_norm(raw_s):
+                    return (raw_s - raw_s.mean(axis=1, keepdims=True)) / (raw_s.std(axis=1, keepdims=True) + 1e-8)
+
+                z_cnb1 = _z_norm(s_cnb1)
+                z_cnb2 = _z_norm(s_cnb2)
+                z_ridge = _z_norm(s_ridge)
+
+                if s_char is not None:
+                    z_char = _z_norm(s_char)
+                    # Granmo TM Composite: combine specialist normalized decision profiles (AdvancedArchitectures Slide 23)
+                    z_comp = (z_cnb1 + z_ridge + z_char) / 3.0
+                    specs = (("Granmo_Composite", z_comp), ("CNB01", z_cnb1), ("Ridge", z_ridge), ("CharCNB", z_char))
+                else:
+                    z_comp = (z_cnb1 + z_ridge) / 2.0
+                    specs = (("Granmo_Composite", z_comp), ("CNB01", z_cnb1), ("CNB05", z_cnb2), ("Ridge", z_ridge))
+
+                # Granmo Composite Cosine
+                za, zb = z_comp[idx_a], z_comp[idx_b]
+                cos_comp = np.sum(za * zb, axis=1) / (np.linalg.norm(za, axis=1) * np.linalg.norm(zb, axis=1) + 1e-8)
+                cols.append(cos_comp)
+                col_names.append("Granmo_Composite_LogitCosine")
+
+                # Granmo Multiplicative OR-AND products: sum_c S_c(A) * S_c(B) (Hierarchical TM Slides 54 & 67)
+                n_cats = z_comp.shape[1]
+                for temp in (1.5, 2.5, 4.0):
+                    e = np.exp(np.clip(z_comp * temp, -20.0, 20.0))
+                    p = e / e.sum(axis=1, keepdims=True)
+                    pa, pb = p[idx_a], p[idx_b]
+                    granmo_mult = np.sum(pa * pb, axis=1)
+                    granmo_max = np.max(pa * pb, axis=1)
+                    bhatt = np.sum(np.sqrt(pa * pb), axis=1)
+                    cols.extend([granmo_mult, granmo_max, bhatt])
+                    col_names.extend([
+                        f"Granmo_MultAND_T{temp}",
+                        f"Granmo_MultMax_T{temp}",
+                        f"Granmo_Bhatt_T{temp}",
+                    ])
+                    # At default temp=2.5, include per-topic multiplicative products S_c(A) * S_c(B)
+                    if temp == 2.5:
+                        for cat_i in range(n_cats):
+                            cols.append(pa[:, cat_i] * pb[:, cat_i])
+                            c_lbl = self.categories_[cat_i] if cat_i < len(self.categories_) else f"Topic_{cat_i}"
+                            col_names.append(f"Granmo_TopicProd_{c_lbl}")
+
+                # Individual specialist agreement cosines
+                for m_name, z in specs[1:]:
                     za, zb = z[idx_a], z[idx_b]
                     cos_z = np.sum(za * zb, axis=1) / (np.linalg.norm(za, axis=1) * np.linalg.norm(zb, axis=1) + 1e-8)
                     cols.append(cos_z)
                     col_names.append(f"L1_{m_name}_LogitCosine")
-                    for temp in (1.5, 2.5, 4.0):
-                        e = np.exp(np.clip(z * temp, -20.0, 20.0))
-                        p = e / e.sum(axis=1, keepdims=True)
-                        pa, pb = p[idx_a], p[idx_b]
-                        dot_p = np.sum(pa * pb, axis=1)
-                        max_p = np.max(pa * pb, axis=1)
-                        bhatt_p = np.sum(np.sqrt(pa * pb), axis=1)
-                        cols.extend([dot_p, max_p, bhatt_p])
-                        col_names.extend([
-                            f"L1_{m_name}_T{temp}_ProbDot",
-                            f"L1_{m_name}_T{temp}_ProbMax",
-                            f"L1_{m_name}_T{temp}_Bhattacharyya",
-                        ])
+
                 return np.column_stack(cols), col_names
 
             if self.mode == "pair_guided_or":
@@ -547,8 +600,10 @@ class HierarchicalPairTM:
             norm_ca = np.maximum(np.linalg.norm(ca, axis=1), 1e-6)
             norm_cb = np.maximum(np.linalg.norm(cb, axis=1), 1e-6)
             cos_or = (ca * cb).sum(axis=1) / (norm_ca * norm_cb)
-            cols.extend([shared_or, jaccard_or, cos_or])
-            col_names.extend(["Shared_OR_Count", "OR_Jaccard", "OR_Count_Cosine"])
+            granmo_or_mult = (ca * cb).sum(axis=1)
+            granmo_or_max = (ca * cb).max(axis=1)
+            cols.extend([shared_or, jaccard_or, cos_or, granmo_or_mult, granmo_or_max])
+            col_names.extend(["Shared_OR_Count", "OR_Jaccard", "OR_Count_Cosine", "Granmo_OR_MultSum", "Granmo_OR_MultMax"])
 
         if self.lift_matrix_ is not None:
             xa = x_docs[idx_a].astype(np.float32)
@@ -629,18 +684,41 @@ class HierarchicalPairTM:
                     same_sup2 = both[:, s_off + n_sup:s_off + 2 * n_sup].any(axis=1, keepdims=True).astype(np.uint8)
                     extra.extend([same_sup1, same_sup2])
                     extra_names.extend(["ANY_Supergroup_Top1_Match", "ANY_Supergroup_Top2_Match"])
-            elif self.cnb1_ is not None:
+            elif self.cnb1_ is not None and self.ridge_ is not None:
                 X_tf = self.tfidf_vec_.transform([d["text"] for d in documents])
                 if self.oof_scores_ is not None and all(d["id"] in self.oof_scores_ for d in documents):
                     s_cnb1 = np.array([self.oof_scores_[d["id"]][0] for d in documents], dtype=np.float32)
                     s_cnb2 = np.array([self.oof_scores_[d["id"]][1] for d in documents], dtype=np.float32)
                     s_ridge = np.array([self.oof_scores_[d["id"]][2] for d in documents], dtype=np.float32)
+                    s_char = (
+                        np.array([self.oof_scores_[d["id"]][3] for d in documents], dtype=np.float32)
+                        if self.char_cnb_ is not None and len(self.oof_scores_[documents[0]["id"]]) > 3
+                        else None
+                    )
                 else:
                     s_cnb1 = self.cnb1_.predict_log_proba(X_tf).astype(np.float32)
                     s_cnb2 = self.cnb2_.predict_log_proba(X_tf).astype(np.float32)
                     s_ridge = self.ridge_.decision_function(X_tf).astype(np.float32)
+                    if self.char_cnb_ is not None and self.char_tfidf_vec_ is not None:
+                        X_char = self.char_tfidf_vec_.transform([d["text"] for d in documents])
+                        s_char = self.char_cnb_.predict_log_proba(X_char).astype(np.float32)
+                    else:
+                        s_char = None
 
-                for m_name, raw_s in (("CNB01", s_cnb1), ("CNB05", s_cnb2), ("Ridge", s_ridge)):
+                def _z(s):
+                    return (s - s.mean(axis=1, keepdims=True)) / (s.std(axis=1, keepdims=True) + 1e-8)
+
+                eval_specs = [("CNB01", s_cnb1), ("Ridge", s_ridge)]
+                if s_char is not None:
+                    eval_specs.append(("CharCNB", s_char))
+                    z_comp = (_z(s_cnb1) + _z(s_ridge) + _z(s_char)) / 3.0
+                    eval_specs.insert(0, ("Granmo_Composite", z_comp))
+                else:
+                    eval_specs.append(("CNB05", s_cnb2))
+                    z_comp = (_z(s_cnb1) + _z(s_ridge)) / 2.0
+                    eval_specs.insert(0, ("Granmo_Composite", z_comp))
+
+                for m_name, raw_s in eval_specs:
                     za, zb = raw_s[idx_a], raw_s[idx_b]
                     top1_eq = (np.argmax(za, axis=1) == np.argmax(zb, axis=1)).astype(np.uint8)[:, None]
                     top2_a = np.argsort(-za, axis=1)[:, :2]
