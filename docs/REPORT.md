@@ -267,10 +267,10 @@ Professor Granmo's **Hierarchical Tsetlin Machine** (`IKT457_Hierarchical_Tsetli
 | **Stage 1: Vanilla TM ($s=1.0$, frozen)** | $0.5710 \pm 0.0027$ | $0.5748$ / $0.5748$ | $0.5749$ | $0.5472$ | $0.5602$ | $0.5996 \pm 0.0013$ |
 | **Baseline: TF-IDF Cosine Similarity** | $0.6045$ | $0.6045$ / $0.6045$ | $0.6569$ | $0.4375$ | $0.5252$ | $0.6113$ |
 | **Stage 2a: Hierarchical TM (`pair_guided_or`, ZERO Category IDs)** | **$0.7450 \pm 0.0038$** | **$0.7488$ / $0.7488$** | **$0.7341$** | **$0.7685$** | **$0.7508$** | **$0.8111 \pm 0.0050$** |
-| **Stage 2b: Hierarchical TM (`supervised_l1`, 12k Vocab)** | **$0.8573 \pm 0.0006$** | **$0.8565$ / $0.8580$** | **$0.8784$** | **$0.8300$** | **$0.8533$** | **$0.9304 \pm 0.0057$** |
-| **Stage 2c: Hierarchical TM (`hybrid` Granmo Multiplicative + TM Composite)** | **$0.8804 \pm 0.0010$** | **$0.8792$ / $0.8818$** | **$0.8947$** | **$0.8623$** | **$0.8782$** | **$0.9506 \pm 0.0029$** |
+| **Stage 2b: Hierarchical TM (`supervised_l1`, 12k Vocab)** | **$0.8607 \pm 0.0023$** | **$0.8575$ / $0.8625$** | **$0.8692$** | **$0.8492$** | **$0.8590$** | **$0.9362 \pm 0.0010$** |
+| **Stage 2c: Hierarchical TM (`hybrid` Multiplicative + TM Committee)** | **$0.8827 \pm 0.0022$** | **$0.8812$ / $0.8858$** | **$0.8927$** | **$0.8702$** | **$0.8812$** | **$0.9545 \pm 0.0007$** |
 
-#### How the Two-Layer Hierarchy Works and Reaches $88.04\%$ Accuracy ($0.9506$ AUC):
+#### How the Two-Layer Hierarchy Works and Reaches $88.27\%$–$89.15\%$ Accuracy ($0.955\text{–}0.959$ AUC):
 1. **Track A — Strictly Pair-Label-Only Hierarchy (`pair_guided_or`: $74.50\%$ Accuracy, $0.8111$ AUC with ZERO Category IDs Used Anywhere):**
    * Even when training uses **only** the binary pair labels $Y \in \{0, 1\}$ (`same_category`) and never touches `category_id`, Level 1 removes English stopwords, builds a 30,000-feature unigram+bigram representation, discovers explicit propositional OR-groups (`discover_pair_guided_or_concepts`) from the cross-document word co-occurrence lift matrix $L_{uv} = \log \frac{P(u \in A, v \in B \mid Y=1)}{P(u \in A, v \in B \mid Y=0)}$, computes Granmo multiplicative OR-AND concept products $\sum_k S_k(A) \times S_k(B)$, and learns a symmetric bilinear pair-affinity matrix $M_{\text{diff}} = M_{\text{pos}} - M_{\text{neg}}$ in 120-dimensional SVD topic space strictly from $Y \in \{0, 1\}$.
    * Without any category labels, Level 1 automatically recovers crisp topical disjunctions from pair co-occurrence alone:

@@ -70,3 +70,28 @@ def test_hierarchical_pair_tm_modes_and_symmetry():
         pred_ba = htm.predict(reversed_pairs, docs, vec)
         np.testing.assert_array_equal(pred_ab, pred_ba)
         assert len(htm.level2_top_rules(top=5)) > 0
+
+
+def test_hierarchical_pair_tm_committee_symmetry():
+    docs = synthetic_corpus()
+    vec = make_vectorizer("count", 20, "letters").fit([d["text"] for d in docs])
+    pairs = [
+        {"a": docs[0]["id"], "b": docs[1]["id"], "category_a": docs[0]["category"], "category_b": docs[1]["category"], "label": int(docs[0]["category"] == docs[1]["category"])},
+        {"a": docs[0]["id"], "b": docs[25]["id"], "category_a": docs[0]["category"], "category_b": docs[25]["category"], "label": int(docs[0]["category"] == docs[25]["category"])},
+    ]
+    reversed_pairs = [
+        {"a": p["b"], "b": p["a"], "category_a": p["category_b"], "category_b": p["category_a"], "label": p["label"]}
+        for p in pairs
+    ]
+    htm = HierarchicalPairTM(
+        mode="or_concepts", n_or_concepts=3, max_words_per_or=4,
+        l2_clauses_per_class=6, l2_T=4, l2_s=2.0, l2_epochs=3,
+        n_committee_members=3, seed=42
+    )
+    htm.fit(docs, pairs, vec, categories=["space", "hockey", "electronics"])
+    p_ab = htm.predict(pairs, docs, vec)
+    p_ba = htm.predict(reversed_pairs, docs, vec)
+    np.testing.assert_array_equal(p_ab, p_ba)
+    m_ab = htm.decision_margin(pairs, docs, vec)
+    m_ba = htm.decision_margin(reversed_pairs, docs, vec)
+    np.testing.assert_array_equal(m_ab, m_ba)

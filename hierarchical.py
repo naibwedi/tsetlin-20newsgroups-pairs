@@ -25,6 +25,7 @@ from sklearn.cluster import AgglomerativeClustering, SpectralClustering
 from sklearn.decomposition import TruncatedSVD
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.linear_model import RidgeClassifier
+from sklearn.svm import LinearSVC
 from sklearn.model_selection import StratifiedKFold
 from sklearn.naive_bayes import ComplementNB
 from sklearn.preprocessing import normalize as l2_normalize
@@ -197,6 +198,7 @@ class HierarchicalPairTM:
         l2_epochs=20,
         l2_vocabulary=None,
         include_raw_words=False,
+        n_committee_members=1,
         seed=42,
     ):
         """
@@ -223,6 +225,7 @@ class HierarchicalPairTM:
         self.l2_epochs = l2_epochs
         self.l2_vocabulary = l2_vocabulary
         self.include_raw_words = include_raw_words
+        self.n_committee_members = n_committee_members
         self.seed = seed
 
         self.l1_vectorizer_ = None
@@ -232,9 +235,13 @@ class HierarchicalPairTM:
         self.cnb1_ = None
         self.cnb2_ = None
         self.ridge_ = None
+        self.lsvc_ = None
         self.char_tfidf_vec_ = None
         self.char_cnb_ = None
+        self.super_cnb_ = None
+        self.super_ridge_ = None
         self.oof_scores_ = None
+        self.oof_super_scores_ = None
         self.or_masks_ = None
         self.or_concepts_ = None
         self.lift_matrix_ = None
@@ -245,6 +252,7 @@ class HierarchicalPairTM:
         self.l1_super_q80_ = None
         self.booleanizer_ = None
         self.l2_tm_ = None
+        self.l2_committee_ = None
         self.l2_feature_names_ = None
         self.words_ = None
         self.categories_ = None
@@ -338,6 +346,7 @@ class HierarchicalPairTM:
                 oof_cnb2 = np.zeros((len(train_docs), n_cats), dtype=np.float32)
                 oof_ridge = np.zeros((len(train_docs), n_cats), dtype=np.float32)
                 oof_char = np.zeros((len(train_docs), n_cats), dtype=np.float32)
+                oof_lsvc = np.zeros((len(train_docs), n_cats), dtype=np.float32)
 
                 self.char_tfidf_vec_ = TfidfVectorizer(
                     analyzer="char_wb", ngram_range=(3, 5), max_features=12000, sublinear_tf=True, min_df=5
@@ -350,14 +359,30 @@ class HierarchicalPairTM:
                     oof_cnb2[f_va] = ComplementNB(alpha=0.5).fit(X_tf_tr[f_tr], y_tr_cats[f_tr]).predict_log_proba(X_tf_tr[f_va])
                     oof_ridge[f_va] = RidgeClassifier(alpha=1.0).fit(X_tf_tr[f_tr], y_tr_cats[f_tr]).decision_function(X_tf_tr[f_va])
                     oof_char[f_va] = ComplementNB(alpha=0.1).fit(X_char_tr[f_tr], y_tr_cats[f_tr]).predict_log_proba(X_char_tr[f_va])
+                    oof_lsvc[f_va] = LinearSVC(C=0.5, max_iter=2000, random_state=self.seed).fit(X_tf_tr[f_tr], y_tr_cats[f_tr]).decision_function(X_tf_tr[f_va])
                 self.cnb1_ = ComplementNB(alpha=0.1).fit(X_tf_tr, y_tr_cats)
                 self.cnb2_ = ComplementNB(alpha=0.5).fit(X_tf_tr, y_tr_cats)
                 self.ridge_ = RidgeClassifier(alpha=1.0).fit(X_tf_tr, y_tr_cats)
                 self.char_cnb_ = ComplementNB(alpha=0.1).fit(X_char_tr, y_tr_cats)
+                self.lsvc_ = LinearSVC(C=0.5, max_iter=2000, random_state=self.seed).fit(X_tf_tr, y_tr_cats)
                 self.oof_scores_ = {
-                    d["id"]: (oof_cnb1[i], oof_cnb2[i], oof_ridge[i], oof_char[i])
+                    d["id"]: (oof_cnb1[i], oof_cnb2[i], oof_ridge[i], oof_char[i], oof_lsvc[i])
                     for i, d in enumerate(train_docs)
                 }
+
+                if len(self.categories_) == 20 and all(c in SUPERGROUP_MAP for c in self.categories_):
+                    y_super = np.array([SUPERGROUP_MAP[self.categories_[c]] for c in y_tr_cats], dtype=np.int32)
+                    oof_s_cnb = np.zeros((len(train_docs), 6), dtype=np.float32)
+                    oof_s_ridge = np.zeros((len(train_docs), 6), dtype=np.float32)
+                    for f_tr, f_va in skf.split(X_tf_tr, y_super):
+                        oof_s_cnb[f_va] = ComplementNB(alpha=0.1).fit(X_tf_tr[f_tr], y_super[f_tr]).predict_log_proba(X_tf_tr[f_va])
+                        oof_s_ridge[f_va] = RidgeClassifier(alpha=1.0).fit(X_tf_tr[f_tr], y_super[f_tr]).decision_function(X_tf_tr[f_va])
+                    self.super_cnb_ = ComplementNB(alpha=0.1).fit(X_tf_tr, y_super)
+                    self.super_ridge_ = RidgeClassifier(alpha=1.0).fit(X_tf_tr, y_super)
+                    self.oof_super_scores_ = {
+                        d["id"]: (oof_s_cnb[i], oof_s_ridge[i])
+                        for i, d in enumerate(train_docs)
+                    }
 
             if self.use_coalesced_l1:
                 self.l1_tm_ = CoalescedTsetlinMachine(
@@ -523,6 +548,11 @@ class HierarchicalPairTM:
                         if self.char_cnb_ is not None and len(self.oof_scores_[documents[0]["id"]]) > 3
                         else None
                     )
+                    s_lsvc = (
+                        np.array([self.oof_scores_[d["id"]][4] for d in documents], dtype=np.float32)
+                        if self.lsvc_ is not None and len(self.oof_scores_[documents[0]["id"]]) > 4
+                        else None
+                    )
                 else:
                     s_cnb1 = self.cnb1_.predict_log_proba(X_tf).astype(np.float32)
                     s_cnb2 = self.cnb2_.predict_log_proba(X_tf).astype(np.float32)
@@ -532,6 +562,10 @@ class HierarchicalPairTM:
                         s_char = self.char_cnb_.predict_log_proba(X_char).astype(np.float32)
                     else:
                         s_char = None
+                    if self.lsvc_ is not None:
+                        s_lsvc = self.lsvc_.decision_function(X_tf).astype(np.float32)
+                    else:
+                        s_lsvc = None
 
                 def _z_norm(raw_s):
                     return (raw_s - raw_s.mean(axis=1, keepdims=True)) / (raw_s.std(axis=1, keepdims=True) + 1e-8)
@@ -540,14 +574,20 @@ class HierarchicalPairTM:
                 z_cnb2 = _z_norm(s_cnb2)
                 z_ridge = _z_norm(s_ridge)
 
+                z_specs = [z_cnb1, z_ridge]
+                spec_names = [("CNB01", z_cnb1), ("Ridge", z_ridge)]
                 if s_char is not None:
                     z_char = _z_norm(s_char)
-                    # Granmo TM Composite: combine specialist normalized decision profiles (AdvancedArchitectures Slide 23)
-                    z_comp = (z_cnb1 + z_ridge + z_char) / 3.0
-                    specs = (("Granmo_Composite", z_comp), ("CNB01", z_cnb1), ("Ridge", z_ridge), ("CharCNB", z_char))
-                else:
-                    z_comp = (z_cnb1 + z_ridge) / 2.0
-                    specs = (("Granmo_Composite", z_comp), ("CNB01", z_cnb1), ("CNB05", z_cnb2), ("Ridge", z_ridge))
+                    z_specs.append(z_char)
+                    spec_names.append(("CharCNB", z_char))
+                if s_lsvc is not None:
+                    z_lsvc = _z_norm(s_lsvc)
+                    z_specs.append(z_lsvc)
+                    spec_names.append(("LinearSVC", z_lsvc))
+
+                # Granmo TM Composite: combine specialist normalized decision profiles (AdvancedArchitectures Slide 23)
+                z_comp = sum(z_specs) / len(z_specs)
+                specs = [("Granmo_Composite", z_comp)] + spec_names
 
                 # Granmo Composite Cosine
                 za, zb = z_comp[idx_a], z_comp[idx_b]
@@ -583,6 +623,44 @@ class HierarchicalPairTM:
                     cos_z = np.sum(za * zb, axis=1) / (np.linalg.norm(za, axis=1) * np.linalg.norm(zb, axis=1) + 1e-8)
                     cols.append(cos_z)
                     col_names.append(f"L1_{m_name}_LogitCosine")
+
+                # Supergroup Multiplicative OR-AND products
+                if self.super_cnb_ is not None and self.super_ridge_ is not None:
+                    if self.oof_super_scores_ is not None and all(d["id"] in self.oof_super_scores_ for d in documents):
+                        s_scnb = np.array([self.oof_super_scores_[d["id"]][0] for d in documents], dtype=np.float32)
+                        s_sridge = np.array([self.oof_super_scores_[d["id"]][1] for d in documents], dtype=np.float32)
+                    else:
+                        s_scnb = self.super_cnb_.predict_log_proba(X_tf).astype(np.float32)
+                        s_sridge = self.super_ridge_.decision_function(X_tf).astype(np.float32)
+
+                    zs = (_z_norm(s_scnb) + _z_norm(s_sridge)) / 2.0
+                    cos_s = np.sum(zs[idx_a] * zs[idx_b], axis=1) / (np.linalg.norm(zs[idx_a], axis=1) * np.linalg.norm(zs[idx_b], axis=1) + 1e-8)
+                    cols.append(cos_s)
+                    col_names.append("Granmo_Supergroup_LogitCosine")
+
+                    for s_temp in (2.0, 3.0):
+                        es = np.exp(np.clip(zs * s_temp, -20.0, 20.0))
+                        ps = es / es.sum(axis=1, keepdims=True)
+                        psa, psb = ps[idx_a], ps[idx_b]
+                        sg_mult = np.sum(psa * psb, axis=1)
+                        sg_max = np.max(psa * psb, axis=1)
+                        sg_bhatt = np.sum(np.sqrt(psa * psb), axis=1)
+                        cols.extend([sg_mult, sg_max, sg_bhatt])
+                        col_names.extend([
+                            f"Granmo_Super_MultSum_T{s_temp}",
+                            f"Granmo_Super_MultMax_T{s_temp}",
+                            f"Granmo_Super_Bhatt_T{s_temp}",
+                        ])
+                        if s_temp == 2.0:
+                            for sg_i, sg_name in enumerate(SUPERGROUP_NAMES):
+                                cols.append(psa[:, sg_i] * psb[:, sg_i])
+                                col_names.append(f"Granmo_SuperProd_{sg_name}")
+
+                # Minimum document word count to capture brevity/uncertainty
+                len_a = np.array([len(documents[idx]["text"].split()) for idx in idx_a], dtype=np.float32)
+                len_b = np.array([len(documents[idx]["text"].split()) for idx in idx_b], dtype=np.float32)
+                cols.append(np.minimum(len_a, len_b))
+                col_names.append("Min_Document_Word_Count")
 
                 return np.column_stack(cols), col_names
 
@@ -695,6 +773,11 @@ class HierarchicalPairTM:
                         if self.char_cnb_ is not None and len(self.oof_scores_[documents[0]["id"]]) > 3
                         else None
                     )
+                    s_lsvc = (
+                        np.array([self.oof_scores_[d["id"]][4] for d in documents], dtype=np.float32)
+                        if self.lsvc_ is not None and len(self.oof_scores_[documents[0]["id"]]) > 4
+                        else None
+                    )
                 else:
                     s_cnb1 = self.cnb1_.predict_log_proba(X_tf).astype(np.float32)
                     s_cnb2 = self.cnb2_.predict_log_proba(X_tf).astype(np.float32)
@@ -704,19 +787,24 @@ class HierarchicalPairTM:
                         s_char = self.char_cnb_.predict_log_proba(X_char).astype(np.float32)
                     else:
                         s_char = None
+                    if self.lsvc_ is not None:
+                        s_lsvc = self.lsvc_.decision_function(X_tf).astype(np.float32)
+                    else:
+                        s_lsvc = None
 
                 def _z(s):
                     return (s - s.mean(axis=1, keepdims=True)) / (s.std(axis=1, keepdims=True) + 1e-8)
 
                 eval_specs = [("CNB01", s_cnb1), ("Ridge", s_ridge)]
+                z_list = [_z(s_cnb1), _z(s_ridge)]
                 if s_char is not None:
                     eval_specs.append(("CharCNB", s_char))
-                    z_comp = (_z(s_cnb1) + _z(s_ridge) + _z(s_char)) / 3.0
-                    eval_specs.insert(0, ("Granmo_Composite", z_comp))
-                else:
-                    eval_specs.append(("CNB05", s_cnb2))
-                    z_comp = (_z(s_cnb1) + _z(s_ridge)) / 2.0
-                    eval_specs.insert(0, ("Granmo_Composite", z_comp))
+                    z_list.append(_z(s_char))
+                if s_lsvc is not None:
+                    eval_specs.append(("LinearSVC", s_lsvc))
+                    z_list.append(_z(s_lsvc))
+                z_comp = sum(z_list) / len(z_list)
+                eval_specs.insert(0, ("Granmo_Composite", z_comp))
 
                 for m_name, raw_s in eval_specs:
                     za, zb = raw_s[idx_a], raw_s[idx_b]
@@ -777,25 +865,53 @@ class HierarchicalPairTM:
             x_val = self.pair_concept_features(val_pairs, val_docs, vectorizer, fit_booleanizer=False)
             y_val = np.array([p["label"] for p in val_pairs], dtype=np.int32)
 
-        self.l2_tm_ = TsetlinMachine(
-            clauses_per_class=self.l2_clauses_per_class,
-            T=self.l2_T,
-            s=self.l2_s,
-            boost_true_positive=True,
-            weighted=True,
-            literal_budget=12,
-            random_state=self.seed,
-            epochs=self.l2_epochs,
-        )
-        self.l2_tm_.fit(x_tr, y_tr, X_val=x_val, y_val=y_val)
+        if self.n_committee_members > 1:
+            self.l2_committee_ = []
+            for m in range(self.n_committee_members):
+                member_seed = self.seed + m * 31
+                tm = TsetlinMachine(
+                    clauses_per_class=self.l2_clauses_per_class,
+                    T=self.l2_T,
+                    s=self.l2_s,
+                    boost_true_positive=True,
+                    weighted=True,
+                    literal_budget=12,
+                    random_state=member_seed,
+                    epochs=self.l2_epochs,
+                )
+                tm.fit(x_tr, y_tr, X_val=x_val, y_val=y_val)
+                self.l2_committee_.append(tm)
+            self.l2_tm_ = self.l2_committee_[0]
+        else:
+            self.l2_committee_ = None
+            self.l2_tm_ = TsetlinMachine(
+                clauses_per_class=self.l2_clauses_per_class,
+                T=self.l2_T,
+                s=self.l2_s,
+                boost_true_positive=True,
+                weighted=True,
+                literal_budget=12,
+                random_state=self.seed,
+                epochs=self.l2_epochs,
+            )
+            self.l2_tm_.fit(x_tr, y_tr, X_val=x_val, y_val=y_val)
         return self
 
     def predict(self, pairs, documents, vectorizer):
+        if self.l2_committee_ and len(self.l2_committee_) > 1:
+            margin = self.decision_margin(pairs, documents, vectorizer)
+            return (margin > 0).astype(np.int32)
         x = self.pair_concept_features(pairs, documents, vectorizer, fit_booleanizer=False)
         return self.l2_tm_.predict(x)
 
     def decision_margin(self, pairs, documents, vectorizer):
         x = self.pair_concept_features(pairs, documents, vectorizer, fit_booleanizer=False)
+        if self.l2_committee_ and len(self.l2_committee_) > 1:
+            total_margin = np.zeros(len(x), dtype=np.int64)
+            for tm in self.l2_committee_:
+                sc = np.asarray(tm.decision_function(x), dtype=np.int64)
+                total_margin += (sc[:, 1] - sc[:, 0])
+            return total_margin
         scores = np.asarray(self.l2_tm_.decision_function(x), dtype=np.int64)
         return scores[:, 1] - scores[:, 0]
 

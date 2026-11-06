@@ -173,8 +173,8 @@ def main():
         ("hybrid", dict(
             mode="hybrid", n_or_concepts=60, max_words_per_or=15,
             use_coalesced_l1=False, l1_clauses_per_class=80, l1_T=40, l1_s=5.0, l1_epochs=15,
-            l2_clauses_per_class=200, l2_T=50, l2_s=4.0, l2_epochs=20,
-            l2_vocabulary=3000, include_raw_words=False
+            l2_clauses_per_class=300, l2_T=60, l2_s=4.0, l2_epochs=20,
+            l2_vocabulary=3000, include_raw_words=False, n_committee_members=3
         )),
     ]
 
