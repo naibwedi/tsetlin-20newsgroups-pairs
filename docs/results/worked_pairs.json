@@ -1,0 +1,105 @@
+{
+  "config": {
+    "vocabulary": 1000,
+    "clauses": 100,
+    "threshold": 25,
+    "epochs": 20,
+    "boost": 1,
+    "s": 1.0,
+    "features": "sym",
+    "vocab_mode": "letters",
+    "seed": 42,
+    "smoke": false
+  },
+  "selection": "First validation manifest row of each true label with exactly one shared TM vocabulary word, TM predicting same, cosine predicting different.",
+  "examples": [
+    {
+      "manifest_index": 1,
+      "a": "train:4238",
+      "b": "train:3109",
+      "category_a": "sci.electronics",
+      "category_b": "sci.electronics",
+      "truth": 1,
+      "shared_tm_words": [
+        "wondering"
+      ],
+      "exclusive_tm_word_count": 41,
+      "cosine": 0.0,
+      "cosine_threshold": 0.037210257627632234,
+      "cosine_prediction": 0,
+      "scores": [
+        -8,
+        1
+      ],
+      "margin": 9,
+      "tm_prediction": 1,
+      "fired_clauses": 9,
+      "votes_toward_same": 9,
+      "votes_toward_different": 0,
+      "example_fired_clauses": [
+        {
+          "clause": 50,
+          "weights": [
+            -1,
+            0
+          ],
+          "signed_contribution": 1,
+          "length": 765,
+          "first_conditions": [
+            "NOT BOTH.ability",
+            "NOT BOTH.absolutely",
+            "NOT BOTH.accept"
+          ]
+        }
+      ],
+      "example_blocked_clause": {
+        "clause": 0,
+        "first_false_condition": "NOT BOTH.wondering"
+      }
+    },
+    {
+      "manifest_index": 6,
+      "a": "train:2047",
+      "b": "train:4881",
+      "category_a": "misc.forsale",
+      "category_b": "talk.religion.misc",
+      "truth": 0,
+      "shared_tm_words": [
+        "doing"
+      ],
+      "exclusive_tm_word_count": 173,
+      "cosine": 0.006762616928990599,
+      "cosine_threshold": 0.037210257627632234,
+      "cosine_prediction": 0,
+      "scores": [
+        -1,
+        1
+      ],
+      "margin": 2,
+      "tm_prediction": 1,
+      "fired_clauses": 2,
+      "votes_toward_same": 2,
+      "votes_toward_different": 0,
+      "example_fired_clauses": [
+        {
+          "clause": 75,
+          "weights": [
+            -1,
+            0
+          ],
+          "signed_contribution": 1,
+          "length": 729,
+          "first_conditions": [
+            "NOT BOTH.ability",
+            "NOT BOTH.absolutely",
+            "NOT BOTH.accept"
+          ]
+        }
+      ],
+      "example_blocked_clause": {
+        "clause": 0,
+        "first_false_condition": "NOT BOTH.doing"
+      }
+    }
+  ]
+}

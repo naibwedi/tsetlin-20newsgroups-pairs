@@ -1,0 +1,19 @@
+T=5 seed=42 acc=0.5268 rec=0.495 train=10s order=1.000
+T=5 seed=43 acc=0.5620 rec=0.447 train=9s order=1.000
+T=5 seed=44 acc=0.5567 rec=0.489 train=11s order=1.000
+T=10 seed=42 acc=0.5595 rec=0.485 train=12s order=1.000
+T=10 seed=43 acc=0.5503 rec=0.470 train=10s order=1.000
+T=10 seed=44 acc=0.5655 rec=0.606 train=10s order=1.000
+T=15 seed=42 acc=0.5515 rec=0.447 train=10s order=1.000
+T=15 seed=43 acc=0.5530 rec=0.485 train=10s order=1.000
+T=15 seed=44 acc=0.5623 rec=0.603 train=10s order=1.000
+T=25 (from sweep 1) seed=42 acc=0.5747 rec=0.549 train=11s order=1.000
+T=25 (from sweep 1) seed=43 acc=0.5697 rec=0.511 train=11s order=1.000
+T=25 (from sweep 1) seed=44 acc=0.5685 rec=0.581 train=11s order=1.000
+200 clauses, T=25 seed=42 acc=0.5573 rec=0.475 train=19s order=1.000
+200 clauses, T=25 seed=43 acc=0.5717 rec=0.592 train=18s order=1.000
+200 clauses, T=25 seed=44 acc=0.5493 rec=0.470 train=19s order=1.000
+500 clauses, T=25 seed=42 acc=0.5440 rec=0.473 train=41s order=1.000
+500 clauses, T=25 seed=43 acc=0.5673 rec=0.553 train=96s order=1.000
+500 clauses, T=25 seed=44 acc=0.5580 rec=0.469 train=35s order=1.000
+done sweep2

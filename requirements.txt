@@ -1,0 +1,5 @@
+numpy==2.5.4
+scikit-learn==1.9.1
+matplotlib==3.11.2
+pytest==9.2.0
+bittm @ git+https://github.com/naibwedi/bittm.git@29deafe26bb3fb0e431f476f757bb8b26ba24ea9

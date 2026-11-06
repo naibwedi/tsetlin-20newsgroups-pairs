@@ -1,0 +1,122 @@
+[
+  {
+    "name": "A0 original (A|B, default vocab, boost off)",
+    "features": "ab",
+    "vocab_mode": "default",
+    "boost": 0,
+    "clauses": 100,
+    "threshold": 50,
+    "vocabulary": 1000,
+    "acc_mean": 0.5004166666666666,
+    "acc_std": 0.00042491829279940277,
+    "recall_mean": 0.04766666666666667,
+    "f1_mean": 0.07622984642354753,
+    "accs": [
+      0.501,
+      0.50025,
+      0.5
+    ],
+    "cosine_acc": 0.60475,
+    "cosine_auc": 0.609539
+  },
+  {
+    "name": "A1 + boost on",
+    "features": "ab",
+    "vocab_mode": "default",
+    "boost": 1,
+    "clauses": 100,
+    "threshold": 50,
+    "vocabulary": 1000,
+    "acc_mean": 0.511,
+    "acc_std": 0.008763085453575528,
+    "recall_mean": 0.4543333333333333,
+    "f1_mean": 0.48162231284395807,
+    "accs": [
+      0.51275,
+      0.4995,
+      0.52075
+    ],
+    "cosine_acc": 0.60475,
+    "cosine_auc": 0.609539
+  },
+  {
+    "name": "A2 + letters-only vocab",
+    "features": "ab",
+    "vocab_mode": "letters",
+    "boost": 1,
+    "clauses": 100,
+    "threshold": 50,
+    "vocabulary": 1000,
+    "acc_mean": 0.5169166666666666,
+    "acc_std": 0.0021826334756181198,
+    "recall_mean": 0.4671666666666667,
+    "f1_mean": 0.49162280805184605,
+    "accs": [
+      0.514,
+      0.5175,
+      0.51925
+    ],
+    "cosine_acc": 0.6045,
+    "cosine_auc": 0.6112895
+  },
+  {
+    "name": "A3 + order-independent features (new default)",
+    "features": "sym",
+    "vocab_mode": "letters",
+    "boost": 1,
+    "clauses": 100,
+    "threshold": 50,
+    "vocabulary": 1000,
+    "acc_mean": 0.55625,
+    "acc_std": 0.004286607049870569,
+    "recall_mean": 0.5146666666666667,
+    "f1_mean": 0.5369555156709157,
+    "accs": [
+      0.554,
+      0.5525,
+      0.56225
+    ],
+    "cosine_acc": 0.6045,
+    "cosine_auc": 0.6112895
+  },
+  {
+    "name": "A4 new default but boost off",
+    "features": "sym",
+    "vocab_mode": "letters",
+    "boost": 0,
+    "clauses": 100,
+    "threshold": 50,
+    "vocabulary": 1000,
+    "acc_mean": 0.5048333333333334,
+    "acc_std": 0.002365844927763033,
+    "recall_mean": 0.7076666666666668,
+    "f1_mean": 0.5335251922765344,
+    "accs": [
+      0.50525,
+      0.5075,
+      0.50175
+    ],
+    "cosine_acc": 0.6045,
+    "cosine_auc": 0.6112895
+  },
+  {
+    "name": "A5 order-independent, default vocab",
+    "features": "sym",
+    "vocab_mode": "default",
+    "boost": 1,
+    "clauses": 100,
+    "threshold": 50,
+    "vocabulary": 1000,
+    "acc_mean": 0.5517500000000001,
+    "acc_std": 0.0029439202887759515,
+    "recall_mean": 0.5038333333333332,
+    "f1_mean": 0.5291289027651547,
+    "accs": [
+      0.55475,
+      0.54775,
+      0.55275
+    ],
+    "cosine_acc": 0.60475,
+    "cosine_auc": 0.609539
+  }
+]

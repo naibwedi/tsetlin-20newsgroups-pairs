@@ -1,0 +1,2056 @@
+{
+  "vanilla_tm": {
+    "acc_mean": 0.571,
+    "acc_std": 0.002700308624336602,
+    "f1_mean": 0.5601628890174748,
+    "auc_mean": 0.5995699583333333
+  },
+  "cosine": {
+    "accuracy": 0.6045,
+    "precision": 0.6569069069069069,
+    "recall": 0.4375,
+    "f1": 0.5252100840336135,
+    "confusion_matrix": [
+      [
+        1543,
+        457
+      ],
+      [
+        1125,
+        875
+      ]
+    ],
+    "auc": 0.6112895
+  },
+  "pair_guided_or": {
+    "config": {
+      "mode": "pair_guided_or",
+      "n_or_concepts": 60,
+      "max_words_per_or": 15,
+      "l2_clauses_per_class": 200,
+      "l2_T": 50,
+      "l2_s": 3.0,
+      "l2_epochs": 20,
+      "l2_vocabulary": 2000,
+      "include_raw_words": false
+    },
+    "runs": [
+      {
+        "accuracy": 0.74875,
+        "precision": 0.7399903521466473,
+        "recall": 0.767,
+        "f1": 0.753253130370734,
+        "confusion_matrix": [
+          [
+            1461,
+            539
+          ],
+          [
+            466,
+            1534
+          ]
+        ],
+        "seed": 42,
+        "roc_auc": 0.8157205,
+        "train_seconds": 34.50469560001511
+      },
+      {
+        "accuracy": 0.73975,
+        "precision": 0.7344743276283618,
+        "recall": 0.751,
+        "f1": 0.7426452410383189,
+        "confusion_matrix": [
+          [
+            1457,
+            543
+          ],
+          [
+            498,
+            1502
+          ]
+        ],
+        "seed": 43,
+        "roc_auc": 0.80412425,
+        "train_seconds": 30.37526729993988
+      },
+      {
+        "accuracy": 0.7465,
+        "precision": 0.727818853974122,
+        "recall": 0.7875,
+        "f1": 0.7564841498559077,
+        "confusion_matrix": [
+          [
+            1411,
+            589
+          ],
+          [
+            425,
+            1575
+          ]
+        ],
+        "seed": 44,
+        "roc_auc": 0.81338225,
+        "train_seconds": 36.341080100042745
+      }
+    ],
+    "acc_mean": 0.7450000000000001,
+    "acc_std": 0.0038242646351945957,
+    "precision_mean": 0.7340945112497104,
+    "recall_mean": 0.7685,
+    "f1_mean": 0.7507941737549868,
+    "auc_mean": 0.8110756666666666,
+    "auc_std": 0.00500722801030891,
+    "seed42_overlap_buckets": [
+      {
+        "bucket": "0 shared words",
+        "pairs": 1856,
+        "accuracy": 0.7079741379310345,
+        "precision": 0.6565774155995343,
+        "recall": 0.6954377311960542,
+        "f1": 0.6754491017964072
+      },
+      {
+        "bucket": "1 shared word",
+        "pairs": 939,
+        "accuracy": 0.7763578274760383,
+        "precision": 0.8027522935779816,
+        "recall": 0.7383966244725738,
+        "f1": 0.7692307692307693
+      },
+      {
+        "bucket": "2 shared words",
+        "pairs": 484,
+        "accuracy": 0.7747933884297521,
+        "precision": 0.7992957746478874,
+        "recall": 0.8136200716845878,
+        "f1": 0.8063943161634103
+      },
+      {
+        "bucket": "3 shared words",
+        "pairs": 271,
+        "accuracy": 0.7896678966789668,
+        "precision": 0.8,
+        "recall": 0.8553459119496856,
+        "f1": 0.8267477203647416
+      },
+      {
+        "bucket": "4+ shared words",
+        "pairs": 450,
+        "accuracy": 0.8066666666666666,
+        "precision": 0.7932098765432098,
+        "recall": 0.927797833935018,
+        "f1": 0.8552412645590682
+      }
+    ],
+    "level2_top_rules_seed42": [
+      "IF SVD15_NegL1>-4.087 AND SVD15_MaxDim>0.350 AND SVD30_NegL1>-5.941 AND SVD30_MaxDim>0.181 AND SVD30_MaxDim>0.196 AND SVD60_Cosine>0.109 AND SVD60_MaxDim>0.055 AND SVD60_MaxDim>0.068 AND SVD60_MaxDim>0.079 AND SVD120_Cosine>-0.027 AND SVD120_NegL1>-11.933 AND SVD120_MaxDim>0.053 AND SVD120_MaxDim>0.077 THEN +66 1",
+      "IF NOT Enriched_TFIDF_Cosine>0.035 AND NOT SVD15_NegL1>-2.803 AND NOT SVD15_MaxDim>0.490 AND NOT SVD30_Cosine>0.547 AND NOT SVD30_NegL1>-4.857 AND NOT SVD30_NegL1>-4.310 AND NOT SVD30_MaxDim>0.302 AND NOT SVD60_NegL1>-7.642 AND NOT SVD120_Cosine>0.212 THEN +60 0",
+      "IF SVD15_MaxDim>0.259 AND SVD15_MaxDim>0.327 AND SVD15_MaxDim>0.350 AND SVD30_Cosine>0.121 AND SVD30_NegL1>-5.508 AND SVD30_MaxDim>0.135 AND SVD30_MaxDim>0.181 AND SVD30_MaxDim>0.244 AND SVD60_Cosine>-0.019 AND SVD120_Cosine>0.042 AND SVD120_MaxDim>0.040 THEN -56 1",
+      "IF SVD15_Cosine>0.219 AND SVD15_NegL1>-3.638 AND SVD15_NegL1>-3.503 AND SVD15_NegL1>-3.093 AND SVD30_Cosine>0.121 AND SVD30_NegL1>-5.941 AND SVD30_NegL1>-5.632 AND SVD30_MaxDim>0.116 AND SVD60_Cosine>0.109 AND SVD60_NegL1>-8.399 AND SVD60_NegL1>-7.890 AND SVD60_MaxDim>0.089 THEN +54 0",
+      "IF NOT Pair_Guided_Bilinear_Lift>0.001 AND NOT Pair_Guided_Bilinear_Lift>0.001 AND NOT SVD15_NegL1>-2.443 AND NOT SVD30_Cosine>0.486 AND NOT SVD30_NegL1>-4.514 AND NOT SVD30_MaxDim>0.244 AND NOT SVD30_MaxDim>0.281 AND NOT SVD60_NegL1>-6.932 AND NOT SVD60_MaxDim>0.162 AND NOT SVD120_Cosine>0.212 AND NOT SVD120_Cosine>0.304 THEN +52 1",
+      "IF Pair_Guided_Bilinear_Lift>-0.000 AND SVD15_NegL1>-4.303 AND SVD15_NegL1>-4.087 AND SVD30_Cosine>0.045 AND SVD30_MaxDim>0.091 AND SVD60_Cosine>0.063 AND SVD60_NegL1>-8.803 AND SVD60_NegL1>-8.399 AND SVD120_Cosine>0.027 AND SVD120_NegL1>-12.078 AND SVD120_MaxDim>0.032 THEN -51 1",
+      "IF Pair_Guided_Bilinear_Lift>-0.001 AND NOT Pair_Guided_Bilinear_Lift>0.003 AND NOT SVD15_Cosine>0.731 AND NOT SVD15_NegL1>-2.803 AND NOT SVD15_NegL1>-2.229 AND NOT SVD15_MaxDim>0.424 AND NOT SVD30_MaxDim>0.261 AND NOT SVD30_MaxDim>0.362 AND NOT SVD30_MaxDim>0.416 AND NOT SVD60_Cosine>0.381 AND NOT SVD120_Cosine>0.396 THEN -50 0",
+      "IF NOT Pair_Guided_Bilinear_Lift>0.001 AND NOT Pair_Guided_Bilinear_Lift>0.002 AND NOT SVD15_Cosine>0.731 AND NOT SVD15_NegL1>-2.443 AND NOT SVD15_MaxDim>0.531 AND NOT SVD30_NegL1>-3.236 AND NOT SVD30_MaxDim>0.302 AND NOT SVD60_Cosine>0.283 AND NOT SVD60_Cosine>0.555 AND NOT SVD60_MaxDim>0.129 AND NOT SVD60_MaxDim>0.138 AND NOT SVD60_MaxDim>0.175 AND NOT SVD120_MaxDim>0.152 THEN -50 1",
+      "IF SVD15_Cosine>0.375 AND SVD15_NegL1>-3.230 AND SVD30_NegL1>-5.941 AND SVD60_Cosine>-0.019 AND SVD60_Cosine>0.132 AND SVD60_NegL1>-8.250 AND SVD60_NegL1>-7.890 AND SVD60_MaxDim>0.089 AND SVD120_NegL1>-11.553 AND SVD120_NegL1>-11.294 AND SVD120_MaxDim>0.040 AND SVD120_MaxDim>0.046 THEN -49 0",
+      "IF NOT Enriched_TFIDF_Cosine>0.020 AND NOT Enriched_TFIDF_Cosine>0.052 AND NOT SVD15_MaxDim>0.424 AND NOT SVD15_MaxDim>0.455 AND NOT SVD30_Cosine>0.432 AND NOT SVD30_MaxDim>0.281 AND NOT SVD60_Cosine>0.328 AND NOT SVD60_NegL1>-6.291 AND NOT SVD60_MaxDim>0.235 AND NOT SVD120_Cosine>0.154 AND NOT SVD120_Cosine>0.253 AND NOT SVD120_NegL1>-9.900 THEN +46 0",
+      "IF SVD15_Cosine>0.102 AND SVD15_Cosine>0.219 AND SVD15_Cosine>0.273 AND SVD30_Cosine>0.000 AND SVD30_Cosine>0.157 AND SVD30_NegL1>-6.172 AND SVD30_MaxDim>0.228 AND SVD60_Cosine>0.011 AND SVD60_Cosine>0.038 AND SVD60_MaxDim>0.129 AND SVD120_NegL1>-11.933 AND SVD120_MaxDim>0.040 AND SVD120_MaxDim>0.071 THEN -46 1",
+      "IF Pair_Guided_Bilinear_Lift>-0.001 AND SVD15_MaxDim>0.146 AND NOT SVD15_NegL1>-2.443 AND NOT SVD15_NegL1>-2.229 AND NOT SVD30_NegL1>-5.128 AND NOT SVD30_NegL1>-4.310 AND NOT SVD30_NegL1>-3.236 AND NOT SVD60_Cosine>0.449 AND NOT SVD60_NegL1>-7.642 AND NOT SVD60_NegL1>-7.334 AND NOT SVD60_NegL1>-7.145 AND NOT SVD60_NegL1>-6.654 AND NOT SVD120_Cosine>0.154 THEN -45 0",
+      "IF SVD15_MaxDim>0.305 AND SVD30_MaxDim>0.091 AND SVD30_MaxDim>0.244 AND SVD60_NegL1>-8.570 AND SVD60_MaxDim>0.129 AND SVD120_Cosine>-0.004 AND SVD120_NegL1>-12.078 AND SVD120_MaxDim>0.077 AND SVD120_MaxDim>0.091 AND SVD120_MaxDim>0.099 THEN +44 1",
+      "IF Pair_Guided_Bilinear_Lift>-0.001 AND NOT Enriched_TFIDF_Cosine>0.027 AND NOT SVD30_Cosine>0.486 AND NOT SVD30_Cosine>0.620 AND NOT SVD30_NegL1>-4.310 AND NOT SVD30_MaxDim>0.326 AND NOT SVD60_Cosine>0.157 AND NOT SVD60_Cosine>0.283 AND NOT SVD60_Cosine>0.449 AND NOT SVD60_NegL1>-6.654 AND NOT SVD60_MaxDim>0.210 AND NOT SVD120_Cosine>0.131 AND NOT SVD120_Cosine>0.154 THEN +44 1",
+      "IF SVD15_Cosine>0.471 AND SVD15_NegL1>-4.303 AND SVD15_MaxDim>0.185 AND SVD30_Cosine>0.195 AND SVD30_Cosine>0.301 AND SVD30_NegL1>-5.508 AND SVD30_NegL1>-5.382 AND SVD30_NegL1>-5.257 AND SVD60_Cosine>0.132 AND SVD60_Cosine>0.185 AND SVD60_MaxDim>0.068 AND SVD60_MaxDim>0.099 THEN -44 1"
+    ],
+    "sample_or_concepts_seed42": [
+      {
+        "id": 0,
+        "name": "PairOR_00(machines|board|button)",
+        "word_indices": [
+          1045,
+          184,
+          220,
+          530,
+          1021,
+          796,
+          1137,
+          1148,
+          405,
+          1916,
+          348,
+          1093,
+          357,
+          470,
+          1043
+        ],
+        "words": [
+          "machines",
+          "board",
+          "button",
+          "driver",
+          "location",
+          "hardware",
+          "monitors",
+          "mouse",
+          "cpu",
+          "virtual",
+          "computer",
+          "memory",
+          "configuration",
+          "desktop",
+          "mac"
+        ],
+        "propositional_formula": "(machines OR board OR button OR driver OR location OR hardware OR monitors OR mouse OR cpu OR virtual OR computer OR memory OR configuration OR desktop OR mac)",
+        "mean_lift": 0.6236684322357178
+      },
+      {
+        "id": 1,
+        "name": "PairOR_01(gain|advanced|analysis)",
+        "word_indices": [
+          727,
+          32,
+          58,
+          1673,
+          1185,
+          1124,
+          1422,
+          1159,
+          968,
+          1281,
+          1233,
+          1141,
+          1575,
+          685,
+          1759
+        ],
+        "words": [
+          "gain",
+          "advanced",
+          "analysis",
+          "space",
+          "noise",
+          "mission",
+          "radio",
+          "nasa",
+          "launch",
+          "performed",
+          "orbit",
+          "moon",
+          "seconds",
+          "flight",
+          "surface"
+        ],
+        "propositional_formula": "(gain OR advanced OR analysis OR space OR noise OR mission OR radio OR nasa OR launch OR performed OR orbit OR moon OR seconds OR flight OR surface)",
+        "mean_lift": 0.6350825428962708
+      },
+      {
+        "id": 2,
+        "name": "PairOR_02(straight|deleted|laws)",
+        "word_indices": [
+          1722,
+          459,
+          970,
+          822,
+          1441,
+          274,
+          890,
+          1913,
+          484,
+          1704,
+          19,
+          353,
+          1974,
+          1853,
+          162
+        ],
+        "words": [
+          "straight",
+          "deleted",
+          "laws",
+          "historical",
+          "reality",
+          "cheers",
+          "instance",
+          "views",
+          "die",
+          "statement",
+          "acts",
+          "conclusion",
+          "words",
+          "truth",
+          "believed"
+        ],
+        "propositional_formula": "(straight OR deleted OR laws OR historical OR reality OR cheers OR instance OR views OR die OR statement OR acts OR conclusion OR words OR truth OR believed)",
+        "mean_lift": 0.7573294043540955
+      },
+      {
+        "id": 3,
+        "name": "PairOR_03(existence|genocide|deny)",
+        "word_indices": [
+          608,
+          738,
+          461,
+          358,
+          1150,
+          1112,
+          103,
+          1857,
+          973,
+          908,
+          959,
+          95,
+          102,
+          101,
+          1594
+        ],
+        "words": [
+          "existence",
+          "genocide",
+          "deny",
+          "conflict",
+          "movement",
+          "military",
+          "arms",
+          "turkish",
+          "leaders",
+          "islam",
+          "land",
+          "argic",
+          "armenians",
+          "armenian",
+          "serdar"
+        ],
+        "propositional_formula": "(existence OR genocide OR deny OR conflict OR movement OR military OR arms OR turkish OR leaders OR islam OR land OR argic OR armenians OR armenian OR serdar)",
+        "mean_lift": 0.6807180047035217
+      },
+      {
+        "id": 4,
+        "name": "PairOR_04(readers|easy|changed)",
+        "word_indices": [
+          1437,
+          545,
+          261,
+          777,
+          1472,
+          24,
+          736,
+          647,
+          1335,
+          1613,
+          1492,
+          1756,
+          28,
+          1153,
+          389
+        ],
+        "words": [
+          "readers",
+          "easy",
+          "changed",
+          "guide",
+          "related",
+          "added",
+          "generated",
+          "faq",
+          "posted",
+          "shared",
+          "replacement",
+          "supposedly",
+          "addresses",
+          "multiple",
+          "core"
+        ],
+        "propositional_formula": "(readers OR easy OR changed OR guide OR related OR added OR generated OR faq OR posted OR shared OR replacement OR supposedly OR addresses OR multiple OR core)",
+        "mean_lift": 0.6276134252548218
+      },
+      {
+        "id": 5,
+        "name": "PairOR_05(taxes|insurance|hasn)",
+        "word_indices": [
+          1777,
+          894,
+          797,
+          1485,
+          93,
+          1827,
+          1339,
+          1542,
+          109,
+          1314,
+          1935,
+          683,
+          1863,
+          1580,
+          1776
+        ],
+        "words": [
+          "taxes",
+          "insurance",
+          "hasn",
+          "remember",
+          "areas",
+          "total",
+          "posts",
+          "run",
+          "ask",
+          "plug",
+          "waste",
+          "flame",
+          "twice",
+          "seeing",
+          "tax"
+        ],
+        "propositional_formula": "(taxes OR insurance OR hasn OR remember OR areas OR total OR posts OR run OR ask OR plug OR waste OR flame OR twice OR seeing OR tax)",
+        "mean_lift": 0.6806674599647522
+      },
+      {
+        "id": 6,
+        "name": "PairOR_06(experiences|greatly|netters)",
+        "word_indices": [
+          616,
+          769,
+          1175,
+          384,
+          1799,
+          1500,
+          1332,
+          1493,
+          217,
+          812,
+          83,
+          1763,
+          84,
+          816,
+          582
+        ],
+        "words": [
+          "experiences",
+          "greatly",
+          "netters",
+          "convert",
+          "thank",
+          "require",
+          "possible",
+          "replies",
+          "bus",
+          "hello",
+          "appreciate",
+          "switch",
+          "appreciated",
+          "helps",
+          "equivalent"
+        ],
+        "propositional_formula": "(experiences OR greatly OR netters OR convert OR thank OR require OR possible OR replies OR bus OR hello OR appreciate OR switch OR appreciated OR helps OR equivalent)",
+        "mean_lift": 0.6548077464103699
+      },
+      {
+        "id": 7,
+        "name": "PairOR_07(crime|armed|fbi)",
+        "word_indices": [
+          411,
+          100,
+          656,
+          304,
+          679,
+          1389,
+          398,
+          660,
+          779,
+          697,
+          1914,
+          1513,
+          1922,
+          1943,
+          1942
+        ],
+        "words": [
+          "crime",
+          "armed",
+          "fbi",
+          "clinton",
+          "firearms",
+          "property",
+          "country",
+          "federal",
+          "gun",
+          "forced",
+          "violence",
+          "responsibility",
+          "waco",
+          "weapons",
+          "weapon"
+        ],
+        "propositional_formula": "(crime OR armed OR fbi OR clinton OR firearms OR property OR country OR federal OR gun OR forced OR violence OR responsibility OR waco OR weapons OR weapon)",
+        "mean_lift": 0.7058766484260559
+      },
+      {
+        "id": 8,
+        "name": "PairOR_08(messages|device|companies)",
+        "word_indices": [
+          1099,
+          480,
+          335,
+          1203,
+          1126,
+          561,
+          372,
+          229,
+          64,
+          722,
+          1878,
+          723,
+          1784,
+          334,
+          134
+        ],
+        "words": [
+          "messages",
+          "device",
+          "companies",
+          "obtain",
+          "mit",
+          "electronic",
+          "containing",
+          "calls",
+          "anonymous",
+          "function",
+          "unix",
+          "functions",
+          "technology",
+          "comp",
+          "available"
+        ],
+        "propositional_formula": "(messages OR device OR companies OR obtain OR mit OR electronic OR containing OR calls OR anonymous OR function OR unix OR functions OR technology OR comp OR available)",
+        "mean_lift": 0.6473529934883118
+      },
+      {
+        "id": 9,
+        "name": "PairOR_09(health|thread|arm)",
+        "word_indices": [
+          803,
+          1812,
+          99,
+          694,
+          1087,
+          509,
+          1435,
+          1844,
+          1254,
+          501,
+          1946,
+          1086,
+          198,
+          250,
+          113
+        ],
+        "words": [
+          "health",
+          "thread",
+          "arm",
+          "food",
+          "medicine",
+          "doctor",
+          "reaction",
+          "treatment",
+          "pain",
+          "disease",
+          "weight",
+          "medical",
+          "brain",
+          "cause",
+          "associated"
+        ],
+        "propositional_formula": "(health OR thread OR arm OR food OR medicine OR doctor OR reaction OR treatment OR pain OR disease OR weight OR medical OR brain OR cause OR associated)",
+        "mean_lift": 0.6571162343025208
+      },
+      {
+        "id": 10,
+        "name": "PairOR_10(car|turns|burning)",
+        "word_indices": [
+          234,
+          1862,
+          216,
+          814,
+          630,
+          1642,
+          1957,
+          213,
+          1831,
+          1968,
+          1817,
+          946,
+          293,
+          943,
+          1693
+        ],
+        "words": [
+          "car",
+          "turns",
+          "burning",
+          "helped",
+          "eyes",
+          "sitting",
+          "wife",
+          "building",
+          "town",
+          "women",
+          "times",
+          "killing",
+          "city",
+          "kids",
+          "stand"
+        ],
+        "propositional_formula": "(car OR turns OR burning OR helped OR eyes OR sitting OR wife OR building OR town OR women OR times OR killing OR city OR kids OR stand)",
+        "mean_lift": 0.6561039090156555
+      },
+      {
+        "id": 11,
+        "name": "PairOR_11(figure|ago|black)",
+        "word_indices": [
+          670,
+          40,
+          179,
+          987,
+          847,
+          1767,
+          805,
+          170,
+          539,
+          1515,
+          321,
+          1283,
+          1016,
+          29,
+          1929
+        ],
+        "words": [
+          "figure",
+          "ago",
+          "black",
+          "let",
+          "idea",
+          "takes",
+          "heard",
+          "big",
+          "early",
+          "rest",
+          "comes",
+          "person",
+          "living",
+          "administration",
+          "wants"
+        ],
+        "propositional_formula": "(figure OR ago OR black OR let OR idea OR takes OR heard OR big OR early OR rest OR comes OR person OR living OR administration OR wants)",
+        "mean_lift": 0.6838390231132507
+      },
+      {
+        "id": 12,
+        "name": "PairOR_12(asking|channel|sound)",
+        "word_indices": [
+          111,
+          264,
+          1667,
+          1486,
+          1293,
+          604,
+          223,
+          1491,
+          1374,
+          1648,
+          340,
+          1682,
+          1978,
+          1490,
+          1297
+        ],
+        "words": [
+          "asking",
+          "channel",
+          "sound",
+          "remote",
+          "picture",
+          "excellent",
+          "cable",
+          "replaced",
+          "processor",
+          "slow",
+          "compatible",
+          "speeds",
+          "works",
+          "replace",
+          "pin"
+        ],
+        "propositional_formula": "(asking OR channel OR sound OR remote OR picture OR excellent OR cable OR replaced OR processor OR slow OR compatible OR speeds OR works OR replace OR pin)",
+        "mean_lift": 0.6120365262031555
+      },
+      {
+        "id": 13,
+        "name": "PairOR_13(sci|professional|variety)",
+        "word_indices": [
+          1563,
+          1380,
+          1904,
+          681,
+          881,
+          1211,
+          1640,
+          624,
+          1535,
+          964,
+          941,
+          1975,
+          1326,
+          885,
+          1604
+        ],
+        "words": [
+          "sci",
+          "professional",
+          "variety",
+          "fix",
+          "info",
+          "offers",
+          "site",
+          "extension",
+          "rom",
+          "laser",
+          "keyboard",
+          "work",
+          "port",
+          "input",
+          "sets"
+        ],
+        "propositional_formula": "(sci OR professional OR variety OR fix OR info OR offers OR site OR extension OR rom OR laser OR keyboard OR work OR port OR input OR sets)",
+        "mean_lift": 0.5859463810920715
+      },
+      {
+        "id": 14,
+        "name": "PairOR_14(israeli|israel|arab)",
+        "word_indices": [
+          911,
+          910,
+          89,
+          921,
+          90,
+          1165,
+          945,
+          68,
+          1656,
+          277,
+          104,
+          711,
+          698,
+          120,
+          1930
+        ],
+        "words": [
+          "israeli",
+          "israel",
+          "arab",
+          "jews",
+          "arabs",
+          "nazi",
+          "killed",
+          "anti",
+          "soldiers",
+          "children",
+          "army",
+          "freedom",
+          "forces",
+          "attack",
+          "war"
+        ],
+        "propositional_formula": "(israeli OR israel OR arab OR jews OR arabs OR nazi OR killed OR anti OR soldiers OR children OR army OR freedom OR forces OR attack OR war)",
+        "mean_lift": 0.8072502017021179
+      }
+    ]
+  },
+  "supervised_l1": {
+    "config": {
+      "mode": "supervised_l1",
+      "use_coalesced_l1": false,
+      "l1_clauses_per_class": 80,
+      "l1_T": 40,
+      "l1_s": 5.0,
+      "l1_epochs": 15,
+      "l2_clauses_per_class": 200,
+      "l2_T": 50,
+      "l2_s": 3.0,
+      "l2_epochs": 20,
+      "l2_vocabulary": null,
+      "include_raw_words": false
+    },
+    "runs": [
+      {
+        "accuracy": 0.86,
+        "precision": 0.8512195121951219,
+        "recall": 0.8725,
+        "f1": 0.8617283950617284,
+        "confusion_matrix": [
+          [
+            1695,
+            305
+          ],
+          [
+            255,
+            1745
+          ]
+        ],
+        "seed": 42,
+        "roc_auc": 0.92875525,
+        "train_seconds": 47.879389000008814
+      },
+      {
+        "accuracy": 0.854,
+        "precision": 0.8638232271325796,
+        "recall": 0.8405,
+        "f1": 0.852002027369488,
+        "confusion_matrix": [
+          [
+            1735,
+            265
+          ],
+          [
+            319,
+            1681
+          ]
+        ],
+        "seed": 43,
+        "roc_auc": 0.929814,
+        "train_seconds": 44.20629420003388
+      },
+      {
+        "accuracy": 0.85575,
+        "precision": 0.8595250126326428,
+        "recall": 0.8505,
+        "f1": 0.8549886906257854,
+        "confusion_matrix": [
+          [
+            1722,
+            278
+          ],
+          [
+            299,
+            1701
+          ]
+        ],
+        "seed": 44,
+        "roc_auc": 0.93227875,
+        "train_seconds": 45.99405710003339
+      }
+    ],
+    "acc_mean": 0.8565833333333334,
+    "acc_std": 0.0025193694096384946,
+    "precision_mean": 0.8581892506534482,
+    "recall_mean": 0.8545000000000001,
+    "f1_mean": 0.8562397043523339,
+    "auc_mean": 0.9302826666666667,
+    "auc_std": 0.001476143488019454,
+    "seed42_overlap_buckets": [
+      {
+        "bucket": "0 shared words",
+        "pairs": 1856,
+        "accuracy": 0.8243534482758621,
+        "precision": 0.783625730994152,
+        "recall": 0.8261405672009864,
+        "f1": 0.8043217286914766
+      },
+      {
+        "bucket": "1 shared word",
+        "pairs": 939,
+        "accuracy": 0.8945686900958466,
+        "precision": 0.9032258064516129,
+        "recall": 0.8860759493670886,
+        "f1": 0.8945686900958466
+      },
+      {
+        "bucket": "2 shared words",
+        "pairs": 484,
+        "accuracy": 0.8739669421487604,
+        "precision": 0.8920863309352518,
+        "recall": 0.8888888888888888,
+        "f1": 0.8904847396768402
+      },
+      {
+        "bucket": "3 shared words",
+        "pairs": 271,
+        "accuracy": 0.8929889298892989,
+        "precision": 0.9012345679012346,
+        "recall": 0.9182389937106918,
+        "f1": 0.9096573208722741
+      },
+      {
+        "bucket": "4+ shared words",
+        "pairs": 450,
+        "accuracy": 0.9,
+        "precision": 0.9,
+        "recall": 0.9422382671480144,
+        "f1": 0.9206349206349206
+      }
+    ],
+    "level2_top_rules_seed42": [
+      "IF NOT L1_CNB01_T1.5_ProbDot>0.343 AND NOT L1_CNB01_T1.5_ProbMax>0.014 AND NOT L1_CNB01_T2.5_ProbMax>0.986 AND NOT L1_CNB01_T4.0_ProbDot>1.000 AND NOT L1_CNB01_T4.0_ProbMax>0.000 AND NOT L1_CNB05_LogitCosine>0.905 AND NOT L1_CNB05_T1.5_ProbDot>0.021 AND NOT L1_CNB05_T2.5_ProbDot>0.003 AND NOT L1_CNB05_T2.5_ProbDot>0.981 AND NOT L1_CNB05_T2.5_Bhattacharyya>0.442 AND NOT L1_Ridge_T1.5_ProbDot>0.130 AND NOT L1_Ridge_T1.5_ProbMax>0.287 AND NOT L1_Ridge_T1.5_ProbMax>0.754 THEN -82 0",
+      "IF NOT L1_CNB01_T1.5_ProbDot>0.146 AND NOT L1_CNB01_T2.5_ProbDot>0.002 AND NOT L1_CNB01_T4.0_ProbDot>0.000 AND NOT L1_CNB05_T1.5_ProbDot>0.040 AND NOT L1_CNB05_T2.5_ProbDot>0.001 AND NOT L1_CNB05_T2.5_ProbDot>0.999 AND NOT L1_CNB05_T2.5_ProbMax>0.001 AND NOT L1_CNB05_T2.5_ProbMax>0.470 AND NOT L1_CNB05_T4.0_ProbMax>0.000 THEN +82 1",
+      "IF NOT L1_CNB01_T1.5_ProbMax>0.055 AND NOT L1_CNB01_T1.5_Bhattacharyya>0.976 AND NOT L1_CNB01_T1.5_Bhattacharyya>0.999 AND NOT L1_CNB01_T2.5_ProbMax>0.002 AND NOT L1_CNB01_T4.0_Bhattacharyya>1.000 AND NOT L1_CNB05_T1.5_ProbDot>0.941 AND NOT L1_CNB05_T1.5_ProbMax>0.016 AND NOT L1_CNB05_T1.5_ProbMax>0.613 AND NOT L1_CNB05_T2.5_ProbDot>0.001 AND NOT L1_CNB05_T2.5_ProbMax>0.999 THEN -71 0",
+      "IF L1_CNB01_T1.5_Bhattacharyya>0.115 AND L1_CNB01_T2.5_ProbDot>0.000 AND L1_CNB05_T4.0_ProbMax>0.000 AND NOT Ridge_Top1_Match AND NOT L1_CNB01_T2.5_ProbDot>0.113 AND NOT L1_CNB05_T1.5_ProbDot>0.342 AND NOT L1_CNB05_T1.5_ProbDot>0.941 AND NOT L1_CNB05_T1.5_ProbMax>0.060 AND NOT L1_CNB05_T2.5_ProbDot>0.472 AND NOT L1_Ridge_LogitCosine>0.581 AND NOT L1_Ridge_T1.5_ProbMax>0.056 AND NOT L1_Ridge_T1.5_Bhattacharyya>0.995 AND NOT L1_Ridge_T4.0_Bhattacharyya>0.248 THEN +71 1",
+      "IF L1_CNB01_LogitCosine>-0.001 AND L1_CNB01_T2.5_Bhattacharyya>0.069 AND L1_CNB01_T4.0_ProbDot>0.000 AND L1_CNB05_T1.5_ProbDot>0.013 AND L1_CNB05_T1.5_Bhattacharyya>0.306 AND L1_CNB05_T2.5_ProbMax>0.008 AND L1_Ridge_T1.5_ProbMax>0.002 AND L1_Ridge_T2.5_Bhattacharyya>0.063 AND NOT L1_CNB01_T4.0_ProbDot>1.000 AND NOT L1_CNB05_T1.5_Bhattacharyya>0.998 AND NOT L1_Ridge_T4.0_ProbMax>1.000 THEN -71 1",
+      "IF L1_CNB01_T4.0_ProbDot>0.000 AND L1_CNB05_T1.5_ProbDot>0.021 AND L1_CNB05_T2.5_ProbDot>0.000 AND L1_CNB05_T2.5_ProbMax>0.002 AND L1_CNB05_T2.5_Bhattacharyya>0.079 AND L1_Ridge_LogitCosine>-0.049 AND L1_Ridge_T1.5_ProbDot>0.016 AND L1_Ridge_T2.5_ProbMax>0.000 AND L1_Ridge_T2.5_ProbMax>0.001 AND L1_Ridge_T2.5_Bhattacharyya>0.063 AND NOT L1_Ridge_T4.0_ProbMax>1.000 AND NOT L1_Ridge_T4.0_Bhattacharyya>1.000 THEN +70 0",
+      "IF NOT CNB05_Top1_Match AND NOT L1_CNB01_T1.5_ProbDot>0.343 AND NOT L1_CNB01_T4.0_Bhattacharyya>1.000 AND NOT L1_CNB05_T1.5_Bhattacharyya>0.998 AND NOT L1_CNB05_T2.5_ProbDot>0.144 AND NOT L1_CNB05_T2.5_ProbMax>0.008 AND NOT L1_CNB05_T2.5_Bhattacharyya>1.000 AND NOT L1_CNB05_T4.0_ProbMax>0.001 AND NOT L1_CNB05_T4.0_ProbMax>0.999 AND NOT L1_Ridge_T1.5_ProbDot>0.864 AND NOT L1_Ridge_T2.5_ProbDot>0.831 AND NOT L1_Ridge_T2.5_Bhattacharyya>0.998 THEN +70 1",
+      "IF L1_CNB01_T2.5_Bhattacharyya>0.008 AND NOT L1_CNB01_LogitCosine>0.846 AND NOT L1_CNB01_T2.5_ProbMax>0.997 AND NOT L1_CNB01_T2.5_Bhattacharyya>0.113 AND NOT L1_CNB01_T4.0_Bhattacharyya>0.026 AND NOT L1_CNB05_T1.5_ProbMax>0.030 AND NOT L1_CNB05_T4.0_Bhattacharyya>0.774 AND NOT L1_CNB05_T4.0_Bhattacharyya>1.000 AND NOT L1_Ridge_T1.5_ProbDot>0.023 AND NOT L1_Ridge_T1.5_Bhattacharyya>0.587 THEN -68 0",
+      "IF L1_CNB01_T2.5_Bhattacharyya>0.008 AND NOT L1_CNB01_T1.5_ProbMax>0.055 AND NOT L1_CNB01_T4.0_ProbDot>0.000 AND NOT L1_CNB01_T4.0_ProbDot>1.000 AND NOT L1_CNB05_LogitCosine>0.427 AND NOT L1_CNB05_T1.5_ProbDot>0.342 AND NOT L1_CNB05_T1.5_ProbMax>0.813 AND NOT L1_CNB05_T1.5_Bhattacharyya>0.618 AND NOT L1_CNB05_T1.5_Bhattacharyya>0.993 AND NOT L1_Ridge_LogitCosine>0.581 AND NOT L1_Ridge_T1.5_ProbMax>0.120 AND NOT L1_Ridge_T4.0_ProbMax>0.998 THEN +68 1",
+      "IF L1_CNB05_T1.5_ProbMax>0.001 AND L1_CNB05_T1.5_Bhattacharyya>0.122 AND NOT L1_CNB01_T2.5_ProbDot>0.007 AND NOT L1_CNB05_T1.5_ProbMax>0.328 AND NOT L1_CNB05_T1.5_Bhattacharyya>0.491 AND NOT L1_CNB05_T2.5_ProbMax>0.996 AND NOT L1_Ridge_T1.5_Bhattacharyya>0.725 AND NOT L1_Ridge_T2.5_ProbMax>0.028 AND NOT L1_Ridge_T4.0_ProbDot>1.000 AND NOT L1_Ridge_T4.0_Bhattacharyya>0.085 AND NOT L1_Ridge_T4.0_Bhattacharyya>1.000 THEN -65 0",
+      "IF NOT L1_CNB01_T1.5_Bhattacharyya>0.976 AND NOT L1_CNB01_T2.5_ProbDot>0.113 AND NOT L1_CNB01_T4.0_Bhattacharyya>0.078 AND NOT L1_CNB05_T1.5_ProbDot>0.342 AND NOT L1_CNB05_T2.5_ProbMax>0.137 AND NOT L1_CNB05_T2.5_Bhattacharyya>0.442 AND NOT L1_CNB05_T2.5_Bhattacharyya>0.748 AND NOT L1_Ridge_T1.5_ProbMax>0.120 AND NOT L1_Ridge_T2.5_ProbDot>0.030 AND NOT L1_Ridge_T2.5_Bhattacharyya>0.925 AND NOT L1_Ridge_T4.0_ProbMax>0.000 AND NOT L1_Ridge_T4.0_ProbMax>0.052 AND NOT L1_Ridge_T4.0_Bhattacharyya>0.016 THEN -64 0",
+      "IF L1_CNB01_LogitCosine>-0.056 AND L1_CNB01_T1.5_ProbMax>0.014 AND L1_CNB01_T2.5_ProbDot>0.002 AND L1_CNB01_T2.5_ProbMax>0.000 AND L1_CNB05_T1.5_Bhattacharyya>0.216 AND L1_Ridge_T1.5_ProbMax>0.002 AND L1_Ridge_T2.5_ProbMax>0.009 AND L1_Ridge_T2.5_Bhattacharyya>0.046 AND L1_Ridge_T4.0_Bhattacharyya>0.005 AND NOT L1_Ridge_LogitCosine>0.862 AND NOT L1_Ridge_T2.5_ProbDot>0.998 AND NOT L1_Ridge_T2.5_ProbMax>0.998 THEN -62 1",
+      "IF L1_CNB01_T1.5_ProbDot>0.035 AND L1_CNB01_T1.5_Bhattacharyya>0.357 AND L1_CNB01_T2.5_ProbDot>0.002 AND L1_CNB01_T2.5_ProbMax>0.000 AND L1_CNB01_T2.5_Bhattacharyya>0.045 AND L1_CNB01_T4.0_ProbDot>0.000 AND L1_CNB01_T4.0_Bhattacharyya>0.078 AND L1_CNB05_T1.5_ProbDot>0.004 AND L1_CNB05_T1.5_ProbDot>0.040 AND L1_Ridge_T2.5_Bhattacharyya>0.034 THEN -61 1",
+      "IF NOT L1_CNB01_T1.5_ProbMax>0.055 AND NOT L1_CNB01_T2.5_ProbDot>0.029 AND NOT L1_CNB05_T1.5_ProbMax>0.030 AND NOT L1_CNB05_T2.5_ProbMax>0.001 AND NOT L1_CNB05_T4.0_ProbDot>0.000 AND NOT L1_CNB05_T4.0_ProbDot>0.570 AND NOT L1_CNB05_T4.0_ProbMax>0.007 AND NOT L1_CNB05_T4.0_Bhattacharyya>0.774 AND NOT L1_Ridge_T2.5_ProbDot>0.831 AND NOT L1_Ridge_T4.0_ProbMax>0.952 THEN -53 1",
+      "IF NOT L1_CNB01_T1.5_ProbDot>0.343 AND NOT L1_CNB01_T2.5_ProbMax>0.900 AND NOT L1_CNB01_T2.5_ProbMax>0.999 AND NOT L1_CNB05_T1.5_ProbDot>0.021 AND NOT L1_CNB05_T2.5_ProbDot>0.036 AND NOT L1_CNB05_T2.5_ProbDot>0.895 AND NOT L1_CNB05_T4.0_ProbDot>0.001 AND NOT L1_CNB05_T4.0_ProbDot>0.570 AND NOT L1_CNB05_T4.0_ProbMax>0.001 AND NOT L1_CNB05_T4.0_ProbMax>0.570 AND NOT L1_Ridge_T1.5_ProbDot>0.296 AND NOT L1_Ridge_T1.5_ProbMax>0.287 AND NOT L1_Ridge_T2.5_Bhattacharyya>1.000 THEN +52 0"
+    ],
+    "sample_level1_topic_clauses_seed42": [
+      {
+        "topic": "alt.atheism",
+        "clause_index": 1,
+        "weight": 13,
+        "positive_words": [
+          "religion"
+        ],
+        "total_literals": 1,
+        "rule_text": "IF religion THEN +13 alt.atheism"
+      },
+      {
+        "topic": "comp.graphics",
+        "clause_index": 65,
+        "weight": 33,
+        "positive_words": [
+          "graphics"
+        ],
+        "total_literals": 1,
+        "rule_text": "IF graphics THEN +33 comp.graphics"
+      },
+      {
+        "topic": "comp.os.ms-windows.misc",
+        "clause_index": 66,
+        "weight": 48,
+        "positive_words": [
+          "windows"
+        ],
+        "total_literals": 1,
+        "rule_text": "IF windows THEN +48 comp.os.ms-windows.misc"
+      },
+      {
+        "topic": "comp.sys.ibm.pc.hardware",
+        "clause_index": 127,
+        "weight": 24,
+        "positive_words": [
+          "card"
+        ],
+        "total_literals": 1,
+        "rule_text": "IF card THEN +24 comp.sys.ibm.pc.hardware"
+      },
+      {
+        "topic": "comp.sys.mac.hardware",
+        "clause_index": 230,
+        "weight": 43,
+        "positive_words": [
+          "apple"
+        ],
+        "total_literals": 1,
+        "rule_text": "IF apple THEN +43 comp.sys.mac.hardware"
+      },
+      {
+        "topic": "comp.windows.x",
+        "clause_index": 281,
+        "weight": 34,
+        "positive_words": [
+          "window"
+        ],
+        "total_literals": 1,
+        "rule_text": "IF window THEN +34 comp.windows.x"
+      },
+      {
+        "topic": "misc.forsale",
+        "clause_index": 327,
+        "weight": 24,
+        "positive_words": [
+          "sell"
+        ],
+        "total_literals": 1,
+        "rule_text": "IF sell THEN +24 misc.forsale"
+      },
+      {
+        "topic": "rec.autos",
+        "clause_index": 162,
+        "weight": 30,
+        "positive_words": [
+          "car"
+        ],
+        "total_literals": 1,
+        "rule_text": "IF car THEN +30 rec.autos"
+      },
+      {
+        "topic": "rec.motorcycles",
+        "clause_index": 423,
+        "weight": 46,
+        "positive_words": [
+          "bike"
+        ],
+        "total_literals": 1,
+        "rule_text": "IF bike THEN +46 rec.motorcycles"
+      },
+      {
+        "topic": "rec.sport.baseball",
+        "clause_index": 461,
+        "weight": 28,
+        "positive_words": [
+          "baseball"
+        ],
+        "total_literals": 1,
+        "rule_text": "IF baseball THEN +28 rec.sport.baseball"
+      },
+      {
+        "topic": "rec.sport.hockey",
+        "clause_index": 150,
+        "weight": 29,
+        "positive_words": [
+          "game"
+        ],
+        "total_literals": 1,
+        "rule_text": "IF game THEN +29 rec.sport.hockey"
+      },
+      {
+        "topic": "sci.crypt",
+        "clause_index": 32,
+        "weight": 24,
+        "positive_words": [
+          "clipper"
+        ],
+        "total_literals": 1,
+        "rule_text": "IF clipper THEN +24 sci.crypt"
+      },
+      {
+        "topic": "sci.electronics",
+        "clause_index": 583,
+        "weight": 13,
+        "positive_words": [
+          "used"
+        ],
+        "total_literals": 2,
+        "rule_text": "IF used AND NOT program THEN +13 sci.electronics"
+      },
+      {
+        "topic": "sci.med",
+        "clause_index": 608,
+        "weight": 15,
+        "positive_words": [
+          "soon"
+        ],
+        "total_literals": 1,
+        "rule_text": "IF soon THEN +15 sci.med"
+      },
+      {
+        "topic": "sci.space",
+        "clause_index": 34,
+        "weight": 30,
+        "positive_words": [
+          "space"
+        ],
+        "total_literals": 1,
+        "rule_text": "IF space THEN +30 sci.space"
+      },
+      {
+        "topic": "soc.religion.christian",
+        "clause_index": 14,
+        "weight": 27,
+        "positive_words": [
+          "god"
+        ],
+        "total_literals": 1,
+        "rule_text": "IF god THEN +27 soc.religion.christian"
+      },
+      {
+        "topic": "talk.politics.guns",
+        "clause_index": 715,
+        "weight": 37,
+        "positive_words": [
+          "gun"
+        ],
+        "total_literals": 1,
+        "rule_text": "IF gun THEN +37 talk.politics.guns"
+      },
+      {
+        "topic": "talk.politics.mideast",
+        "clause_index": 56,
+        "weight": 19,
+        "positive_words": [
+          "government"
+        ],
+        "total_literals": 1,
+        "rule_text": "IF government THEN +19 talk.politics.mideast"
+      },
+      {
+        "topic": "talk.politics.misc",
+        "clause_index": 783,
+        "weight": 25,
+        "positive_words": [
+          "people"
+        ],
+        "total_literals": 8,
+        "rule_text": "IF people AND NOT christianity AND NOT important AND NOT later AND NOT player AND ... (+3 NOT words) THEN +25 talk.politics.misc"
+      },
+      {
+        "topic": "talk.religion.misc",
+        "clause_index": 407,
+        "weight": 12,
+        "positive_words": [
+          "bible"
+        ],
+        "total_literals": 1,
+        "rule_text": "IF bible THEN +12 talk.religion.misc"
+      }
+    ]
+  },
+  "hybrid": {
+    "config": {
+      "mode": "hybrid",
+      "n_or_concepts": 60,
+      "max_words_per_or": 15,
+      "use_coalesced_l1": false,
+      "l1_clauses_per_class": 80,
+      "l1_T": 40,
+      "l1_s": 5.0,
+      "l1_epochs": 15,
+      "l2_clauses_per_class": 200,
+      "l2_T": 50,
+      "l2_s": 3.0,
+      "l2_epochs": 20,
+      "l2_vocabulary": 3000,
+      "include_raw_words": false
+    },
+    "runs": [
+      {
+        "accuracy": 0.87725,
+        "precision": 0.8919480519480519,
+        "recall": 0.8585,
+        "f1": 0.8749044585987261,
+        "confusion_matrix": [
+          [
+            1792,
+            208
+          ],
+          [
+            283,
+            1717
+          ]
+        ],
+        "seed": 42,
+        "roc_auc": 0.94603725,
+        "train_seconds": 71.737577999942
+      },
+      {
+        "accuracy": 0.8775,
+        "precision": 0.8969505783385909,
+        "recall": 0.853,
+        "f1": 0.8744233726294208,
+        "confusion_matrix": [
+          [
+            1804,
+            196
+          ],
+          [
+            294,
+            1706
+          ]
+        ],
+        "seed": 43,
+        "roc_auc": 0.9446965,
+        "train_seconds": 65.79497659998015
+      },
+      {
+        "accuracy": 0.874,
+        "precision": 0.8804679552390641,
+        "recall": 0.8655,
+        "f1": 0.8729198184568835,
+        "confusion_matrix": [
+          [
+            1765,
+            235
+          ],
+          [
+            269,
+            1731
+          ]
+        ],
+        "seed": 44,
+        "roc_auc": 0.9395196249999999,
+        "train_seconds": 64.60421089990996
+      }
+    ],
+    "acc_mean": 0.8762500000000001,
+    "acc_std": 0.001594260539142397,
+    "precision_mean": 0.8897888618419024,
+    "recall_mean": 0.859,
+    "f1_mean": 0.8740825498950101,
+    "auc_mean": 0.9434177916666666,
+    "auc_std": 0.0028102408154769805,
+    "seed42_overlap_buckets": [
+      {
+        "bucket": "0 shared words",
+        "pairs": 1856,
+        "accuracy": 0.8426724137931034,
+        "precision": 0.8383311603650587,
+        "recall": 0.7928483353884094,
+        "f1": 0.8149556400506971
+      },
+      {
+        "bucket": "1 shared word",
+        "pairs": 939,
+        "accuracy": 0.9052183173588925,
+        "precision": 0.9287305122494433,
+        "recall": 0.879746835443038,
+        "f1": 0.9035752979414952
+      },
+      {
+        "bucket": "2 shared words",
+        "pairs": 484,
+        "accuracy": 0.9028925619834711,
+        "precision": 0.9264705882352942,
+        "recall": 0.9032258064516129,
+        "f1": 0.9147005444646098
+      },
+      {
+        "bucket": "3 shared words",
+        "pairs": 271,
+        "accuracy": 0.9077490774907749,
+        "precision": 0.9294871794871795,
+        "recall": 0.9119496855345912,
+        "f1": 0.9206349206349206
+      },
+      {
+        "bucket": "4+ shared words",
+        "pairs": 450,
+        "accuracy": 0.9155555555555556,
+        "precision": 0.9252669039145908,
+        "recall": 0.9386281588447654,
+        "f1": 0.931899641577061
+      }
+    ],
+    "level2_top_rules_seed42": [
+      "IF L1_CNB01_T2.5_Bhattacharyya>0.036 AND L1_CNB01_T4.0_ProbDot>0.000 AND L1_CNB05_T1.5_ProbMax>0.001 AND L1_CNB05_T1.5_ProbMax>0.003 AND L1_CNB05_T1.5_ProbMax>0.015 AND L1_CNB05_T2.5_ProbDot>0.001 AND L1_CNB05_T2.5_ProbMax>0.000 AND L1_CNB05_T2.5_Bhattacharyya>0.018 AND L1_CNB05_T4.0_ProbDot>0.000 AND L1_CNB05_T4.0_ProbDot>0.000 AND L1_Ridge_T4.0_ProbMax>0.000 AND NOT L1_CNB01_LogitCosine>0.969 AND NOT L1_CNB01_T1.5_ProbMax>0.764 THEN +54 0",
+      "IF L1_CNB01_T2.5_Bhattacharyya>0.009 AND NOT L1_CNB01_LogitCosine>0.408 AND NOT L1_CNB05_T1.5_ProbDot>0.020 AND NOT L1_CNB05_T1.5_ProbDot>0.224 AND NOT L1_CNB05_T1.5_Bhattacharyya>0.367 AND NOT L1_CNB05_T1.5_Bhattacharyya>0.667 AND NOT L1_CNB05_T2.5_Bhattacharyya>0.123 AND NOT L1_CNB05_T4.0_ProbDot>1.000 AND NOT L1_Ridge_LogitCosine>0.746 AND NOT L1_Ridge_T1.5_ProbDot>0.813 THEN +43 1",
+      "IF Pair_Guided_Bilinear_Lift>-0.000 AND NOT L1_CNB01_LogitCosine>0.686 AND NOT L1_CNB01_T1.5_ProbDot>0.032 AND NOT L1_CNB01_T4.0_Bhattacharyya>0.082 AND NOT L1_CNB05_T1.5_Bhattacharyya>0.851 AND NOT L1_CNB05_T4.0_ProbDot>1.000 AND NOT L1_CNB05_T4.0_Bhattacharyya>1.000 AND NOT L1_Ridge_T1.5_ProbMax>0.813 AND NOT L1_Ridge_T2.5_ProbDot>0.910 AND NOT L1_Ridge_T2.5_Bhattacharyya>1.000 AND NOT L1_Ridge_T4.0_ProbDot>1.000 AND NOT L1_Ridge_T4.0_ProbMax>1.000 THEN +42 1",
+      "IF L1_CNB01_T1.5_ProbMax>0.002 AND L1_CNB01_T4.0_ProbMax>0.000 AND L1_CNB05_T2.5_ProbDot>0.000 AND L1_CNB05_T2.5_ProbMax>0.000 AND L1_CNB05_T2.5_ProbMax>0.008 AND L1_CNB05_T4.0_ProbDot>0.000 AND L1_Ridge_T4.0_ProbDot>0.000 AND L1_Ridge_T4.0_Bhattacharyya>0.003 AND NOT L1_CNB05_T1.5_ProbMax>0.724 AND NOT L1_CNB05_T1.5_Bhattacharyya>0.999 AND NOT L1_Ridge_T1.5_ProbMax>0.654 AND NOT L1_Ridge_T1.5_ProbMax>0.931 AND NOT L1_Ridge_T2.5_Bhattacharyya>0.994 AND NOT L1_Ridge_T4.0_Bhattacharyya>1.000 THEN -41 1",
+      "IF L1_CNB01_T4.0_ProbMax>0.000 AND L1_CNB05_T2.5_Bhattacharyya>0.008 AND NOT L1_CNB01_T1.5_ProbDot>0.951 AND NOT L1_CNB01_T2.5_Bhattacharyya>0.213 AND NOT L1_CNB05_T1.5_Bhattacharyya>0.999 AND NOT L1_Ridge_LogitCosine>0.746 AND NOT L1_Ridge_T1.5_ProbDot>0.163 AND NOT L1_Ridge_T1.5_ProbMax>0.895 AND NOT L1_Ridge_T2.5_Bhattacharyya>0.227 THEN +40 1",
+      "IF L1_CNB05_T4.0_ProbMax>0.000 AND L1_CNB05_T4.0_Bhattacharyya>0.001 AND L1_Ridge_T2.5_ProbMax>0.000 AND NOT L1_CNB01_T1.5_ProbDot>0.878 AND NOT L1_CNB01_T1.5_ProbMax>0.877 AND NOT L1_CNB01_T2.5_ProbMax>0.963 AND NOT L1_CNB01_T4.0_ProbMax>0.860 AND NOT L1_CNB01_T4.0_Bhattacharyya>0.933 AND NOT L1_CNB05_LogitCosine>0.792 AND NOT L1_CNB05_T1.5_ProbMax>0.945 AND NOT L1_CNB05_T1.5_Bhattacharyya>0.946 AND NOT L1_Ridge_T4.0_ProbMax>1.000 THEN -39 1",
+      "IF L1_CNB01_T4.0_Bhattacharyya>0.000 AND L1_Ridge_T1.5_Bhattacharyya>0.221 AND L1_Ridge_T4.0_ProbMax>0.000 AND NOT L1_CNB01_LogitCosine>0.408 AND NOT L1_CNB01_T2.5_Bhattacharyya>0.213 AND NOT L1_CNB01_T2.5_Bhattacharyya>1.000 AND NOT L1_CNB01_T4.0_ProbMax>0.006 AND NOT L1_CNB05_T1.5_Bhattacharyya>0.496 AND NOT L1_CNB05_T4.0_ProbMax>0.175 AND NOT L1_Ridge_LogitCosine>0.895 AND NOT L1_Ridge_T2.5_Bhattacharyya>0.964 THEN -38 1",
+      "IF L1_CNB01_LogitCosine>-0.095 AND L1_CNB01_T4.0_ProbDot>0.000 AND L1_CNB01_T4.0_ProbDot>0.000 AND L1_CNB05_T1.5_ProbMax>0.003 AND L1_CNB05_T1.5_Bhattacharyya>0.235 AND L1_CNB05_T2.5_ProbMax>0.000 AND L1_CNB05_T2.5_ProbMax>0.001 AND NOT L1_CNB01_T2.5_ProbMax>0.999 AND NOT L1_CNB01_T4.0_Bhattacharyya>1.000 AND NOT L1_CNB05_T2.5_ProbDot>0.999 AND NOT L1_CNB05_T4.0_ProbMax>1.000 AND NOT L1_Ridge_T1.5_ProbDot>0.895 AND NOT L1_Ridge_T2.5_ProbDot>0.983 THEN -37 1",
+      "IF L1_CNB01_T4.0_ProbDot>0.000 AND L1_CNB05_T1.5_ProbDot>0.008 AND L1_CNB05_T1.5_Bhattacharyya>0.132 AND L1_CNB05_T1.5_Bhattacharyya>0.152 AND L1_CNB05_T2.5_ProbDot>0.000 AND L1_CNB05_T4.0_ProbDot>0.000 AND L1_Ridge_T4.0_ProbMax>0.000 AND L1_Ridge_T4.0_Bhattacharyya>0.000 AND L1_Ridge_T4.0_Bhattacharyya>0.001 AND NOT L1_CNB01_T1.5_ProbMax>0.931 AND NOT L1_CNB05_T4.0_Bhattacharyya>0.434 AND NOT L1_Ridge_T1.5_ProbDot>0.813 THEN -36 0",
+      "IF Pair_Guided_Bilinear_Lift>-0.001 AND L1_CNB01_T4.0_ProbDot>0.000 AND L1_CNB05_T1.5_Bhattacharyya>0.132 AND L1_CNB05_T4.0_Bhattacharyya>0.001 AND L1_Ridge_T2.5_ProbMax>0.000 AND NOT L1_CNB01_T1.5_ProbMax>0.951 AND NOT L1_CNB01_T1.5_Bhattacharyya>0.999 AND NOT L1_CNB05_T2.5_ProbMax>0.990 AND NOT L1_CNB05_T4.0_Bhattacharyya>1.000 AND NOT L1_CNB05_T4.0_Bhattacharyya>1.000 AND NOT L1_Ridge_T2.5_ProbDot>0.910 AND NOT L1_Ridge_T4.0_ProbDot>0.985 THEN +35 0",
+      "IF L1_CNB01_T1.5_ProbMax>0.002 AND L1_CNB05_T2.5_ProbDot>0.000 AND L1_CNB05_T2.5_Bhattacharyya>0.031 AND L1_CNB05_T4.0_Bhattacharyya>0.001 AND L1_Ridge_T4.0_Bhattacharyya>0.000 AND NOT L1_CNB01_T2.5_ProbDot>0.035 AND NOT L1_CNB01_T4.0_Bhattacharyya>0.007 THEN -35 1",
+      "IF L1_CNB01_T1.5_ProbDot>0.005 AND L1_CNB01_T4.0_Bhattacharyya>0.020 AND L1_CNB05_T1.5_Bhattacharyya>0.172 AND L1_CNB05_T1.5_Bhattacharyya>0.199 AND L1_CNB05_T2.5_ProbMax>0.000 AND L1_CNB05_T2.5_ProbMax>0.000 AND L1_CNB05_T4.0_Bhattacharyya>0.000 AND L1_CNB05_T4.0_Bhattacharyya>0.030 AND L1_Ridge_T4.0_ProbDot>0.000 AND NOT L1_CNB01_T1.5_Bhattacharyya>0.986 AND NOT L1_CNB01_T2.5_ProbMax>0.993 AND NOT L1_Ridge_T2.5_ProbDot>0.983 AND NOT L1_Ridge_T4.0_ProbDot>1.000 THEN +34 0",
+      "IF L1_CNB01_T1.5_Bhattacharyya>0.090 AND L1_CNB01_T4.0_Bhattacharyya>0.000 AND L1_CNB05_T4.0_ProbMax>0.000 AND NOT L1_CNB01_T1.5_Bhattacharyya>0.626 AND NOT L1_CNB01_T4.0_ProbDot>0.006 AND NOT L1_CNB05_T1.5_ProbMax>0.210 AND NOT L1_CNB05_T2.5_ProbDot>0.998 AND NOT L1_CNB05_T2.5_ProbMax>0.008 AND NOT L1_CNB05_T2.5_ProbMax>0.228 AND NOT L1_Ridge_T1.5_ProbDot>0.656 AND NOT L1_Ridge_T4.0_Bhattacharyya>0.321 THEN -34 0",
+      "IF L1_CNB05_T2.5_ProbDot>0.000 AND L1_CNB05_T4.0_ProbDot>0.000 AND L1_CNB05_T4.0_Bhattacharyya>0.001 AND L1_Ridge_T2.5_ProbMax>0.000 AND NOT CNB05_Top1_Match AND NOT L1_CNB01_LogitCosine>0.408 AND NOT L1_CNB01_T1.5_ProbMax>0.951 AND NOT L1_CNB01_T4.0_ProbDot>0.006 AND NOT L1_CNB01_T4.0_ProbDot>0.862 AND NOT L1_CNB05_T1.5_ProbMax>0.487 AND NOT L1_CNB05_T1.5_Bhattacharyya>0.999 AND NOT L1_CNB05_T4.0_Bhattacharyya>0.434 AND NOT L1_Ridge_T1.5_Bhattacharyya>0.997 THEN +33 0",
+      "IF Pair_Guided_Bilinear_Lift>-0.001 AND L1_CNB05_T4.0_ProbDot>0.000 AND NOT L1_CNB01_LogitCosine>0.929 AND NOT L1_CNB01_T1.5_Bhattacharyya>0.328 AND NOT L1_CNB01_T2.5_ProbDot>0.963 AND NOT L1_CNB05_T1.5_Bhattacharyya>0.286 AND NOT L1_CNB05_T2.5_ProbMax>0.999 AND NOT L1_CNB05_T2.5_Bhattacharyya>0.067 AND NOT L1_CNB05_T2.5_Bhattacharyya>1.000 AND NOT L1_CNB05_T4.0_ProbDot>0.994 AND NOT L1_Ridge_T1.5_ProbDot>0.022 THEN -32 0"
+    ],
+    "sample_or_concepts_seed42": [
+      {
+        "id": 0,
+        "name": "PairOR_00(bike|car|carrying)",
+        "word_indices": [
+          262,
+          367,
+          378,
+          415,
+          2139,
+          2744,
+          1064,
+          874,
+          379,
+          1259,
+          2567,
+          194,
+          2934,
+          2283,
+          263
+        ],
+        "words": [
+          "bike",
+          "car",
+          "carrying",
+          "charles",
+          "rare",
+          "tires",
+          "ford",
+          "engine",
+          "cars",
+          "honda",
+          "steering",
+          "auto",
+          "wheel",
+          "riding",
+          "bikes"
+        ],
+        "propositional_formula": "(bike OR car OR carrying OR charles OR rare OR tires OR ford OR engine OR cars OR honda OR steering OR auto OR wheel OR riding OR bikes)",
+        "mean_lift": 0.6302157640457153
+      },
+      {
+        "id": 1,
+        "name": "PairOR_01(physics|room|copies)",
+        "word_indices": [
+          1941,
+          2303,
+          594,
+          2289,
+          2102,
+          123,
+          48,
+          2382,
+          1793,
+          60,
+          1778,
+          1607,
+          1853,
+          661,
+          2095
+        ],
+        "words": [
+          "physics",
+          "room",
+          "copies",
+          "road",
+          "published",
+          "appropriate",
+          "age",
+          "selling",
+          "numbers",
+          "air",
+          "north",
+          "market",
+          "org",
+          "date",
+          "provided"
+        ],
+        "propositional_formula": "(physics OR room OR copies OR road OR published OR appropriate OR age OR selling OR numbers OR air OR north OR market OR org OR date OR provided)",
+        "mean_lift": 0.6756461262702942
+      },
+      {
+        "id": 2,
+        "name": "PairOR_02(taxes|clinton|gas)",
+        "word_indices": [
+          2680,
+          466,
+          1109,
+          143,
+          1205,
+          1294,
+          2965,
+          2086,
+          840,
+          1019,
+          1959,
+          1085,
+          2907,
+          2802,
+          2679
+        ],
+        "words": [
+          "taxes",
+          "clinton",
+          "gas",
+          "armed",
+          "hasn",
+          "illegal",
+          "wood",
+          "protected",
+          "economy",
+          "figures",
+          "plan",
+          "french",
+          "waste",
+          "twice",
+          "tax"
+        ],
+        "propositional_formula": "(taxes OR clinton OR gas OR armed OR hasn OR illegal OR wood OR protected OR economy OR figures OR plan OR french OR waste OR twice OR tax)",
+        "mean_lift": 0.6802940368652344
+      },
+      {
+        "id": 3,
+        "name": "PairOR_03(father|murder|arguments)",
+        "word_indices": [
+          988,
+          1728,
+          141,
+          138,
+          834,
+          277,
+          1886,
+          1710,
+          2334,
+          752,
+          1269,
+          2236,
+          307,
+          651,
+          896
+        ],
+        "words": [
+          "father",
+          "murder",
+          "arguments",
+          "argue",
+          "east",
+          "blood",
+          "parents",
+          "mother",
+          "saved",
+          "differently",
+          "hot",
+          "reports",
+          "breaking",
+          "daily",
+          "escape"
+        ],
+        "propositional_formula": "(father OR murder OR arguments OR argue OR east OR blood OR parents OR mother OR saved OR differently OR hot OR reports OR breaking OR daily OR escape)",
+        "mean_lift": 0.6898640394210815
+      },
+      {
+        "id": 4,
+        "name": "PairOR_04(run|address|command)",
+        "word_indices": [
+          2313,
+          34,
+          496,
+          1760,
+          1352,
+          1318,
+          1816,
+          2655,
+          1689,
+          2527,
+          103,
+          1476,
+          1296,
+          546,
+          2228
+        ],
+        "words": [
+          "run",
+          "address",
+          "command",
+          "network",
+          "instead",
+          "include",
+          "offer",
+          "switch",
+          "model",
+          "speed",
+          "anybody",
+          "latest",
+          "image",
+          "configuration",
+          "replace"
+        ],
+        "propositional_formula": "(run OR address OR command OR network OR instead OR include OR offer OR switch OR model OR speed OR anybody OR latest OR image OR configuration OR replace)",
+        "mean_lift": 0.6268426179885864
+      },
+      {
+        "id": 5,
+        "name": "PairOR_05(let|especially|told)",
+        "word_indices": [
+          1505,
+          898,
+          2747,
+          1926,
+          1619,
+          1894,
+          1111,
+          1914,
+          1542,
+          960,
+          2899,
+          2311,
+          331,
+          462,
+          2431
+        ],
+        "words": [
+          "let",
+          "especially",
+          "told",
+          "person",
+          "matter",
+          "party",
+          "gave",
+          "people",
+          "living",
+          "face",
+          "wants",
+          "rule",
+          "building",
+          "clearly",
+          "shooting"
+        ],
+        "propositional_formula": "(let OR especially OR told OR person OR matter OR party OR gave OR people OR living OR face OR wants OR rule OR building OR clearly OR shooting)",
+        "mean_lift": 0.6708815097808838
+      },
+      {
+        "id": 6,
+        "name": "PairOR_06(human|heard|ones)",
+        "word_indices": [
+          1277,
+          1216,
+          1830,
+          1957,
+          1058,
+          2668,
+          370,
+          1207,
+          503,
+          1004,
+          2940,
+          2443,
+          1586,
+          769,
+          91
+        ],
+        "words": [
+          "human",
+          "heard",
+          "ones",
+          "places",
+          "food",
+          "talking",
+          "care",
+          "haven",
+          "common",
+          "feeling",
+          "wife",
+          "sick",
+          "maintain",
+          "discussion",
+          "animals"
+        ],
+        "propositional_formula": "(human OR heard OR ones OR places OR food OR talking OR care OR haven OR common OR feeling OR wife OR sick OR maintain OR discussion OR animals)",
+        "mean_lift": 0.6540341973304749
+      },
+      {
+        "id": 7,
+        "name": "PairOR_07(lose|hits|alot)",
+        "word_indices": [
+          1561,
+          1246,
+          70,
+          1942,
+          663,
+          2540,
+          1971,
+          279,
+          2291,
+          2279,
+          1662,
+          630,
+          1401,
+          805,
+          2951
+        ],
+        "words": [
+          "lose",
+          "hits",
+          "alot",
+          "pick",
+          "dave",
+          "spring",
+          "playing",
+          "blue",
+          "rob",
+          "rid",
+          "mike",
+          "credit",
+          "jeff",
+          "doug",
+          "wins"
+        ],
+        "propositional_formula": "(lose OR hits OR alot OR pick OR dave OR spring OR playing OR blue OR rob OR rid OR mike OR credit OR jeff OR doug OR wins)",
+        "mean_lift": 0.6322410702705383
+      },
+      {
+        "id": 8,
+        "name": "PairOR_08(bush|effectively|demonstrate)",
+        "word_indices": [
+          338,
+          851,
+          699,
+          2321,
+          804,
+          2013,
+          2360,
+          735,
+          634,
+          1683,
+          586,
+          873,
+          275,
+          1334,
+          587
+        ],
+        "words": [
+          "bush",
+          "effectively",
+          "demonstrate",
+          "safety",
+          "doubt",
+          "powerful",
+          "search",
+          "developing",
+          "criminals",
+          "missing",
+          "conversation",
+          "enforcement",
+          "block",
+          "individuals",
+          "conversations"
+        ],
+        "propositional_formula": "(bush OR effectively OR demonstrate OR safety OR doubt OR powerful OR search OR developing OR criminals OR missing OR conversation OR enforcement OR block OR individuals OR conversations)",
+        "mean_lift": 0.6713437438011169
+      },
+      {
+        "id": 9,
+        "name": "PairOR_09(kent|cheers|historical)",
+        "word_indices": [
+          1437,
+          422,
+          1242,
+          1351,
+          2872,
+          1786,
+          1311,
+          1797,
+          2640,
+          398,
+          440,
+          154,
+          1685,
+          1005,
+          680
+        ],
+        "words": [
+          "kent",
+          "cheers",
+          "historical",
+          "instance",
+          "views",
+          "notion",
+          "impression",
+          "objective",
+          "suppose",
+          "century",
+          "churches",
+          "aside",
+          "mistake",
+          "feelings",
+          "decide"
+        ],
+        "propositional_formula": "(kent OR cheers OR historical OR instance OR views OR notion OR impression OR objective OR suppose OR century OR churches OR aside OR mistake OR feelings OR decide)",
+        "mean_lift": 0.704502284526825
+      },
+      {
+        "id": 10,
+        "name": "PairOR_10(straight|biased|testimony)",
+        "word_indices": [
+          2585,
+          256,
+          2710,
+          1091,
+          1158,
+          1379,
+          1519,
+          1134,
+          641,
+          2183,
+          1012,
+          2455,
+          1009,
+          1416,
+          1102
+        ],
+        "words": [
+          "straight",
+          "biased",
+          "testimony",
+          "friends",
+          "granted",
+          "irrelevant",
+          "lies",
+          "glad",
+          "cult",
+          "refer",
+          "field",
+          "silly",
+          "fellow",
+          "joke",
+          "funny"
+        ],
+        "propositional_formula": "(straight OR biased OR testimony OR friends OR granted OR irrelevant OR lies OR glad OR cult OR refer OR field OR silly OR fellow OR joke OR funny)",
+        "mean_lift": 0.6686672568321228
+      },
+      {
+        "id": 11,
+        "name": "PairOR_11(worked|importance|description)",
+        "word_indices": [
+          2969,
+          1308,
+          715,
+          759,
+          2241,
+          2033,
+          1353,
+          2714,
+          2937,
+          1321,
+          2708,
+          2596,
+          2856,
+          2248,
+          1924
+        ],
+        "words": [
+          "worked",
+          "importance",
+          "description",
+          "directly",
+          "request",
+          "previous",
+          "institute",
+          "text",
+          "widely",
+          "including",
+          "test",
+          "structure",
+          "variety",
+          "requires",
+          "permission"
+        ],
+        "propositional_formula": "(worked OR importance OR description OR directly OR request OR previous OR institute OR text OR widely OR including OR test OR structure OR variety OR requires OR permission)",
+        "mean_lift": 0.6355487704277039
+      },
+      {
+        "id": 12,
+        "name": "PairOR_12(experiences|converted|font)",
+        "word_indices": [
+          939,
+          590,
+          1056,
+          2702,
+          589,
+          2629,
+          2973,
+          1071,
+          2842,
+          1057,
+          2938,
+          2989,
+          1835,
+          2401,
+          1712
+        ],
+        "words": [
+          "experiences",
+          "converted",
+          "font",
+          "terminal",
+          "convert",
+          "sun",
+          "workstation",
+          "formats",
+          "using",
+          "fonts",
+          "widget",
+          "xterm",
+          "openwindows",
+          "server",
+          "motif"
+        ],
+        "propositional_formula": "(experiences OR converted OR font OR terminal OR convert OR sun OR workstation OR formats OR using OR fonts OR widget OR xterm OR openwindows OR server OR motif)",
+        "mean_lift": 0.6379991769790649
+      },
+      {
+        "id": 13,
+        "name": "PairOR_13(yeah|remember|ago)",
+        "word_indices": [
+          2990,
+          2219,
+          53,
+          2766,
+          2603,
+          2995,
+          1260,
+          679,
+          1827,
+          421,
+          1661,
+          498,
+          14,
+          1555,
+          406
+        ],
+        "words": [
+          "yeah",
+          "remember",
+          "ago",
+          "trade",
+          "stupid",
+          "york",
+          "honest",
+          "decent",
+          "okay",
+          "checking",
+          "middle",
+          "comment",
+          "accurate",
+          "looked",
+          "changed"
+        ],
+        "propositional_formula": "(yeah OR remember OR ago OR trade OR stupid OR york OR honest OR decent OR okay OR checking OR middle OR comment OR accurate OR looked OR changed)",
+        "mean_lift": 0.7031794190406799
+      },
+      {
+        "id": 14,
+        "name": "PairOR_14(topic|highly|process)",
+        "word_indices": [
+          2755,
+          1238,
+          2055,
+          1270,
+          2260,
+          765,
+          1616,
+          2927,
+          1221,
+          1271,
+          302,
+          1584,
+          249,
+          2712,
+          911
+        ],
+        "words": [
+          "topic",
+          "highly",
+          "process",
+          "hour",
+          "responses",
+          "discovered",
+          "material",
+          "weight",
+          "heavy",
+          "hours",
+          "brain",
+          "main",
+          "benefits",
+          "tests",
+          "eventually"
+        ],
+        "propositional_formula": "(topic OR highly OR process OR hour OR responses OR discovered OR material OR weight OR heavy OR hours OR brain OR main OR benefits OR tests OR eventually)",
+        "mean_lift": 0.6241244077682495
+      }
+    ],
+    "sample_level1_topic_clauses_seed42": [
+      {
+        "topic": "alt.atheism",
+        "clause_index": 3,
+        "weight": 21,
+        "positive_words": [
+          "god"
+        ],
+        "total_literals": 1,
+        "rule_text": "IF god THEN +21 alt.atheism"
+      },
+      {
+        "topic": "comp.graphics",
+        "clause_index": 96,
+        "weight": 9,
+        "positive_words": [
+          "image"
+        ],
+        "total_literals": 1,
+        "rule_text": "IF image THEN +9 comp.graphics"
+      },
+      {
+        "topic": "comp.os.ms-windows.misc",
+        "clause_index": 145,
+        "weight": 27,
+        "positive_words": [
+          "windows"
+        ],
+        "total_literals": 1,
+        "rule_text": "IF windows THEN +27 comp.os.ms-windows.misc"
+      },
+      {
+        "topic": "comp.sys.ibm.pc.hardware",
+        "clause_index": 164,
+        "weight": 23,
+        "positive_words": [
+          "card"
+        ],
+        "total_literals": 1,
+        "rule_text": "IF card THEN +23 comp.sys.ibm.pc.hardware"
+      },
+      {
+        "topic": "comp.sys.mac.hardware",
+        "clause_index": 285,
+        "weight": 15,
+        "positive_words": [
+          "thanks"
+        ],
+        "total_literals": 9,
+        "rule_text": "IF thanks AND NOT britain AND NOT hit AND NOT leafs AND NOT picture AND ... (+4 NOT words) THEN +15 comp.sys.mac.hardware"
+      },
+      {
+        "topic": "comp.windows.x",
+        "clause_index": 340,
+        "weight": 19,
+        "positive_words": [
+          "thanks"
+        ],
+        "total_literals": 7,
+        "rule_text": "IF thanks AND NOT geometry AND NOT lot AND NOT model AND NOT relief AND ... (+2 NOT words) THEN +19 comp.windows.x"
+      },
+      {
+        "topic": "misc.forsale",
+        "clause_index": 372,
+        "weight": 25,
+        "positive_words": [
+          "sale"
+        ],
+        "total_literals": 1,
+        "rule_text": "IF sale THEN +25 misc.forsale"
+      },
+      {
+        "topic": "rec.autos",
+        "clause_index": 437,
+        "weight": 34,
+        "positive_words": [
+          "car"
+        ],
+        "total_literals": 1,
+        "rule_text": "IF car THEN +34 rec.autos"
+      },
+      {
+        "topic": "rec.motorcycles",
+        "clause_index": 483,
+        "weight": 40,
+        "positive_words": [
+          "bike"
+        ],
+        "total_literals": 1,
+        "rule_text": "IF bike THEN +40 rec.motorcycles"
+      },
+      {
+        "topic": "rec.sport.baseball",
+        "clause_index": 537,
+        "weight": 22,
+        "positive_words": [
+          "baseball"
+        ],
+        "total_literals": 1,
+        "rule_text": "IF baseball THEN +22 rec.sport.baseball"
+      },
+      {
+        "topic": "rec.sport.hockey",
+        "clause_index": 44,
+        "weight": 29,
+        "positive_words": [
+          "game"
+        ],
+        "total_literals": 1,
+        "rule_text": "IF game THEN +29 rec.sport.hockey"
+      },
+      {
+        "topic": "sci.crypt",
+        "clause_index": 619,
+        "weight": 23,
+        "positive_words": [
+          "encryption"
+        ],
+        "total_literals": 1,
+        "rule_text": "IF encryption THEN +23 sci.crypt"
+      },
+      {
+        "topic": "sci.electronics",
+        "clause_index": 677,
+        "weight": 12,
+        "positive_words": [
+          "circuit"
+        ],
+        "total_literals": 1,
+        "rule_text": "IF circuit THEN +12 sci.electronics"
+      },
+      {
+        "topic": "sci.med",
+        "clause_index": 737,
+        "weight": 10,
+        "positive_words": [
+          "effects"
+        ],
+        "total_literals": 1,
+        "rule_text": "IF effects THEN +10 sci.med"
+      },
+      {
+        "topic": "sci.space",
+        "clause_index": 791,
+        "weight": 16,
+        "positive_words": [
+          "launch"
+        ],
+        "total_literals": 1,
+        "rule_text": "IF launch THEN +16 sci.space"
+      },
+      {
+        "topic": "soc.religion.christian",
+        "clause_index": 847,
+        "weight": 26,
+        "positive_words": [
+          "jesus"
+        ],
+        "total_literals": 1,
+        "rule_text": "IF jesus THEN +26 soc.religion.christian"
+      },
+      {
+        "topic": "talk.politics.guns",
+        "clause_index": 630,
+        "weight": 16,
+        "positive_words": [
+          "government"
+        ],
+        "total_literals": 1,
+        "rule_text": "IF government THEN +16 talk.politics.guns"
+      },
+      {
+        "topic": "talk.politics.mideast",
+        "clause_index": 958,
+        "weight": 31,
+        "positive_words": [
+          "israel"
+        ],
+        "total_literals": 1,
+        "rule_text": "IF israel THEN +31 talk.politics.mideast"
+      },
+      {
+        "topic": "talk.politics.misc",
+        "clause_index": 1017,
+        "weight": 10,
+        "positive_words": [
+          "just",
+          "people"
+        ],
+        "total_literals": 5,
+        "rule_text": "IF just AND people AND NOT available AND NOT described AND NOT supposed THEN +10 talk.politics.misc"
+      },
+      {
+        "topic": "talk.religion.misc",
+        "clause_index": 3,
+        "weight": 15,
+        "positive_words": [
+          "god"
+        ],
+        "total_literals": 1,
+        "rule_text": "IF god THEN +15 talk.religion.misc"
+      }
+    ]
+  }
+}

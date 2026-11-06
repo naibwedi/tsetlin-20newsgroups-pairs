@@ -1,0 +1,142 @@
+[
+  {
+    "name": "base: 100 clauses, T=50, vocab 1000",
+    "features": "sym",
+    "vocab_mode": "letters",
+    "boost": 1,
+    "clauses": 100,
+    "threshold": 50,
+    "vocabulary": 1000,
+    "acc_mean": 0.55625,
+    "acc_std": 0.004286607049870569,
+    "recall_mean": 0.5146666666666667,
+    "f1_mean": 0.5369555156709157,
+    "accs": [
+      0.554,
+      0.5525,
+      0.56225
+    ],
+    "cosine_acc": 0.6045,
+    "cosine_auc": 0.6112895
+  },
+  {
+    "name": "200 clauses, T=100",
+    "features": "sym",
+    "vocab_mode": "letters",
+    "boost": 1,
+    "clauses": 200,
+    "threshold": 100,
+    "vocabulary": 1000,
+    "acc_mean": 0.5526666666666666,
+    "acc_std": 0.004012134372403578,
+    "recall_mean": 0.49933333333333335,
+    "f1_mean": 0.5272515680357428,
+    "accs": [
+      0.55825,
+      0.55075,
+      0.549
+    ],
+    "cosine_acc": 0.6045,
+    "cosine_auc": 0.6112895
+  },
+  {
+    "name": "500 clauses, T=250",
+    "features": "sym",
+    "vocab_mode": "letters",
+    "boost": 1,
+    "clauses": 500,
+    "threshold": 250,
+    "vocabulary": 1000,
+    "acc_mean": 0.55875,
+    "acc_std": 0.0015942605391424261,
+    "recall_mean": 0.5103333333333334,
+    "f1_mean": 0.5362609768942305,
+    "accs": [
+      0.56,
+      0.55975,
+      0.5565
+    ],
+    "cosine_acc": 0.6045,
+    "cosine_auc": 0.6112895
+  },
+  {
+    "name": "100 clauses, T=25",
+    "features": "sym",
+    "vocab_mode": "letters",
+    "boost": 1,
+    "clauses": 100,
+    "threshold": 25,
+    "vocabulary": 1000,
+    "acc_mean": 0.571,
+    "acc_std": 0.002700308624336602,
+    "recall_mean": 0.5471666666666667,
+    "f1_mean": 0.5601628890174748,
+    "accs": [
+      0.57475,
+      0.56975,
+      0.5685
+    ],
+    "cosine_acc": 0.6045,
+    "cosine_auc": 0.6112895
+  },
+  {
+    "name": "100 clauses, T=100",
+    "features": "sym",
+    "vocab_mode": "letters",
+    "boost": 1,
+    "clauses": 100,
+    "threshold": 100,
+    "vocabulary": 1000,
+    "acc_mean": 0.5480833333333334,
+    "acc_std": 0.0022943166496560085,
+    "recall_mean": 0.4931666666666667,
+    "f1_mean": 0.5217551381604862,
+    "accs": [
+      0.545,
+      0.54875,
+      0.5505
+    ],
+    "cosine_acc": 0.6045,
+    "cosine_auc": 0.6112895
+  },
+  {
+    "name": "vocab 2000",
+    "features": "sym",
+    "vocab_mode": "letters",
+    "boost": 1,
+    "clauses": 100,
+    "threshold": 50,
+    "vocabulary": 2000,
+    "acc_mean": 0.5540833333333334,
+    "acc_std": 0.003572658518371017,
+    "recall_mean": 0.5336666666666666,
+    "f1_mean": 0.5447689295040755,
+    "accs": [
+      0.54975,
+      0.5585,
+      0.554
+    ],
+    "cosine_acc": 0.606,
+    "cosine_auc": 0.61835675
+  },
+  {
+    "name": "vocab 3000",
+    "features": "sym",
+    "vocab_mode": "letters",
+    "boost": 1,
+    "clauses": 100,
+    "threshold": 50,
+    "vocabulary": 3000,
+    "acc_mean": 0.54825,
+    "acc_std": 0.0009354143466934713,
+    "recall_mean": 0.5463333333333332,
+    "f1_mean": 0.5471720041727232,
+    "accs": [
+      0.548,
+      0.54725,
+      0.5495
+    ],
+    "cosine_acc": 0.609,
+    "cosine_auc": 0.6199465
+  }
+]

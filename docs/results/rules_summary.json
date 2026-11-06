@@ -1,0 +1,28 @@
+{
+  "clauses": 200,
+  "grouping": "direction of the fired vote: weight[1] minus weight[0]",
+  "neutral_clauses": 0,
+  "median_literals": 924.0,
+  "mean_literals": 874.505,
+  "negated_by_feature_group": {
+    "BOTH": 171351,
+    "ONE": 3550
+  },
+  "same-category": {
+    "clauses": 100,
+    "empty": 0,
+    "median_literals": 847.0,
+    "positive_literals": 0,
+    "negated_literals": 80234,
+    "negated_share": 1.0
+  },
+  "different-category": {
+    "clauses": 100,
+    "empty": 0,
+    "median_literals": 945.5,
+    "positive_literals": 0,
+    "negated_literals": 94667,
+    "negated_share": 1.0
+  },
+  "top_present": []
+}

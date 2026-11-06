@@ -1,0 +1,200 @@
+{
+  "split": "validation",
+  "seed_policy": "fixed documents and pairs, varied TM seed",
+  "seeds": [
+    42,
+    43,
+    44
+  ],
+  "tm_settings": {
+    "clauses_per_class": 100,
+    "T": 25,
+    "s": 1.0,
+    "weighted": false,
+    "boost_true_positive": true,
+    "epochs": 20
+  },
+  "bittm_version": "0.1.1",
+  "vocabulary": {
+    "size": 1000,
+    "mode": "letters",
+    "fit_split": "train"
+  },
+  "base_features": "[BOTH | ONE]",
+  "extra_bits": [
+    "shared_words >= 1",
+    "shared_words >= 2",
+    "shared_words >= 5"
+  ],
+  "rows": {
+    "train": 20000,
+    "validation": 4000
+  },
+  "manifest_sha256": {
+    "train_documents.json": "5e029f37b3218104505c608851c57f97f13234535f53bd6fbeb9971202bc7dad",
+    "vocabulary.json": "612d00d480920dbb2a6512bb116610d156b227145314062bd56267f9d8e26548",
+    "validation_documents.json": "8f08f79994e66f007734ef7596d53b9a931f5537caccf3839c8b6338d26300b5",
+    "train_pairs.json": "b94103f96c971b79cd52df9831b618aed165bee89db40d5536054a00e665069e",
+    "validation_pairs.json": "6303472da4f71a8598b5460413f539854ec47e8901834fd56590259c65b5e40b"
+  },
+  "results": {
+    "sym": {
+      "input_bits": 2000,
+      "runs": [
+        {
+          "accuracy": 0.57475,
+          "precision": 0.5787256450763559,
+          "recall": 0.5495,
+          "f1": 0.5637342908438061,
+          "confusion_matrix": [
+            [
+              1200,
+              800
+            ],
+            [
+              901,
+              1099
+            ]
+          ],
+          "seed": 42,
+          "roc_auc": 0.601397,
+          "training_seconds": 23.015959299984388
+        },
+        {
+          "accuracy": 0.56975,
+          "precision": 0.5789473684210527,
+          "recall": 0.5115,
+          "f1": 0.5431377754181046,
+          "confusion_matrix": [
+            [
+              1256,
+              744
+            ],
+            [
+              977,
+              1023
+            ]
+          ],
+          "seed": 43,
+          "roc_auc": 0.59856125,
+          "training_seconds": 21.280744199990295
+        },
+        {
+          "accuracy": 0.5685,
+          "precision": 0.56689453125,
+          "recall": 0.5805,
+          "f1": 0.5736166007905138,
+          "confusion_matrix": [
+            [
+              1113,
+              887
+            ],
+            [
+              839,
+              1161
+            ]
+          ],
+          "seed": 44,
+          "roc_auc": 0.598751625,
+          "training_seconds": 12.185882300022058
+        }
+      ],
+      "summary": {
+        "accuracy": {
+          "mean": 0.571,
+          "std_population": 0.002700308624336602
+        },
+        "f1": {
+          "mean": 0.5601628890174748,
+          "std_population": 0.012696610631038387
+        },
+        "roc_auc": {
+          "mean": 0.5995699583333333,
+          "std_population": 0.0012942492286928888
+        }
+      }
+    },
+    "sym_plus_counts": {
+      "input_bits": 2003,
+      "runs": [
+        {
+          "accuracy": 0.5635,
+          "precision": 0.569247546346783,
+          "recall": 0.522,
+          "f1": 0.5446009389671361,
+          "confusion_matrix": [
+            [
+              1210,
+              790
+            ],
+            [
+              956,
+              1044
+            ]
+          ],
+          "seed": 42,
+          "roc_auc": 0.591986,
+          "training_seconds": 10.41909930005204,
+          "formerly_wrong_now_correct": 314,
+          "formerly_correct_now_wrong": 359
+        },
+        {
+          "accuracy": 0.549,
+          "precision": 0.5540242557883132,
+          "recall": 0.5025,
+          "f1": 0.5270057682223388,
+          "confusion_matrix": [
+            [
+              1191,
+              809
+            ],
+            [
+              995,
+              1005
+            ]
+          ],
+          "seed": 43,
+          "roc_auc": 0.58450325,
+          "training_seconds": 9.990357999922708,
+          "formerly_wrong_now_correct": 312,
+          "formerly_correct_now_wrong": 395
+        },
+        {
+          "accuracy": 0.5555,
+          "precision": 0.5582983193277311,
+          "recall": 0.5315,
+          "f1": 0.5445696721311475,
+          "confusion_matrix": [
+            [
+              1159,
+              841
+            ],
+            [
+              937,
+              1063
+            ]
+          ],
+          "seed": 44,
+          "roc_auc": 0.58409725,
+          "training_seconds": 9.699743700097315,
+          "formerly_wrong_now_correct": 330,
+          "formerly_correct_now_wrong": 382
+        }
+      ],
+      "summary": {
+        "accuracy": {
+          "mean": 0.556,
+          "std_population": 0.005930148958219049
+        },
+        "f1": {
+          "mean": 0.5387254597735408,
+          "std_population": 0.008287083199986387
+        },
+        "roc_auc": {
+          "mean": 0.5868621666666667,
+          "std_population": 0.0036268866374006684
+        }
+      }
+    }
+  }
+}

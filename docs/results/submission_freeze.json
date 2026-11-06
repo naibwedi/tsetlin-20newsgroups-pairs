@@ -1,0 +1,80 @@
+{
+  "selected_model": "unsimplified vanilla TM",
+  "model": {
+    "features": "sym",
+    "vocab_mode": "letters",
+    "vocabulary": 1000,
+    "clauses": 100,
+    "threshold": 25,
+    "epochs": 20,
+    "boost": 1,
+    "s": 1.0,
+    "seed": 42
+  },
+  "weighted_clauses": false,
+  "library": {
+    "training_commit": "29deafe26bb3fb0e431f476f757bb8b26ba24ea9",
+    "optional_simplify_commit": "d660d4933714882f2c5c827b3d38ef69058819e3"
+  },
+  "data_seed": 42,
+  "comparison_model_seeds": [
+    42,
+    43,
+    44
+  ],
+  "train_rows": 20000,
+  "validation_rows": 4000,
+  "test_rows_planned": 4000,
+  "primary_metric": "accuracy",
+  "cosine_for_final_evaluation": "original",
+  "cosine_comparison": {
+    "original": {
+      "words_shared_with_tm": 869,
+      "validation_cutoff": 0.037210257627632234,
+      "validation_auc": 0.6112895,
+      "accuracy": 0.6045,
+      "precision": 0.6569069069069069,
+      "recall": 0.4375,
+      "f1": 0.5252100840336135,
+      "confusion_matrix": [
+        [
+          1543,
+          457
+        ],
+        [
+          1125,
+          875
+        ]
+      ]
+    },
+    "matched_to_tm": {
+      "words_shared_with_tm": 1000,
+      "validation_cutoff": 0.036411806658745036,
+      "validation_auc": 0.6101693749999999,
+      "accuracy": 0.603,
+      "precision": 0.6488439306358381,
+      "recall": 0.449,
+      "f1": 0.5307328605200946,
+      "confusion_matrix": [
+        [
+          1514,
+          486
+        ],
+        [
+          1102,
+          898
+        ]
+      ]
+    }
+  },
+  "manifest_sha256": {
+    "categories.json": "0c89fde7796977b06c4ee076e9938bd1b1977e090a1752e63149c9f66ac1b74f",
+    "vocabulary.json": "612d00d480920dbb2a6512bb116610d156b227145314062bd56267f9d8e26548",
+    "train_documents.json": "5e029f37b3218104505c608851c57f97f13234535f53bd6fbeb9971202bc7dad",
+    "train_pairs.json": "b94103f96c971b79cd52df9831b618aed165bee89db40d5536054a00e665069e",
+    "validation_documents.json": "8f08f79994e66f007734ef7596d53b9a931f5537caccf3839c8b6338d26300b5",
+    "validation_pairs.json": "6303472da4f71a8598b5460413f539854ec47e8901834fd56590259c65b5e40b",
+    "test_documents.json": "5c12c780fc1e46e8c30a8ad39c04ff68688143602ddef8de57286496179aefb1",
+    "test_pairs.json": "068c144f4d4be19fd1bbc616868dd16478059b1ca092a9fdf2fcbe428982fb25"
+  }
+}

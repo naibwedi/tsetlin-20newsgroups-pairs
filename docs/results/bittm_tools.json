@@ -1,0 +1,91 @@
+{
+  "seeds": {
+    "42": {
+      "accuracy": 0.57475,
+      "auc": 0.601397,
+      "cosine_acc": 0.6045,
+      "cosine_auc": 0.6112895
+    },
+    "43": {
+      "accuracy": 0.56975,
+      "auc": 0.59856125,
+      "cosine_acc": 0.6045,
+      "cosine_auc": 0.6112895
+    },
+    "44": {
+      "accuracy": 0.5685,
+      "auc": 0.598751625,
+      "cosine_acc": 0.6045,
+      "cosine_auc": 0.6112895
+    }
+  },
+  "config": {
+    "vocabulary": 1000,
+    "clauses": 100,
+    "threshold": 25,
+    "epochs": 20,
+    "boost": 1,
+    "s": 1.0,
+    "features": "sym",
+    "vocab_mode": "letters",
+    "seed": 42
+  },
+  "accuracy": {
+    "mean": 0.571,
+    "std": 0.002700308624336602
+  },
+  "auc": {
+    "mean": 0.5995699583333333,
+    "std": 0.0012942492286928888
+  },
+  "cosine_acc": {
+    "mean": 0.6045,
+    "std": 0.0
+  },
+  "cosine_auc": {
+    "mean": 0.6112895,
+    "std": 0.0
+  },
+  "simplify": [
+    {
+      "tolerance": null,
+      "median_literals": 924.0,
+      "mean_literals": 874.505,
+      "accuracy": 0.57475,
+      "auc": 0.601397,
+      "same_answers_on_val": 1.0
+    },
+    {
+      "tolerance": 0.0,
+      "median_literals": 440.5,
+      "mean_literals": 415.335,
+      "accuracy": 0.571,
+      "auc": 0.60492475,
+      "same_answers_on_val": 0.94375
+    },
+    {
+      "tolerance": 0.01,
+      "median_literals": 355.0,
+      "mean_literals": 331.13,
+      "accuracy": 0.57425,
+      "auc": 0.6048396250000001,
+      "same_answers_on_val": 0.9395
+    },
+    {
+      "tolerance": 0.03,
+      "median_literals": 225.0,
+      "mean_literals": 203.73,
+      "accuracy": 0.57375,
+      "auc": 0.6054613749999999,
+      "same_answers_on_val": 0.9255
+    },
+    {
+      "tolerance": 0.1,
+      "median_literals": 43.0,
+      "mean_literals": 42.48,
+      "accuracy": 0.54975,
+      "auc": 0.57469225,
+      "same_answers_on_val": 0.8195
+    }
+  ]
+}

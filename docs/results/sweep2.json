@@ -1,0 +1,122 @@
+[
+  {
+    "name": "T=5",
+    "features": "sym",
+    "vocab_mode": "letters",
+    "boost": 1,
+    "clauses": 100,
+    "threshold": 5,
+    "vocabulary": 1000,
+    "acc_mean": 0.5485000000000001,
+    "acc_std": 0.015528200153269521,
+    "recall_mean": 0.47700000000000004,
+    "f1_mean": 0.513609619619984,
+    "accs": [
+      0.52675,
+      0.562,
+      0.55675
+    ],
+    "cosine_acc": 0.6045,
+    "cosine_auc": 0.6112895
+  },
+  {
+    "name": "T=10",
+    "features": "sym",
+    "vocab_mode": "letters",
+    "boost": 1,
+    "clauses": 100,
+    "threshold": 10,
+    "vocabulary": 1000,
+    "acc_mean": 0.5584166666666667,
+    "acc_std": 0.006272736422186264,
+    "recall_mean": 0.5203333333333333,
+    "f1_mean": 0.5391755692149139,
+    "accs": [
+      0.5595,
+      0.55025,
+      0.5655
+    ],
+    "cosine_acc": 0.6045,
+    "cosine_auc": 0.6112895
+  },
+  {
+    "name": "T=15",
+    "features": "sym",
+    "vocab_mode": "letters",
+    "boost": 1,
+    "clauses": 100,
+    "threshold": 15,
+    "vocabulary": 1000,
+    "acc_mean": 0.5555833333333333,
+    "acc_std": 0.004753653565650561,
+    "recall_mean": 0.5115,
+    "f1_mean": 0.5328862702460588,
+    "accs": [
+      0.5515,
+      0.553,
+      0.56225
+    ],
+    "cosine_acc": 0.6045,
+    "cosine_auc": 0.6112895
+  },
+  {
+    "name": "T=25 (from sweep 1)",
+    "features": "sym",
+    "vocab_mode": "letters",
+    "boost": 1,
+    "clauses": 100,
+    "threshold": 25,
+    "vocabulary": 1000,
+    "acc_mean": 0.571,
+    "acc_std": 0.002700308624336602,
+    "recall_mean": 0.5471666666666667,
+    "f1_mean": 0.5601628890174748,
+    "accs": [
+      0.57475,
+      0.56975,
+      0.5685
+    ],
+    "cosine_acc": 0.6045,
+    "cosine_auc": 0.6112895
+  },
+  {
+    "name": "200 clauses, T=25",
+    "features": "sym",
+    "vocab_mode": "letters",
+    "boost": 1,
+    "clauses": 200,
+    "threshold": 25,
+    "vocabulary": 1000,
+    "acc_mean": 0.5594166666666667,
+    "acc_std": 0.009312476696465979,
+    "recall_mean": 0.5125,
+    "f1_mean": 0.5361986980909977,
+    "accs": [
+      0.55725,
+      0.57175,
+      0.54925
+    ],
+    "cosine_acc": 0.6045,
+    "cosine_auc": 0.6112895
+  },
+  {
+    "name": "500 clauses, T=25",
+    "features": "sym",
+    "vocab_mode": "letters",
+    "boost": 1,
+    "clauses": 500,
+    "threshold": 25,
+    "vocabulary": 1000,
+    "acc_mean": 0.5564166666666667,
+    "acc_std": 0.009557574076208991,
+    "recall_mean": 0.49833333333333335,
+    "f1_mean": 0.5283062656670254,
+    "accs": [
+      0.544,
+      0.56725,
+      0.558
+    ],
+    "cosine_acc": 0.6045,
+    "cosine_auc": 0.6112895
+  }
+]
